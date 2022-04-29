@@ -14,6 +14,7 @@ import com.zhongjh.mvvmibatis.constant.FilePaths
 import com.zhongjh.mvvmibatis.phone.ErrorActivity
 import com.zhongjh.mvvmibatis.utils.LogUtil
 import com.zhongjh.mvvmibatis.utils.ToastUtils
+import dagger.hilt.android.HiltAndroidApp
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -24,34 +25,16 @@ import kotlin.reflect.KProperty
  * @author zhongjh
  * @date 2022/3/22
  */
+@HiltAndroidApp
 abstract class BaseApplication : Application() {
+
+    private val tag = BaseApplication::class.java.simpleName
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
         // 初始化工具类
         Utils.init(this)
         MMKV.initialize(this)
-    }
-
-    companion object {
-        var instance: BaseApplication by NotNullSingleValue()
-        val TAG = BaseApplication::class.java.simpleName.toString()
-    }
-
-    protected class NotNullSingleValue<T> : ReadWriteProperty<Any?, T> {
-        private var value: T? = null
-        override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-            return value ?: throw IllegalStateException("application not initialized")
-        }
-
-        override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-            if (this.value == null) {
-                this.value = value
-            } else {
-                throw IllegalStateException("application already initialized")
-            }
-        }
     }
 
     /**
@@ -105,11 +88,11 @@ abstract class BaseApplication : Application() {
         // 初始化腾讯x5 QbSdk
         QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
             override fun onCoreInitFinished() {
-                Log.e(TAG, "========onCoreInitFinished===")
+                Log.e(tag, "========onCoreInitFinished===")
             }
 
             override fun onViewInitFinished(b: Boolean) {
-                Log.e(TAG, "x5初始化结果====$b")
+                Log.e(tag, "x5初始化结果====$b")
             }
         })
     }
