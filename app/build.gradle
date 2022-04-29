@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+apply from: "$rootDir/dependencies.gradle"
+apply from: "$rootDir/spotless.gradle"
+
+android {
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.zhongjh.app"
+        minSdk versions.minSdk
+        targetSdk versions.compileSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+dependencies {
+    implementation project(path: ':MvvmIbatis')
+
+}

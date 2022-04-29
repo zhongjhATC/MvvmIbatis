@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color> <!--白色 -->
+    <color name="white">#FFFFFF</color> <!--白色 -->
+    <color name="dim_gray">#333333</color> <!--暗灰色 -->
+    <!-- 默认细线分割线 - 浅颜色 -->
+    <color name="bg_line">#F7F7F7</color>
+    <!-- 默认细线分割线 - 中颜色 -->
+    <color name="bg_eclectic_line">#808080</color>
+</resources>
