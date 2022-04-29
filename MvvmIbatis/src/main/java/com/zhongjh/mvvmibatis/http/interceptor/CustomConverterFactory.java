@@ -17,7 +17,8 @@ import retrofit2.Retrofit;
 
 /**
  * 重写父类的发送数据、返回数据等格式
- * Created by zhongjh on 2017/6/1.
+ * @author zhongjh
+ * @date 2022/3/30
  */
 public final class CustomConverterFactory extends Converter.Factory {
 

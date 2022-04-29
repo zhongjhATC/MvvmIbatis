@@ -25,16 +25,34 @@ import kotlin.reflect.KProperty
  * @author zhongjh
  * @date 2022/3/22
  */
-@HiltAndroidApp
 abstract class BaseApplication : Application() {
 
     private val tag = BaseApplication::class.java.simpleName
+
+    companion object {
+        var instance: BaseApplication by NotNullSingleValue()
+    }
 
     override fun onCreate() {
         super.onCreate()
         // 初始化工具类
         Utils.init(this)
         MMKV.initialize(this)
+    }
+
+    protected class NotNullSingleValue<T> : ReadWriteProperty<Any?, T> {
+        private var value: T? = null
+        override fun getValue(thisRef: Any?, property: KProperty<*>): T {
+            return value ?: throw IllegalStateException("application not initialized")
+        }
+
+        override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+            if (this.value == null) {
+                this.value = value
+            } else {
+                throw IllegalStateException("application already initialized")
+            }
+        }
     }
 
     /**
