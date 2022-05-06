@@ -30,7 +30,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$versions.gradleBuildTool"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
         // hilt插件
         classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.hiltVersion"
         // 格式化插件
@@ -58,3 +58,5 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// 1. view的点击事件默认防重复多次点击

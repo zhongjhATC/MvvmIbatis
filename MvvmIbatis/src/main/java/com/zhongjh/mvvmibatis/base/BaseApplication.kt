@@ -35,6 +35,7 @@ abstract class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         // 初始化工具类
         Utils.init(this)
         MMKV.initialize(this)

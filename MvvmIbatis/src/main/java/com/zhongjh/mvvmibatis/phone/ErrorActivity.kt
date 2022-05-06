@@ -3,6 +3,7 @@ package com.zhongjh.mvvmibatis.phone
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
@@ -10,7 +11,11 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.zhongjh.mvvmibatis.R
 import com.zhongjh.mvvmibatis.databinding.ActivityErrorBinding
-import com.zhongjh.mvvmibatis.listener.ThrottleOnClickListener
+import com.zhongjh.mvvmibatis.extend.clickFlow
+import com.zhongjh.mvvmibatis.extend.throttleFirst
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 /**
  * 报错后会打开该Activity
@@ -44,11 +49,9 @@ class ErrorActivity : AppCompatActivity() {
             "【errorDetails】\n$errorDetails\n\n\n【stackTrace】\n$stackTrace\n\n\n【activityLog】\n$activityLog"
         binding.tvError.setTextColor(Color.BLUE)
         LogUtils.e(binding.tvError.text.toString())
-        binding.btnRestart.setOnClickListener(object : ThrottleOnClickListener() {
-            override fun onClick() {
-                CustomActivityOnCrash.restartApplication(this@ErrorActivity, config!!)
-            }
-        })
+        binding.btnRestart.clickFlow().throttleFirst().onEach {
+            CustomActivityOnCrash.restartApplication(this@ErrorActivity, config!!)
+        }.launchIn(MainScope())
     }
 
 }

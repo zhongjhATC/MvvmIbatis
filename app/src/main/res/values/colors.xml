@@ -6,5 +6,19 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="grey">#808080</color> <!--灰色 -->
+    <color name="off_white">#F7F7F7</color> <!-- 灰白色 -->
+    <color name="aurora_grey">#EAEAEF</color> <!-- 极光灰 -->
+    <color name="bright_red">#E3311A</color> <!-- 鲜红色 -->
+    <color name="light_red">#F4606C</color> <!-- 浅红 -->
+    <color name="lilac">#6d677c</color> <!-- 淡紫色 -->
+    <color name="green">#19CAAD</color> <!-- 绿色 -->
+    <color name="light_green">#8CC7B5</color> <!-- 浅绿 -->
+    <color name="light_straw_green">#BEEDC7</color> <!-- 浅草绿 -->
+    <color name="light_blue_green">#A0EEE1</color> <!-- 浅蓝绿 -->
+    <color name="light_blue">#BEE7E9</color> <!-- 浅蓝 -->
+
+
+
 </resources>

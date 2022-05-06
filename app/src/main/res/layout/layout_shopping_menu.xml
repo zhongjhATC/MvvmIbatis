@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_round_alarm_24"
+        app:layout_constraintEnd_toStartOf="@+id/imgClass"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banner" />
+
+    <TextView
+        android:id="@+id/tvProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/all"
+        app:layout_constraintEnd_toEndOf="@+id/imgProduct"
+        app:layout_constraintStart_toStartOf="@+id/imgProduct"
+        app:layout_constraintTop_toBottomOf="@+id/imgProduct" />
+
+    <ImageView
+        android:id="@+id/imgClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_round_alarm_add_24"
+        app:layout_constraintEnd_toStartOf="@+id/imgPeripheralProduct"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgProduct"
+        app:layout_constraintTop_toTopOf="@+id/imgProduct" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/classify"
+        app:layout_constraintEnd_toEndOf="@+id/imgClass"
+        app:layout_constraintStart_toStartOf="@+id/imgClass"
+        app:layout_constraintTop_toBottomOf="@+id/imgClass" />
+
+    <ImageView
+        android:id="@+id/imgPeripheralProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_round_alarm_off_24"
+        app:layout_constraintEnd_toStartOf="@+id/imgIntegral"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgClass"
+        app:layout_constraintTop_toTopOf="@+id/imgProduct" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/rim"
+        app:layout_constraintEnd_toEndOf="@+id/imgPeripheralProduct"
+        app:layout_constraintStart_toStartOf="@+id/imgPeripheralProduct"
+        app:layout_constraintTop_toBottomOf="@+id/imgPeripheralProduct" />
+
+    <ImageView
+        android:id="@+id/imgIntegral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_round_alarm_on_24"
+        app:layout_constraintEnd_toStartOf="@+id/imgConsult"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgPeripheralProduct"
+        app:layout_constraintTop_toTopOf="@+id/imgProduct" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/integral"
+        app:layout_constraintEnd_toEndOf="@+id/imgIntegral"
+        app:layout_constraintStart_toStartOf="@+id/imgIntegral"
+        app:layout_constraintTop_toBottomOf="@+id/imgIntegral" />
+
+    <ImageView
+        android:id="@+id/imgConsult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_round_insert_emoticon_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgIntegral"
+        app:layout_constraintTop_toTopOf="@+id/imgProduct" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/consult"
+        app:layout_constraintEnd_toEndOf="@+id/imgConsult"
+        app:layout_constraintStart_toStartOf="@+id/imgConsult"
+        app:layout_constraintTop_toBottomOf="@+id/imgConsult" />
+
+    <View
+        android:id="@+id/vLineMenu"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/bg_line"
+        app:layout_constraintTop_toBottomOf="@+id/tvProduct" />
+
+</merge>

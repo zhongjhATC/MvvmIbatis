@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_shop"
+        android:icon="@drawable/ic_round_alarm_24"
+        android:title="@string/shop" />
+
+    <item
+        android:id="@+id/navigation_auction"
+        android:icon="@drawable/ic_round_alarm_add_24"
+        android:title="@string/auction" />
+
+    <item
+        android:id="@+id/navigation_fast_auction"
+        android:icon="@drawable/ic_round_alarm_off_24"
+        android:title="@string/fast_auction" />
+
+    <item
+        android:id="@+id/navigation_exchange"
+        android:icon="@drawable/ic_round_alarm_on_24"
+        android:title="@string/exchange" />
+
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/ic_round_insert_emoticon_24"
+        android:title="@string/my" />
+
+</menu>
