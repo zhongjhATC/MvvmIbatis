@@ -1,5 +1,6 @@
 package com.zhongjh.app.phone.splash
 
+import android.os.Bundle
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityPrivacyPolicyBinding
 import com.zhongjh.app.databinding.ActivitySplashBinding
@@ -12,6 +13,14 @@ import com.zhongjh.mvvmibatis.base.ui.BaseActivity
  */
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
+    override fun initParam(savedInstanceState: Bundle?) {
+    }
+
+    override fun initListener() {
+    }
+
+    override fun initialize() {
+    }
 
 
 }

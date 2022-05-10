@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.zhongjh.app.phone.main.fragment.shopping.ShopPingFragment;
 import com.zhongjh.app.phone.main.ui.BlankFragment;
 
 /**
@@ -25,7 +26,7 @@ public class ViewPagerFragmentStateAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new BlankFragment();
+                return new ShopPingFragment();
             case 1:
                 return new BlankFragment();
             case 2:

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".phone.main.MainActivity">
+
+        <com.zhongjh.mvvmibatis.view.StatusBarView
+            android:id="@+id/sbView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/vTop"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sbView" />
+
+        <View
+            android:id="@+id/vSearch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_search_aurora_gray_corner_50"
+            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintEnd_toStartOf="@+id/imgShop"
+            app:layout_constraintStart_toStartOf="@+id/vTop"
+            app:layout_constraintTop_toTopOf="@+id/vTop" />
+
+        <View
+            android:id="@+id/vSearchTouch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintEnd_toStartOf="@+id/imgShop"
+            app:layout_constraintStart_toStartOf="@+id/vTop"
+            app:layout_constraintTop_toTopOf="@+id/vTop" />
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/ic_baseline_search_24"
+            app:layout_constraintBottom_toBottomOf="@+id/vSearch"
+            app:layout_constraintStart_toStartOf="@+id/vSearch"
+            app:layout_constraintTop_toTopOf="@+id/vSearch"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/fast_search"
+            android:textColor="@color/dim_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/vSearch"
+            app:layout_constraintStart_toEndOf="@+id/imgSearch"
+            app:layout_constraintTop_toTopOf="@+id/vSearch" />
+
+        <ImageView
+            android:id="@+id/imgShop"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/shopping_trolley"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:src="@drawable/ic_outline_shopping_cart_24"
+            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintEnd_toEndOf="@+id/vTop"
+            app:layout_constraintTop_toTopOf="@+id/vTop" />
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vTop">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintDimensionRatio="w,1:2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include layout="@layout/layout_shopping_menu" />
+
+                    <TextView
+                        android:id="@+id/tvHorizontalTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/quick_auction"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vLineMenu" />
+
+                    <TextView
+                        android:id="@+id/tvHorizontalTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/bg_tag_red_corner"
+                        android:text="@string/is_the_auction"
+                        android:textColor="@color/bright_red"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvHorizontalTitle"
+                        app:layout_constraintStart_toEndOf="@+id/tvHorizontalTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvHorizontalTitle"
+                        tools:ignore="SmallSp" />
+
+                    <TextView
+                        android:id="@+id/tvHorizontalMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/more"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vLineMenu" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rlContentHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:paddingStart="-8dp"
+                        android:paddingEnd="-8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvHorizontalTitle" />
+
+                    <View
+                        android:id="@+id/vLineRlContentHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rlContentHorizontal" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rlContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:paddingStart="-4dp"
+                        android:paddingTop="-4dp"
+                        android:paddingEnd="-4dp"
+                        android:paddingBottom="-4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vLineRlContentHorizontal" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

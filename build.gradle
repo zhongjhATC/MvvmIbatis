@@ -37,6 +37,8 @@ buildscript {
         classpath "com.diffplug.spotless:spotless-plugin-gradle:$versions.spotlessGradle"
         // 检测到最新版本库的插件
         classpath "com.github.ben-manes:gradle-versions-plugin:$versions.versionPlugin"
+        // greendao数据库插件
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
     }
 }
 

@@ -21,7 +21,7 @@
         </activity> <!-- <activity android:name=".phone.splash.SplashActivity" /> -->
         <activity
             android:name=".phone.main.MainActivity"
-            android:theme="@style/Theme.MviDemo" />
+            android:theme="@style/Theme.MvvmDemo" />
     </application>
 
 </manifest>

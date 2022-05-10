@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mvidemo</string>
+    <string name="app_name">mvvmDemo</string>
     <string name="disagree_and_quit">不同意并退出</string>
     <string name="agree">同意</string>
     <string name="tips_on_user_privacy_protection">用户隐私保护提示</string>

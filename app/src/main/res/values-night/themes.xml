@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MviDemo" parent="@style/Theme.MaterialComponents.Light">
+    <style name="Theme.MvvmDemo" parent="@style/Theme.MaterialComponents.Light">
         <item name="android:textSize">12sp</item>
         <!--将ActionBar隐藏,这里使用ToolBar-->
         <item name="windowActionBar">false</item>

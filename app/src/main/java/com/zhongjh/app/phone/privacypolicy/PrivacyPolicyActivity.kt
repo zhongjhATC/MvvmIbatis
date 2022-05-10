@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
-import android.view.View
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityPrivacyPolicyBinding
 import com.zhongjh.app.phone.main.MainActivity
 import com.zhongjh.mvvmibatis.base.BaseApplication
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
+import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.utils.LinkUrlText
 
 
@@ -22,10 +22,24 @@ import com.zhongjh.mvvmibatis.utils.LinkUrlText
 class PrivacyPolicyActivity :
     BaseActivity<ActivityPrivacyPolicyBinding>(R.layout.activity_privacy_policy) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mDatabind.listener = Listener()
+    override fun initParam(savedInstanceState: Bundle?) {
+    }
+
+    override fun initialize() {
         setContent()
+    }
+
+    override fun initListener() {
+        mBinding.btnAgree.onClick {
+            val intent = Intent(this@PrivacyPolicyActivity, MainActivity::class.java)
+            startActivity(intent)
+            BaseApplication.instance.init()
+            this@PrivacyPolicyActivity.finish()
+        }
+
+        mBinding.btnDisagree.onClick {
+            this@PrivacyPolicyActivity.finish()
+        }
     }
 
     /**
@@ -42,22 +56,9 @@ class PrivacyPolicyActivity :
             47,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        mDatabind.tvContent.text = ss
+        mBinding.tvContent.text = ss
         // 不添加这一句，拨号，http，发短信的超链接不能执行.
-        mDatabind.tvContent.movementMethod = LinkMovementMethod.getInstance()
-    }
-
-    inner class Listener {
-        var agree = View.OnClickListener {
-            val intent = Intent(this@PrivacyPolicyActivity, MainActivity::class.java)
-            startActivity(intent)
-            BaseApplication.instance.init()
-            this@PrivacyPolicyActivity.finish()
-        }
-
-        var disagree = View.OnClickListener {
-            this@PrivacyPolicyActivity.finish()
-        }
+        mBinding.tvContent.movementMethod = LinkMovementMethod.getInstance()
     }
 
 }

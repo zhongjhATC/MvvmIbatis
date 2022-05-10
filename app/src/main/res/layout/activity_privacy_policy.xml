@@ -3,14 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="listener"
-            type="com.zhongjh.app.phone.privacypolicy.PrivacyPolicyActivity.Listener" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -74,8 +66,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnAgree"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{listener.disagree}"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnAgree"
@@ -91,8 +82,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnDisagree"
-            android:onClick="@{listener.agree}" />
+            app:layout_constraintStart_toEndOf="@+id/btnDisagree" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
