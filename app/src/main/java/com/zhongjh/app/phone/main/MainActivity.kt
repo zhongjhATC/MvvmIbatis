@@ -1,8 +1,6 @@
 package com.zhongjh.app.phone.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.annotation.VisibleForTesting
 import androidx.viewpager2.widget.ViewPager2
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityMainBinding
@@ -17,10 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @date 2022/5/6
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-
-    @get:VisibleForTesting
-    private val viewModel2 by viewModels<TestViewModel>()
+class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(R.layout.activity_main) {
 
     private val mAdapter: ViewPagerFragmentStateAdapter by lazy {
         ViewPagerFragmentStateAdapter(supportFragmentManager, lifecycle)

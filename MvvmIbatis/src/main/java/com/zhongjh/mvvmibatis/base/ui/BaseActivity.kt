@@ -1,11 +1,16 @@
 package com.zhongjh.mvvmibatis.base.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.LayoutRes
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
+import com.zhongjh.mvvmibatis.base.viewmodel.BaseViewModel
 import com.zhongjh.mvvmibatis.utils.ScreenUtil
+import java.lang.reflect.ParameterizedType
 
 /**
  * 一个基类Activity
@@ -17,7 +22,7 @@ import com.zhongjh.mvvmibatis.utils.ScreenUtil
  * @date 2022/4/29
  * @author zhongjh
  */
-abstract class BaseActivity<VDB : ViewDataBinding> constructor(
+abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> constructor(
     @LayoutRes private val contentLayoutId: Int
 ) : AppCompatActivity() {
 
@@ -27,6 +32,12 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
     protected val mBinding: VDB by lazy(LazyThreadSafetyMode.NONE) {
         DataBindingUtil.setContentView(this, contentLayoutId, DataBindingUtil.getDefaultComponent())
     }
+
+    /**
+     * viewModel
+     */
+    @get:VisibleForTesting
+    protected lateinit var mViewModel: VM
 
     /**
      * 用于绑定相关viewModel
@@ -52,9 +63,28 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
     override fun onCreate(savedInstanceState: Bundle?) {
         ScreenUtil.setFullScreen(this@BaseActivity, false)
         super.onCreate(savedInstanceState)
+        initViewModel()
         initParam(savedInstanceState)
         initListener()
         initialize()
+    }
+
+    /**
+     * 通过反射获取具体类型
+     */
+    private fun initViewModel() {
+        // e.g. we are ProfileFragment<ProfileVM>, get my genericSuperclass which is BaseFragment<ProfileVM>
+        // Actually ParameterizedType will give us actual type parameters
+        val parameterizedType = javaClass.genericSuperclass as? ParameterizedType
+
+        // now get first actual class, which is the class of VM (ProfileVM in this case)
+        @Suppress("UNCHECKED_CAST")
+        val vmClass = parameterizedType?.actualTypeArguments?.getOrNull(0) as? Class<VM>?
+
+        if (vmClass != null)
+            mViewModel = ViewModelProvider(this)[vmClass]
+        else
+            Log.i("BaseActivity", "could not find VM class for $this")
     }
 
     /**

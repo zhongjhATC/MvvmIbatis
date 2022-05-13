@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Repository的依赖注入
@@ -19,8 +20,11 @@ object RepositoryModule {
 
     @Provides
     @ViewModelScoped
-    fun provideShopRepository(bannerApi: BannerApi): ShopRepository {
-        return ShopRepository(bannerApi)
+    fun provideShopRepository(
+        bannerApi: BannerApi,
+        coroutineDispatcher: CoroutineDispatcher
+    ): ShopRepository {
+        return ShopRepository(bannerApi, coroutineDispatcher)
     }
 
 
