@@ -11,7 +11,7 @@ import com.zhongjh.mvvmibatis.base.ui.BaseActivity
  * @author zhongjh
  * @date 2022/5/5
  */
-class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashModel>(R.layout.activity_splash) {
 
     override fun initParam(savedInstanceState: Bundle?) {
     }

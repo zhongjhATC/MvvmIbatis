@@ -79,7 +79,7 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> construct
 
         // now get first actual class, which is the class of VM (ProfileVM in this case)
         @Suppress("UNCHECKED_CAST")
-        val vmClass = parameterizedType?.actualTypeArguments?.getOrNull(0) as? Class<VM>?
+        val vmClass = parameterizedType?.actualTypeArguments?.getOrNull(1) as? Class<VM>?
 
         if (vmClass != null)
             mViewModel = ViewModelProvider(this)[vmClass]

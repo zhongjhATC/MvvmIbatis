@@ -20,7 +20,7 @@ import com.zhongjh.mvvmibatis.utils.LinkUrlText
  * @date 2022/5/5
  */
 class PrivacyPolicyActivity :
-    BaseActivity<ActivityPrivacyPolicyBinding>(R.layout.activity_privacy_policy) {
+    BaseActivity<ActivityPrivacyPolicyBinding, PrivacyPolicyModel>(R.layout.activity_privacy_policy) {
 
     override fun initParam(savedInstanceState: Bundle?) {
     }

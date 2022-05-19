@@ -1,8 +1,12 @@
 package com.zhongjh.app.phone.main.fragment.shopping
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
@@ -13,7 +17,9 @@ import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingHorizontalAd
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingVerticalAdapter
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
+import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * 一个商城的Fragment
@@ -54,6 +60,27 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.rlContent.layoutManager = GridLayoutManager(context, 2)
         mBinding.rlContent.adapter = mShopPingVerticalAdapter
         mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
+
+        lifecycleScope.launch {
+            whenStarted {
+                viewModel.weatherForecast.observe(viewLifecycleOwner, Observer {
+                    when (it) {
+                        is State.Loading -> {
+                            Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                        }
+                        is State.Success -> {
+                            val b = it.data.toString()
+                            Toast.makeText(context, b, Toast.LENGTH_SHORT).show()
+                        }
+                        is State.Error -> {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {}
+                    }
+                })
+            }
+        }
+
     }
 
 

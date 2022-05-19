@@ -45,6 +45,7 @@ dependencies {
     api "com.google.android.material:material:$versions.materialVersion"
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
     api "androidx.fragment:fragment-ktx:$versions.fragmentVersion"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycleVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycleVersion"
 
