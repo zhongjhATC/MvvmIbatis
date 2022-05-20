@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.zhongjh.app.data.http.service.BannerApi
+import com.zhongjh.app.entity.ApiEntity
 import com.zhongjh.app.entity.Banner
-import com.zhongjh.mvvmibatis.base.IApiEntity
 import com.zhongjh.mvvmibatis.extend.launchFlow
 import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,11 +21,35 @@ class ShopViewModel @Inject constructor(
     private val bannerApi: BannerApi
 ) : ViewModel() {
 
-    var weatherForecast: LiveData<State<List<Banner>>> =
-        launchFlow {
-            bannerApi.json()
-        }.asLiveData()
+    var bannerFlow = launchFlow {
+//        bannerApi.json()
+        mockApiBannerList(mockBannerList())
+    }
 
+    var getBanner: LiveData<State<List<Banner>>> =
+        bannerFlow.asLiveData()
+
+
+    fun mockApiBannerList(value: List<Banner>): ApiEntity<List<Banner>> {
+        val apiEntity = ApiEntity<List<Banner>>()
+        apiEntity.data = value
+        return apiEntity
+    }
+
+    fun mockBannerList() = listOf(mockBannerInfo())
+
+    fun mockBannerInfo(): Banner {
+        val banner = Banner()
+        banner.id = "1"
+        banner.desc = "desc"
+        banner.imagePath = "imagePath"
+        banner.isVisible = "isVisible"
+        banner.order = "order"
+        banner.title = "title"
+        banner.type = "type"
+        banner.url = "url"
+        return banner
+    }
 
 
 }

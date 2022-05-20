@@ -47,6 +47,21 @@ android {
         daoPackage 'com.zhongjh.app.data.db.dao'
         targetGenDir 'src/main/java'
     }
+
+    // 用于测试的
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+    // 用于测试的
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions.freeCompilerArgs += [
+                "-Xopt-in=kotlin.time.ExperimentalTime",
+                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        ]
+    }
 }
 
 dependencies {
@@ -70,6 +85,26 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltVersion"
 
+    // unit test
+    testImplementation "androidx.arch.core:core-testing:$versions.archCompomentVersion"
+    testImplementation "junit:junit:$versions.junitVersion"
+    testImplementation "androidx.test:core:$versions.androidxTest"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlinVersion"
+    testImplementation "org.mockito:mockito-inline:$versions.mockitoInlineVersion"
+    testImplementation "app.cash.turbine:turbine:$versions.turbineVersion"
+    testImplementation "org.robolectric:robolectric:$versions.robolectricVersion"
+    androidTestImplementation "com.google.truth:truth:$versions.truthVersion"
+    androidTestImplementation "androidx.test.ext:junit:$versions.androidxTestJunit"
+    androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
 
+    // coroutines unit test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesVersion"
+
+    //region ------------------------------------------------- 常用网络库 unit test -------------------------------------------------
+
+    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.okhttpVersion"
+    //endregion ------------------------------------------------- 常用网络库 -------------------------------------------------
 
 }

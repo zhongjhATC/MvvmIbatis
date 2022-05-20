@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.GridLayoutManager
@@ -63,7 +62,7 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
 
         lifecycleScope.launch {
             whenStarted {
-                viewModel.weatherForecast.observe(viewLifecycleOwner, Observer {
+                viewModel.getBanner.observe(viewLifecycleOwner) {
                     when (it) {
                         is State.Loading -> {
                             Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
@@ -77,7 +76,7 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
                         }
                         else -> {}
                     }
-                })
+                }
             }
         }
 
