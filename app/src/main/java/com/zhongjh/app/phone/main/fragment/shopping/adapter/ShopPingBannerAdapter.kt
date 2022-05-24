@@ -19,7 +19,6 @@ import com.zhongjh.mvvmibatis.base.BaseApplication
 class ShopPingBannerAdapter(banners: List<Banner>) :
     BannerAdapter<Banner, BannerViewHolder>(banners) {
 
-
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         // 创建ViewHolder，可以用viewType这个字段来区分不同的ViewHolder
         val imageView = ImageView(parent.context)

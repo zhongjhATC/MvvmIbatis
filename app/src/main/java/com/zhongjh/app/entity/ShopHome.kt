@@ -8,7 +8,7 @@ package com.zhongjh.app.entity
 class ShopHome {
     var banners: List<Banner>? = null
     var banners2: List<Banner>? = null
-    var productsIn: List<Product>? = null
+    var productsIn: MutableList<Product>? = null
 
     /**
      * 分页数据

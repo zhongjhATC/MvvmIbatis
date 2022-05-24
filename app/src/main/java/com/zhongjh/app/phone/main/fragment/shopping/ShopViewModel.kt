@@ -28,6 +28,9 @@ class ShopViewModel @Inject constructor(
             bannerApi.json()
         }
 
+    /**
+     * 首页数据
+     */
     var flowShopHome: Flow<State<ShopHome>> =
         launchFlow {
             // 面板广告
@@ -47,5 +50,14 @@ class ShopViewModel @Inject constructor(
             apiEntity.data = shopHome
             apiEntity
         }
+
+    /**
+     * 获取产品的下一页
+     */
+    fun flowLoadNextProduct(page: Int): Flow<State<PageEntity<Product>>> {
+        return launchFlow {
+            ProductApi.getProducts(page)
+        }
+    }
 
 }

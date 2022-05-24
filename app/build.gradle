@@ -78,6 +78,8 @@ dependencies {
     api 'com.github.hackware1993:MagicIndicator:1.7.0'
     // 标签布局 https://github.com/google/flexbox-layout
     api 'com.google.android.flexbox:flexbox:3.0.0'
+    // 骨架屏 https://github.com/skydoves/AndroidVeil
+    api "com.github.skydoves:androidveil:1.1.2"
 
     // hilt
     api "com.google.dagger:hilt-android:$versions.hiltVersion"

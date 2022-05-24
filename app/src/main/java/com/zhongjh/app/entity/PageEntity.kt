@@ -9,7 +9,7 @@ package com.zhongjh.app.entity
  */
 class PageEntity<T> {
 
-    var data: List<T>? = null
+    var data: MutableList<T>? = null
 
     /**
      * 总数，用于参考是否还能请求下一页

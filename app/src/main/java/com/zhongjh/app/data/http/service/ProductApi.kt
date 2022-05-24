@@ -55,7 +55,7 @@ object ProductApi {
     /**
      * 模拟第一页的数据
      */
-    private fun simulationProducts1(): List<Product> {
+    private fun simulationProducts1(): MutableList<Product> {
         val products = ArrayList<Product>()
         val leiShen = Product()
         leiShen.name = "雷神"
@@ -104,7 +104,7 @@ object ProductApi {
     /**
      * 模拟第二页的数据
      */
-    private fun simulationProducts2(): List<Product> {
+    private fun simulationProducts2(): MutableList<Product> {
         val products = ArrayList<Product>()
         val leiShen = Product()
         leiShen.name = "琴"
@@ -153,7 +153,7 @@ object ProductApi {
     /**
      * 模拟第二页的数据
      */
-    private fun simulationProducts3(): List<Product> {
+    private fun simulationProducts3(): MutableList<Product> {
         val products = ArrayList<Product>()
         val leiShen = Product()
         leiShen.name = "可莉"

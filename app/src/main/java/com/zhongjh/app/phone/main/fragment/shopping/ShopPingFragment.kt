@@ -77,6 +77,9 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.refreshLayout.setOnRefreshListener {
             getShopHome()
         }
+        mBinding.refreshLayout.setOnLoadMoreListener {
+            loadNextProduct()
+        }
     }
 
     /**
@@ -96,6 +99,23 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
     }
 
     /**
+     * 加载下一页
+     */
+    private fun loadNextProduct() {
+        mVerticalPage++
+        lifecycleScope.launchWhenStarted {
+            viewModel.flowLoadNextProduct(mVerticalPage).collect {
+                when (it) {
+                    is State.Success -> {
+                        loadNextProduct(it.data)
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    /**
      * 刷新首页数据
      */
     private fun showShopHome(data: ShopHome) {
@@ -105,15 +125,26 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
             mBinding.banner.adapter = ShopPingBannerAdapter(data.banners!!)
         }
         // 显示横向数据
-        mShopPingHorizontalAdapter.setList(data.productsIn)
-        mShopPingHorizontalAdapter.notifyDataSetChanged()
+        mShopPingHorizontalAdapter.setDiffNewData(data.productsIn)
         // 显示竖向数据
         data.products?.let { pageEntity ->
             checkNextPage(pageEntity)
-            mShopPingVerticalAdapter.setList(pageEntity.data)
-            mShopPingVerticalAdapter.notifyDataSetChanged()
+            mShopPingVerticalAdapter.setDiffNewData(pageEntity.data)
         }
         resetShopHome()
+    }
+
+    /**
+     * 加载下一页
+     */
+    private fun loadNextProduct(data: PageEntity<Product>) {
+        data.let { pageEntity ->
+            checkNextPage(pageEntity)
+            pageEntity.data?.let { products ->
+                mShopPingVerticalAdapter.addData(products)
+            }
+        }
+        mBinding.refreshLayout.finishLoadMore()
     }
 
     /**
