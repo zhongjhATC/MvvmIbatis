@@ -2,6 +2,7 @@ package com.zhongjh.app.hilt
 
 import com.zhongjh.app.data.http.retrofit.RetrofitClient
 import com.zhongjh.app.data.http.service.BannerApi
+import com.zhongjh.app.data.http.service.ProductApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

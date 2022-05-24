@@ -7,6 +7,11 @@ package com.zhongjh.app.entity
  */
 class ShopHome {
     var banners: List<Banner>? = null
+    var banners2: List<Banner>? = null
     var productsIn: List<Product>? = null
+
+    /**
+     * 分页数据
+     */
     var products: PageEntity<Product>? = null
 }

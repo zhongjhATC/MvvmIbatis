@@ -66,6 +66,7 @@ abstract class BaseFragment<VDB : ViewDataBinding> constructor(
         initParam(savedInstanceState)
         initListener()
         initialize()
+        initObserver()
         return mBinding.root
     }
 
@@ -75,14 +76,19 @@ abstract class BaseFragment<VDB : ViewDataBinding> constructor(
     abstract fun initParam(savedInstanceState: Bundle?)
 
     /**
-     * 初始化事件
-     */
-    abstract fun initListener()
-
-    /**
      * 初始化数据
      */
     abstract fun initialize()
+
+    /**
+     * 初始化观察者
+     */
+    abstract fun initObserver()
+
+    /**
+     * 初始化事件
+     */
+    abstract fun initListener()
 
     /**
      * 破坏[_binding]支持属性以防止泄漏引用Context的[ViewDataBinding]。

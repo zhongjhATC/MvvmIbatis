@@ -1,16 +1,16 @@
 package com.zhongjh.app.phone.main.fragment.shopping
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.zhongjh.app.data.http.service.BannerApi
-import com.zhongjh.app.entity.ApiEntity
-import com.zhongjh.app.entity.Banner
+import com.zhongjh.app.data.http.service.ProductApi
+import com.zhongjh.app.entity.*
+import com.zhongjh.mvvmibatis.base.IApiEntity
 import com.zhongjh.mvvmibatis.extend.launchFlow
 import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -23,47 +23,29 @@ class ShopViewModel @Inject constructor(
     private val bannerApi: BannerApi
 ) : ViewModel() {
 
-    var bannerFlow = launchFlow {
-//        bannerApi.json()
-        mockApiBannerList(mockBannerList())
-    }
+    var flowBanner: Flow<State<List<Banner>>> =
+        launchFlow {
+            bannerApi.json()
+        }
 
-    var getBanner: LiveData<State<List<Banner>>> =
-        bannerFlow.asLiveData()
-
-    val countFlow = mainRepository
-        .count3Flow()
-        .flowOn(dispatcherProvider.default)
-
-    val doubleCountFlow = countFlow.map {
-        delay(200)
-        it * 2
-    }.flowOn(dispatcherProvider.io)
-
-    val doubleCountSharedFlow =
-        doubleCountFlow.shareIn(viewModelScope, sharingStrategyProvider.eagerly)
-
-
-    fun mockApiBannerList(value: List<Banner>): ApiEntity<List<Banner>> {
-        val apiEntity = ApiEntity<List<Banner>>()
-        apiEntity.data = value
-        return apiEntity
-    }
-
-    fun mockBannerList() = listOf(mockBannerInfo())
-
-    fun mockBannerInfo(): Banner {
-        val banner = Banner()
-        banner.id = "1"
-        banner.desc = "desc"
-        banner.imagePath = "imagePath"
-        banner.isVisible = "isVisible"
-        banner.order = "order"
-        banner.title = "title"
-        banner.type = "type"
-        banner.url = "url"
-        return banner
-    }
-
+    var flowShopHome: Flow<State<ShopHome>> =
+        launchFlow {
+            // 面板广告
+            val banners = bannerApi.json()
+            // 面板广告2,只是为了更加贴合真实情况加的一个
+            val banners2 = bannerApi.json()
+            // 正在拍卖的产品
+            val productsIn = ProductApi.getProducts(0)
+            // 商城显示的产品
+            val products = ProductApi.getProducts(0)
+            val apiEntity = ApiEntity<ShopHome>()
+            val shopHome = ShopHome()
+            shopHome.banners = banners.data
+            shopHome.banners2 = banners2.data
+            shopHome.productsIn = productsIn.data?.data
+            shopHome.products = products.data
+            apiEntity.data = shopHome
+            apiEntity
+        }
 
 }

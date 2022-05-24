@@ -12,6 +12,10 @@ import com.youth.banner.indicator.CircleIndicator
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.FragmentShoppingBinding
 import com.zhongjh.app.diffcallback.DiffProductCallback
+import com.zhongjh.app.entity.PageEntity
+import com.zhongjh.app.entity.Product
+import com.zhongjh.app.entity.ShopHome
+import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingBannerAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingHorizontalAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingVerticalAdapter
 import com.zhongjh.app.view.CustomRefreshHeader
@@ -29,16 +33,19 @@ import kotlinx.coroutines.launch
 class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment_shopping) {
 
     private val mTag = ShopPingFragment::class.qualifiedName
-    private var mShopPingHorizontalAdapter = ShopPingHorizontalAdapter()
-    private var mShopPingVerticalAdapter = ShopPingVerticalAdapter()
 
     @get:VisibleForTesting
     internal val viewModel: ShopViewModel by viewModels()
 
-    override fun initParam(savedInstanceState: Bundle?) {
-    }
+    private var mShopPingHorizontalAdapter = ShopPingHorizontalAdapter()
+    private var mShopPingVerticalAdapter = ShopPingVerticalAdapter()
 
-    override fun initListener() {
+    /**
+     * 竖型列表的当前页码
+     */
+    private var mVerticalPage = 0
+
+    override fun initParam(savedInstanceState: Bundle?) {
     }
 
     override fun initialize() {
@@ -60,26 +67,71 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.rlContent.adapter = mShopPingVerticalAdapter
         mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
 
-        lifecycleScope.launch {
-            whenStarted {
-                viewModel.getBanner.observe(viewLifecycleOwner) {
-                    when (it) {
-                        is State.Loading -> {
-                            Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
-                        }
-                        is State.Success -> {
-                            val b = it.data.toString()
-                            Toast.makeText(context, b, Toast.LENGTH_SHORT).show()
-                        }
-                        is State.Error -> {
-                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {}
+    }
+
+    override fun initObserver() {
+        getShopHome()
+    }
+
+    override fun initListener() {
+        mBinding.refreshLayout.setOnRefreshListener {
+            getShopHome()
+        }
+    }
+
+    /**
+     * 获取首页数据
+     */
+    private fun getShopHome() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.flowShopHome.collect {
+                when (it) {
+                    is State.Success -> {
+                        showShopHome(it.data)
                     }
+                    else -> {}
                 }
             }
         }
+    }
 
+    /**
+     * 刷新首页数据
+     */
+    private fun showShopHome(data: ShopHome) {
+        mBinding.refreshLayout.finishRefresh()
+        // 显示Banner
+        if (data.banners != null) {
+            mBinding.banner.adapter = ShopPingBannerAdapter(data.banners!!)
+        }
+        // 显示横向数据
+        mShopPingHorizontalAdapter.setList(data.productsIn)
+        mShopPingHorizontalAdapter.notifyDataSetChanged()
+        // 显示竖向数据
+        data.products?.let { pageEntity ->
+            checkNextPage(pageEntity)
+            mShopPingVerticalAdapter.setList(pageEntity.data)
+            mShopPingVerticalAdapter.notifyDataSetChanged()
+        }
+        resetShopHome()
+    }
+
+    /**
+     * 检查是否能下一页
+     */
+    private fun checkNextPage(pageEntity: PageEntity<Product>) {
+        if (mVerticalPage >= pageEntity.pages - 1) {
+            // 关闭下一页，页码已经最大
+            mBinding.refreshLayout.setEnableLoadMore(false)
+        }
+    }
+
+    /**
+     * 重置基础数据
+     */
+    private fun resetShopHome() {
+        mVerticalPage = 0
+        mBinding.refreshLayout.setEnableLoadMore(true)
     }
 
 

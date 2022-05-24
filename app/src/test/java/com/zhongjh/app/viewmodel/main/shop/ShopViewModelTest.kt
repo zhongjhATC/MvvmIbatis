@@ -1,108 +1,61 @@
 package com.zhongjh.app.viewmodel.main.shop
 
-import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import app.cash.turbine.test
+import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.pavneet_singh.temp.MainCoroutineScopeRule
+import com.zhongjh.app.MainCoroutinesRule
 import com.zhongjh.app.data.http.service.BannerApi
-import com.zhongjh.app.entity.ApiEntity
-import com.zhongjh.app.entity.Banner
 import com.zhongjh.app.phone.main.fragment.shopping.ShopViewModel
 import com.zhongjh.app.utils.MockUtil
-import com.zhongjh.mvvmibatis.model.State
-import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.*
+import kotlin.time.ExperimentalTime
 
 /**
  *
  * @author zhongjh
  * @date 2022/5/20
  */
+@ExperimentalTime
 class ShopViewModelTest {
 
     private lateinit var viewModel: ShopViewModel
     private val bannerApi: BannerApi = mock()
 
-    private val mockObserver: Observer<State<List<Banner>>> = mock()
-
-    @Captor
-    private lateinit var captor: ArgumentCaptor<State<List<Banner>>>
-
     @get:Rule
-    val coroutinesRule = MainCoroutineScopeRule()
+    val coroutineScope = MainCoroutinesRule()
 
     @Before
     fun setup() {
         viewModel = ShopViewModel(bannerApi)
     }
 
-//    @Test
-//    fun getBanner() = runTest {
-//        val mockDatas = MockUtil.mockBannerList()
-//        val flow: Flow<State<List<Banner>>> = flow {
-//            emit(State.Loading())
-//            delay(10)
-//            emit(State.Success(mockDatas))
-//        }
-//
-//        flow.test {
-//            val item = awaitItem()
-//            val b = item
-//        }
-//
-//
-//    }
-
     @Test
-    fun getBanner() {
-        coroutinesRule.runBlockingTest {
-            val mockDatas = MockUtil.mockBannerList()
-            val mockApiDatas = MockUtil.mockApiBannerList(mockDatas)
+    fun getBanner() = runTest {
+        val mockDatas = MockUtil.mockBannerList()
+        val mockApiDatas = MockUtil.mockApiBannerList(mockDatas)
+        whenever(bannerApi.json()).doReturn(mockApiDatas)
+        val doubleCountSharedFlow3 =
+            viewModel.flowBanner.shareIn(viewModel.viewModelScope, SharingStarted.Lazily)
 
-            whenever(bannerApi.json())
-                .thenReturn(mockApiDatas)
-
-            viewModel.bannerFlow.test {
-                val item = awaitItem()
-                if (item is State.Loading<List<Banner>>) {
-                    val a = 5
-                }
-                val item2 = awaitItem()
-                if (item is State.Success<List<Banner>>) {
-                    val a = 5
-                }
-            }
-
-
-//            val flow: Flow<ApiEntity<List<Banner>>> = flow {
-////                emit(State.Loading())
-////                delay(10)
-////                emit(State.Success(mockDatas))
-//                emit(MockUtil.mockApiBannerList())
-//            }
-//            Mockito.`when`(viewModel.getBanner)
-//                .thenReturn(flow)
-//            val a = viewModel.b()
-//            val mock: ShopViewModel = Mockito.mock(ShopViewModel::class.java)
-
-//            Mockito.`when`(bannerApi.json())
-//                .thenReturn(MockUtil.mockApiBannerList())
-//            val liveData = viewModel.weatherForecast
-//            liveData.observeForever(mockObserver)
-//
-//            Mockito.verify(mockObserver)
-//                .onChanged(captor.capture()) // loading state has been received
-//
-//            Assert.assertEquals(true, captor.value)
-
+        doubleCountSharedFlow3.test {
+            val item = awaitItem()
+            Assert.assertEquals(item.javaClass.simpleName, "Loading")
+            val item2 = awaitItem()
+            Assert.assertEquals(item2.javaClass.simpleName, "Success")
         }
+    }
+
+    fun flowShopHome() = runTest {
+        val mockDatas = MockUtil.mockBannerList()
+        val mockApiDatas = MockUtil.mockApiBannerList(mockDatas)
     }
 
 }
