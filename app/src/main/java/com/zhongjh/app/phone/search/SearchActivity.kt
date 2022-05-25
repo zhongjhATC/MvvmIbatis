@@ -8,11 +8,20 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivitySearchBinding
+import com.zhongjh.app.diffcallback.DiffSearchHistoryCallback
+import com.zhongjh.app.entity.SearchConditions
 import com.zhongjh.app.entity.SearchType
 import com.zhongjh.app.phone.main.fragment.shopping.ShopPingFragment
 import com.zhongjh.app.phone.main.fragment.shopping.ShopViewModel
+import com.zhongjh.app.phone.search.adapter.SearchHistoryAdapter
+import com.zhongjh.app.phone.search.adapter.SearchNavigatorAdapter
+import com.zhongjh.app.phone.search.adapter.SearchViewPagerAdapter
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.extend.onClick
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,16 +44,29 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     @get:VisibleForTesting
     internal val viewModel: SearchViewModel by viewModels()
 
+    /**
+     * 当前的搜索的条件
+     */
+    private val mSearchConditions = SearchConditions()
+
+    /**
+     * 用于记录索引，点击搜索时随时更新该position
+     */
+    private var mViewPagerPosition = 0
+
+    private lateinit var mCommonNavigatorAdapter: SearchNavigatorAdapter
+    private val mSearchHistoryAdapter = SearchHistoryAdapter()
+    private val mSearchViewPagerAdapter: SearchViewPagerAdapter by lazy {
+        SearchViewPagerAdapter(supportFragmentManager, lifecycle)
+    }
+
     override fun initParam(savedInstanceState: Bundle?) {
     }
 
     override fun initialize() {
         initMagicIndicator()
-//        initRlSearchHistory()
-
-
+        initRlSearchHistory()
     }
-
 
     override fun initListener() {
         mBinding.imgBack.onClick {
@@ -52,35 +74,86 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         }
         mBinding.etSearch.doAfterTextChanged {
             viewModel.search(it.toString())
-//            // 往流里写数据
-//            _etState.value = (it ?: "").toString()
         }
     }
 
     override fun initObserver() {
     }
 
-
     /**
      * 初始化tab
      */
     private fun initMagicIndicator() {
-//        val listTitle: MutableList<String> = ArrayList()
-//        val listFragments: MutableList<Fragment> = ArrayList()
-//        // 实例化所有枚举信息
-//        val searchTypes = SearchType.values()
-//        for (searchType in searchTypes) {
-//            listTitle.add(searchType.value)
-//            listFragments.add(ShopPingFragment())
-//        }
-//
-//        val commonNavigator = CommonNavigator(this)
-//        mCommonNavigatorAdapter = SearchNavigatorAdapter(listTitle, viewPager2)
-//        commonNavigator.adapter = mCommonNavigatorAdapter
-//        commonNavigator.leftPadding = UIUtil.dip2px(this, 10.0)
-//        commonNavigator.rightPadding = UIUtil.dip2px(this, 15.0)
-//        magicIndicator.navigator = commonNavigator
-//        initViewPager(listFragments)
+        val listTitle: MutableList<String> = ArrayList()
+        val listFragments: MutableList<Fragment> = ArrayList()
+        // 实例化所有枚举信息
+        val searchTypes = SearchType.values()
+        for (searchType in searchTypes) {
+            listTitle.add(searchType.value)
+            listFragments.add(ShopPingFragment())
+        }
+
+        val commonNavigator = CommonNavigator(this)
+        mCommonNavigatorAdapter = SearchNavigatorAdapter(listTitle,mBinding.viewPager2)
+        commonNavigator.adapter = mCommonNavigatorAdapter
+        commonNavigator.leftPadding = UIUtil.dip2px(this, 10.0)
+        commonNavigator.rightPadding = UIUtil.dip2px(this, 15.0)
+        mBinding.magicIndicator.navigator = commonNavigator
+        initViewPager(listFragments)
+    }
+
+    /**
+     * 初始化搜索记录历史列表
+     */
+    private fun initRlSearchHistory() {
+        val manager: FlexboxLayoutManager =
+            object : FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+        mBinding.rlSearchHistory.layoutManager = manager
+        mBinding.rlSearchHistory.adapter = mSearchHistoryAdapter
+        mSearchHistoryAdapter.setDiffCallback(DiffSearchHistoryCallback())
+    }
+
+    /**
+     * 初始化viewPager
+     */
+    private fun initViewPager(listFragments: MutableList<Fragment>) {
+        mBinding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                mBinding.magicIndicator.onPageScrolled(
+                    position,
+                    positionOffset,
+                    positionOffsetPixels
+                )
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                mBinding.magicIndicator.onPageSelected(position)
+                // 根据索引构建一个enum
+                val searchType = SearchType.match(position)
+                searchType?.let {
+                    mSearchConditions.type = it
+                }
+                mSearchViewPagerAdapter.search(position, mSearchConditions.content)
+                mViewPagerPosition = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                mBinding.magicIndicator.onPageScrollStateChanged(state)
+            }
+        })
+        mBinding.viewPager2.adapter = mSearchViewPagerAdapter
+        mBinding.viewPager2.offscreenPageLimit = listFragments.size
     }
 
 }
