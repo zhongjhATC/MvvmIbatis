@@ -20,13 +20,17 @@ import com.zhongjh.mvvmibatis.utils.LinkUrlText
  * @date 2022/5/5
  */
 class PrivacyPolicyActivity :
-    BaseActivity<ActivityPrivacyPolicyBinding, PrivacyPolicyModel>(R.layout.activity_privacy_policy) {
+    BaseActivity<ActivityPrivacyPolicyBinding>(R.layout.activity_privacy_policy) {
 
     override fun initParam(savedInstanceState: Bundle?) {
     }
 
     override fun initialize() {
         setContent()
+    }
+
+    override fun initObserver() {
+
     }
 
     override fun initListener() {
@@ -60,5 +64,6 @@ class PrivacyPolicyActivity :
         // 不添加这一句，拨号，http，发短信的超链接不能执行.
         mBinding.tvContent.movementMethod = LinkMovementMethod.getInstance()
     }
+
 
 }

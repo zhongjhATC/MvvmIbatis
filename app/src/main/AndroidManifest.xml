@@ -22,6 +22,7 @@
         <activity
             android:name=".phone.main.MainActivity"
             android:theme="@style/Theme.MvvmDemo" />
+        <activity android:name=".phone.search.SearchActivity" />
     </application>
 
 </manifest>

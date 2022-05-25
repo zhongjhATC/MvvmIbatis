@@ -22,7 +22,7 @@ import java.lang.reflect.ParameterizedType
  * @date 2022/4/29
  * @author zhongjh
  */
-abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> constructor(
+abstract class BaseActivity<VDB : ViewDataBinding> constructor(
     @LayoutRes private val contentLayoutId: Int
 ) : AppCompatActivity() {
 
@@ -32,12 +32,6 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> construct
     protected val mBinding: VDB by lazy(LazyThreadSafetyMode.NONE) {
         DataBindingUtil.setContentView(this, contentLayoutId, DataBindingUtil.getDefaultComponent())
     }
-
-    /**
-     * viewModel
-     */
-    @get:VisibleForTesting
-    protected lateinit var mViewModel: VM
 
     /**
      * 用于绑定相关viewModel
@@ -63,28 +57,10 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> construct
     override fun onCreate(savedInstanceState: Bundle?) {
         ScreenUtil.setFullScreen(this@BaseActivity, false)
         super.onCreate(savedInstanceState)
-        initViewModel()
         initParam(savedInstanceState)
-        initListener()
         initialize()
-    }
-
-    /**
-     * 通过反射获取具体类型
-     */
-    private fun initViewModel() {
-        // e.g. we are ProfileFragment<ProfileVM>, get my genericSuperclass which is BaseFragment<ProfileVM>
-        // Actually ParameterizedType will give us actual type parameters
-        val parameterizedType = javaClass.genericSuperclass as? ParameterizedType
-
-        // now get first actual class, which is the class of VM (ProfileVM in this case)
-        @Suppress("UNCHECKED_CAST")
-        val vmClass = parameterizedType?.actualTypeArguments?.getOrNull(1) as? Class<VM>?
-
-        if (vmClass != null)
-            mViewModel = ViewModelProvider(this)[vmClass]
-        else
-            Log.i("BaseActivity", "could not find VM class for $this")
+        initListener()
+        initObserver()
     }
 
     /**
@@ -93,14 +69,19 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> construct
     abstract fun initParam(savedInstanceState: Bundle?)
 
     /**
+     * 初始化数据
+     */
+    abstract fun initialize()
+
+    /**
      * 初始化事件
      */
     abstract fun initListener()
 
     /**
-     * 初始化数据
+     * 初始化观察者
      */
-    abstract fun initialize()
+    abstract fun initObserver()
 
     /**
      * 销毁防止内存泄漏

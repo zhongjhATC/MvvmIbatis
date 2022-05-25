@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".phone.search.SearchActivity">
+
+        <com.zhongjh.mvvmibatis.view.StatusBarView
+            android:id="@+id/sbView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/vTop"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sbView" />
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintStart_toStartOf="@+id/vTop"
+            app:layout_constraintTop_toTopOf="@+id/vTop"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/vSearch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="4dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_search_aurora_gray_corner_2"
+            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintEnd_toStartOf="@+id/tvSearch"
+            app:layout_constraintStart_toEndOf="@+id/imgBack"
+            app:layout_constraintTop_toTopOf="@+id/vTop" />
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/ic_baseline_search_24"
+            app:layout_constraintBottom_toBottomOf="@+id/vSearch"
+            app:layout_constraintStart_toStartOf="@+id/vSearch"
+            app:layout_constraintTop_toTopOf="@+id/vSearch"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:autofillHints="@string/search"
+            android:background="@null"
+            android:hint="@string/search"
+            android:importantForAutofill="yes"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="@+id/vSearch"
+            app:layout_constraintEnd_toEndOf="@+id/vSearch"
+            app:layout_constraintStart_toEndOf="@+id/imgSearch"
+            app:layout_constraintTop_toTopOf="@+id/vSearch" />
+
+        <TextView
+            android:id="@+id/tvSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/search"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintEnd_toEndOf="@+id/vTop"
+            app:layout_constraintTop_toTopOf="@+id/vTop" />
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magicIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            app:layout_constraintTop_toBottomOf="@+id/vTop" />
+
+        <View
+            android:id="@+id/vLineRlContentHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_line"
+            app:layout_constraintTop_toBottomOf="@+id/magicIndicator" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/magicIndicator" />
+
+        <TextView
+            android:id="@+id/tvSearchHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/search_history"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/magicIndicator" />
+
+        <ImageView
+            android:id="@+id/imgDeleteHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_outline_delete_outline_24"
+            app:layout_constraintEnd_toEndOf="@+id/viewPager2"
+            app:layout_constraintTop_toBottomOf="@+id/magicIndicator"
+            tools:ignore="ContentDescription" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rlSearchHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgDeleteHistory" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupSearchHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tvSearchHistory,imgDeleteHistory,rlSearchHistory" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

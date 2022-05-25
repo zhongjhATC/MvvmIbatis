@@ -1,11 +1,11 @@
 package com.zhongjh.app.phone.main.fragment.shopping
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
@@ -18,11 +18,11 @@ import com.zhongjh.app.entity.ShopHome
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingBannerAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingHorizontalAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingVerticalAdapter
+import com.zhongjh.app.phone.search.SearchActivity
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
 import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 /**
  * 一个商城的Fragment
@@ -31,8 +31,6 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment_shopping) {
-
-    private val mTag = ShopPingFragment::class.qualifiedName
 
     @get:VisibleForTesting
     internal val viewModel: ShopViewModel by viewModels()
@@ -67,13 +65,20 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.rlContent.adapter = mShopPingVerticalAdapter
         mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
 
+        // 默认初始刷新
+        mBinding.refreshLayout.autoRefresh()
+        mBinding.nestedScrollView.visibility = View.GONE
     }
 
     override fun initObserver() {
-        getShopHome()
     }
 
     override fun initListener() {
+        mBinding.vSearchTouch.setOnClickListener {
+            // 打开搜索界面
+            val intent = Intent(activity, SearchActivity::class.java)
+            startActivity(intent)
+        }
         mBinding.refreshLayout.setOnRefreshListener {
             getShopHome()
         }
@@ -119,6 +124,7 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
      * 刷新首页数据
      */
     private fun showShopHome(data: ShopHome) {
+        mBinding.nestedScrollView.visibility = View.VISIBLE
         mBinding.refreshLayout.finishRefresh()
         // 显示Banner
         if (data.banners != null) {

@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @date 2022/5/6
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mAdapter: ViewPagerFragmentStateAdapter by lazy {
         ViewPagerFragmentStateAdapter(supportFragmentManager, lifecycle)
@@ -65,10 +65,15 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(R.layout.ac
         initViewPager()
     }
 
+    override fun initObserver() {
+
+    }
+
     private fun initViewPager() {
         mBinding.viewPager2.adapter = mAdapter
         mBinding.viewPager2.isUserInputEnabled = false
         mBinding.viewPager2.offscreenPageLimit = 5
     }
+
 
 }

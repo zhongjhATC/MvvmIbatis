@@ -32,6 +32,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+
+        // 移除试验性和预览的 Api 警告
+        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
     }
     buildFeatures {
         dataBinding = true
