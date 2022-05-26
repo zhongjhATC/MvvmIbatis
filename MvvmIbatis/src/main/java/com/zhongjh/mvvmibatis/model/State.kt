@@ -6,7 +6,7 @@ package com.zhongjh.mvvmibatis.model
 sealed class State<T> {
     class Success<T>(val data: T) : State<T>()
     class Failed<T>(val errorEntity: ErrorEntity) : State<T>()
-    class Empty<T>(val message: String) : State<T>()
+    class Empty<T> : State<T>()
     class Error<T>(val throwable: Throwable) : State<T>()
     class Loading<T> : State<T>()
 }

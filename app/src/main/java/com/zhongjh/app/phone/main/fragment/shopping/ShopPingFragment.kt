@@ -22,7 +22,9 @@ import com.zhongjh.app.phone.search.SearchActivity
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
 import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * 一个商城的Fragment
@@ -71,6 +73,20 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
     }
 
     override fun initObserver() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiShopHome.collect {
+                when (it) {
+                    is State.Success -> {
+                        showShopHome(it.data)
+                    }
+                    is State.Error -> {
+                        it.throwable.message?.let { it1 -> ToastUtils.showLong(it1) }
+                        mBinding.refreshLayout.finishRefresh()
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     override fun initListener() {
@@ -90,18 +106,8 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
     /**
      * 获取首页数据
      */
-    private fun getShopHome() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.flowShopHome.collect {
-                when (it) {
-                    is State.Success -> {
-                        showShopHome(it.data)
-                    }
-                    else -> {}
-                }
-            }
-        }
-    }
+    private fun getShopHome() = viewModel.getShopHome()
+
 
     /**
      * 加载下一页
