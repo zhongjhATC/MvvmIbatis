@@ -1,7 +1,9 @@
 package com.zhongjh.app.phone.search
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.core.widget.doAfterTextChanged
@@ -73,6 +75,9 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
             this@SearchActivity.finish()
         }
         mBinding.etSearch.doAfterTextChanged {
+            if (TextUtils.isEmpty(it)){
+                switchShowSearchView()
+            }
             viewModel.search(it.toString())
         }
     }
@@ -154,6 +159,23 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         })
         mBinding.viewPager2.adapter = mSearchViewPagerAdapter
         mBinding.viewPager2.offscreenPageLimit = listFragments.size
+    }
+
+    /**
+     * 显示搜索列表，隐藏产品列表
+     */
+    private fun switchShowSearchView() {
+        mBinding.groupSearchHistory.visibility = View.VISIBLE
+        mBinding.viewPager2.visibility = View.GONE
+        mSearchViewPagerAdapter.clear(mViewPagerPosition)
+    }
+
+    /**
+     * 显示产品列表，隐藏搜索列表
+     */
+    private fun showDataListView() {
+        mBinding.groupSearchHistory.visibility = View.GONE
+        mBinding.viewPager2.visibility = View.VISIBLE
     }
 
 }

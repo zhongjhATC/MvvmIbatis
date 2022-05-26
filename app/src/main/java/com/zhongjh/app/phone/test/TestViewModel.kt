@@ -38,17 +38,17 @@ class TestViewModel(
 
 
     /**-- 面板的 --*/
-    var getBanner: LiveData<State<List<Banner>>> =
-        launchFlow {
-            bannerApi.json()
-        }.asLiveData()
+//    var getBanner: LiveData<State<List<Banner>>> =
+//        launchFlow {
+//            bannerApi.json()
+//        }.asLiveData()
+//
+//    val countFlow2: Flow<State<List<Banner>>> = launchFlow {
+//        bannerApi.json()
+//    }
 
-    val countFlow2: Flow<State<List<Banner>>> = launchFlow {
-        bannerApi.json()
-    }
-
-    val doubleCountSharedFlow3 =
-        countFlow2.shareIn(viewModelScope, sharingStrategyProvider.eagerly)
+//    val doubleCountSharedFlow3 =
+//        countFlow2.shareIn(viewModelScope, sharingStrategyProvider.eagerly)
 
 
 }

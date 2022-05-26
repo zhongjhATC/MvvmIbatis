@@ -30,7 +30,7 @@ class RetrofitClient : BaseRetrofitClient() {
      * 服务端根路径
      */
     override fun getBaseUrl(): String {
-        return "https://www.wanandroid.com/"
+        return "https://gitee.com/zhongjh/MvvmIbatis/"
     }
 
     /**

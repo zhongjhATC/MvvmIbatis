@@ -12,7 +12,7 @@ import com.zhongjh.mvvmibatis.base.IApiEntity
  */
 interface BannerApi {
 
-    @GET("banner/json")
+    @GET("raw/master/server/api/banner.json")
     suspend fun json(): ApiEntity<List<Banner>>
 
 }

@@ -88,6 +88,10 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:srlDisableContentWhenLoading="true"
+            app:srlDisableContentWhenRefresh="true"
+            app:srlEnableLoadMore="false"
+            app:srlEnableRefresh="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,12 +99,17 @@
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nestedScrollView"
+                android:fillViewport="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                    <include
+                        android:id="@+id/includeServerError"
+                        layout="@layout/layout_server_error" />
 
                     <com.youth.banner.Banner
                         android:id="@+id/banner"
@@ -190,6 +199,16 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/vLineRlContentHorizontal" />
+
+                    <androidx.constraintlayout.widget.Group
+                        android:id="@+id/groupMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        tools:visibility="gone"
+                        app:constraint_referenced_ids="banner,tvHorizontalTitle,tvHorizontalTag,
+                        tvHorizontalMore,rlContentHorizontal,vLineRlContentHorizontal,rlContent,
+imgProduct,tvProduct,imgClass,tvClass,imgPeripheralProduct,tvPeripheralProduct,imgIntegral,tvIntegral,imgConsult,tvConsult,vLineMenu" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

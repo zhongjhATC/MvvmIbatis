@@ -24,7 +24,6 @@ import com.zhongjh.mvvmibatis.base.ui.BaseFragment
 import com.zhongjh.mvvmibatis.model.State
 import com.zhongjh.mvvmibatis.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 /**
  * 一个商城的Fragment
@@ -67,9 +66,10 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.rlContent.adapter = mShopPingVerticalAdapter
         mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
 
-        // 默认初始刷新
+        // 启用，然后初始刷新
+        mBinding.refreshLayout.setEnableRefresh(true)
         mBinding.refreshLayout.autoRefresh()
-        mBinding.nestedScrollView.visibility = View.GONE
+        mBinding.groupMain.visibility = View.GONE
     }
 
     override fun initObserver() {
@@ -80,8 +80,17 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
                         showShopHome(it.data)
                     }
                     is State.Error -> {
-                        it.throwable.message?.let { it1 -> ToastUtils.showLong(it1) }
-                        mBinding.refreshLayout.finishRefresh()
+                        showShopHomeError(it)
+                    }
+                    else -> {}
+                }
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiLoadNextProduct.collect {
+                when (it) {
+                    is State.Success -> {
+                        loadNextProduct(it.data)
                     }
                     else -> {}
                 }
@@ -108,30 +117,21 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
      */
     private fun getShopHome() = viewModel.getShopHome()
 
-
     /**
      * 加载下一页
      */
     private fun loadNextProduct() {
         mVerticalPage++
-        lifecycleScope.launchWhenStarted {
-            viewModel.flowLoadNextProduct(mVerticalPage).collect {
-                when (it) {
-                    is State.Success -> {
-                        loadNextProduct(it.data)
-                    }
-                    else -> {}
-                }
-            }
-        }
+        viewModel.loadNextProduct(mVerticalPage)
     }
 
     /**
      * 刷新首页数据
      */
     private fun showShopHome(data: ShopHome) {
-        mBinding.nestedScrollView.visibility = View.VISIBLE
+        mBinding.groupMain.visibility = View.VISIBLE
         mBinding.refreshLayout.finishRefresh()
+        mBinding.refreshLayout.setEnableLoadMore(true)
         // 显示Banner
         if (data.banners != null) {
             mBinding.banner.adapter = ShopPingBannerAdapter(data.banners!!)
@@ -144,6 +144,18 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
             mShopPingVerticalAdapter.setDiffNewData(pageEntity.data)
         }
         resetShopHome()
+    }
+
+    /**
+     * 访问首页数据错误
+     */
+    private fun showShopHomeError(state: State.Error<ShopHome>) {
+        state.throwable.message?.let { it1 -> ToastUtils.showLong(it1) }
+        mBinding.refreshLayout.finishRefresh()
+        // 判断是否已经显示首页数据，如果已经显示就不显示错误界面
+        if (mBinding.groupMain.visibility == View.GONE) {
+            mBinding.includeServerError.groupError.visibility = View.VISIBLE
+        }
     }
 
     /**
@@ -176,6 +188,5 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mVerticalPage = 0
         mBinding.refreshLayout.setEnableLoadMore(true)
     }
-
 
 }
