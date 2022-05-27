@@ -9,9 +9,11 @@ package com.zhongjh.app.entity
  */
 class Product {
 
-    var id: String? = null
+    var id: Int? = null
     var name: String? = null
-    var price: String? = null
-    var pictureUrl: String? = null
+    var price: Float? = null
+    var image: String? = null
+    var category: String? = null
+    var description: String? = null
 
 }

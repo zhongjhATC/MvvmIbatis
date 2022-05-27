@@ -4,11 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.BannerApi
 import com.zhongjh.app.data.http.service.ProductApi
+import com.zhongjh.app.data.http.service.ProductApi2
 import com.zhongjh.app.entity.ApiEntity
 import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
 import com.zhongjh.app.entity.ShopHome
-import com.zhongjh.mvvmibatis.extend.launchFlow
+import com.zhongjh.mvvmibatis.extend.launchApiFlow
 import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ShopViewModel @Inject constructor(
-    private val bannerApi: BannerApi
+    private val bannerApi: BannerApi,
+    private val productApi: ProductApi2
 ) : ViewModel() {
 
     /**
@@ -43,15 +45,15 @@ class ShopViewModel @Inject constructor(
      */
     fun getShopHome() {
         viewModelScope.launch {
-            launchFlow(_uiShopHome) {
+            launchApiFlow(_uiShopHome) {
                 // 面板广告
                 val banners = bannerApi.json()
                 // 面板广告2,只是为了更加贴合真实情况加的一个
                 val banners2 = bannerApi.json()
                 // 正在拍卖的产品
-                val productsIn = ProductApi.getProducts(0)
+                val productsIn = productApi.products(0)
                 // 商城显示的产品
-                val products = ProductApi.getProducts(0)
+                val products = productApi.products(0)
                 val apiEntity = ApiEntity<ShopHome>()
                 val shopHome = ShopHome()
                 shopHome.banners = banners.data
@@ -69,7 +71,7 @@ class ShopViewModel @Inject constructor(
      */
     fun loadNextProduct(page: Int) {
         viewModelScope.launch {
-            launchFlow(_uiLoadNextProduct) {
+            launchApiFlow(_uiLoadNextProduct) {
                 ProductApi.getProducts(page)
             }
         }

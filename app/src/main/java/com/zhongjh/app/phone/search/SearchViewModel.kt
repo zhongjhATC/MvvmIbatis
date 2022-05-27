@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.db.business.SearchContentBusiness
 import com.zhongjh.app.data.http.service.BannerApi
+import com.zhongjh.mvvmibatis.extend.launchFlow
 import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -30,7 +31,6 @@ class SearchViewModel @Inject constructor(
      * 根据搜索文本获取的数据
      */
     private val _uiSearch = MutableStateFlow<State<String>>(State.Empty())
-    val uiSearch: StateFlow<State<String>> = _uiSearch
 
     init {
         viewModelScope.launch {
@@ -61,17 +61,11 @@ class SearchViewModel @Inject constructor(
      */
     private fun requestSearch(searchText: String) {
         viewModelScope.launch {
-            flow<State<String>> {
+            launchFlow(_uiSearch, suspend {
                 // 添加到数据库
                 searchContentBusiness.addSearchContents(searchText)
-                emit(State.Success(searchText))
-            }.onStart {
-                emit(State.Loading())
-            }.catch {
-                emit(State.Error(it))
-            }.collect {
-                _uiSearch.value = it
-            }
+                searchText
+            })
         }
     }
 

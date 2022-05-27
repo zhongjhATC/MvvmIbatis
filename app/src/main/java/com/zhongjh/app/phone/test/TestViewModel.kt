@@ -1,15 +1,8 @@
 package com.zhongjh.app.phone.test
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.BannerApi
-import com.zhongjh.app.entity.ApiEntity
-import com.zhongjh.app.entity.Banner
-import com.zhongjh.mvvmibatis.extend.launchFlow
-import com.zhongjh.mvvmibatis.model.State
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 

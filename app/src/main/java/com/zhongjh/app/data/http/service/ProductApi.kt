@@ -59,44 +59,44 @@ object ProductApi {
         val products = ArrayList<Product>()
         val leiShen = Product()
         leiShen.name = "雷神"
-        leiShen.pictureUrl =
+        leiShen.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/-1.jpg"
-        leiShen.price = "648"
+        leiShen.price = 648F
         val hutao = Product()
         hutao.name = "胡桃"
-        hutao.pictureUrl =
+        hutao.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/-2.jpg"
-        hutao.price = "648"
+        hutao.price = 648F
         val shenli = Product()
         shenli.name = "神里"
-        shenli.pictureUrl =
+        shenli.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/-3.jpg"
-        shenli.price = "648"
+        shenli.price = 648F
         val jiutun = Product()
         jiutun.name = "酒吞"
-        jiutun.pictureUrl =
+        jiutun.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/-4.jpg"
-        jiutun.price = "648"
+        jiutun.price = 648F
         val dishitian = Product()
         dishitian.name = "帝释天"
-        dishitian.pictureUrl =
+        dishitian.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/-5.jpg"
-        dishitian.price = "648"
+        dishitian.price = 648F
         val axiuluo = Product()
         axiuluo.name = "阿修罗"
-        axiuluo.pictureUrl =
+        axiuluo.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/-6.jpg"
-        axiuluo.price = "648"
+        axiuluo.price = 648F
         val yidou = Product()
         yidou.name = "一斗"
-        yidou.pictureUrl =
+        yidou.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/1.jpg"
-        yidou.price = "648"
+        yidou.price = 648F
         val zhongli = Product()
         zhongli.name = "钟离"
-        zhongli.pictureUrl =
+        zhongli.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/2.jpg"
-        zhongli.price = "648"
+        zhongli.price = 648F
         products.addAll(arrayOf(leiShen, hutao, shenli, jiutun, dishitian, axiuluo, yidou, zhongli))
         return products
     }
@@ -108,44 +108,44 @@ object ProductApi {
         val products = ArrayList<Product>()
         val leiShen = Product()
         leiShen.name = "琴"
-        leiShen.pictureUrl =
+        leiShen.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/3.jpg"
-        leiShen.price = "648"
+        leiShen.price = 648F
         val hutao = Product()
         hutao.name = "宵宫"
-        hutao.pictureUrl =
+        hutao.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/4.jpg"
-        hutao.price = "648"
+        hutao.price = 648F
         val shenli = Product()
         shenli.name = "砂糖"
-        shenli.pictureUrl =
+        shenli.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/5.jpg"
-        shenli.price = "648"
+        shenli.price = 648F
         val jiutun = Product()
         jiutun.name = "皇女"
-        jiutun.pictureUrl =
+        jiutun.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/6.jpg"
-        jiutun.price = "648"
+        jiutun.price = 648F
         val dishitian = Product()
         dishitian.name = "阿贝多"
-        dishitian.pictureUrl =
+        dishitian.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/7.jpg"
-        dishitian.price = "648"
+        dishitian.price = 648F
         val axiuluo = Product()
         axiuluo.name = "五郎"
-        axiuluo.pictureUrl =
+        axiuluo.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/8.jpg"
-        axiuluo.price = "648"
+        axiuluo.price = 648F
         val yidou = Product()
         yidou.name = "心海"
-        yidou.pictureUrl =
+        yidou.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/9.jpg"
-        yidou.price = "648"
+        yidou.price = 648F
         val zhongli = Product()
         zhongli.name = "行秋"
-        zhongli.pictureUrl =
+        zhongli.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/10.jpg"
-        zhongli.price = "648"
+        zhongli.price = 648F
         products.addAll(arrayOf(leiShen, hutao, shenli, jiutun, dishitian, axiuluo, yidou, zhongli))
         return products
     }
@@ -157,44 +157,44 @@ object ProductApi {
         val products = ArrayList<Product>()
         val leiShen = Product()
         leiShen.name = "可莉"
-        leiShen.pictureUrl =
+        leiShen.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/11.jpg"
-        leiShen.price = "648"
+        leiShen.price = 648F
         val hutao = Product()
         hutao.name = "万叶"
-        hutao.pictureUrl =
+        hutao.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/12.jpg"
-        hutao.price = "648"
+        hutao.price = 648F
         val shenli = Product()
         shenli.name = "申鹤"
-        shenli.pictureUrl =
+        shenli.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/13.jpg"
-        shenli.price = "648"
+        shenli.price = 648F
         val jiutun = Product()
         jiutun.name = "夜兰"
-        jiutun.pictureUrl =
+        jiutun.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/14.jpg"
-        jiutun.price = "648"
+        jiutun.price = 648F
         val dishitian = Product()
         dishitian.name = "香菱"
-        dishitian.pictureUrl =
+        dishitian.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/15.jpg"
-        dishitian.price = "648"
+        dishitian.price = 648F
         val axiuluo = Product()
         axiuluo.name = "云堇"
-        axiuluo.pictureUrl =
+        axiuluo.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/16.jpg"
-        axiuluo.price = "648"
+        axiuluo.price = 648F
         val yidou = Product()
         yidou.name = "埃洛伊"
-        yidou.pictureUrl =
+        yidou.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/17.jpg"
-        yidou.price = "648"
+        yidou.price = 648F
         val zhongli = Product()
         zhongli.name = "安柏"
-        zhongli.pictureUrl =
+        zhongli.image =
             "https://portrait.gitee.com/zhongjh/mvidemo/raw/master/server/images/18.jpg"
-        zhongli.price = "648"
+        zhongli.price = 648F
         products.addAll(arrayOf(leiShen, hutao, shenli, jiutun, dishitian, axiuluo, yidou, zhongli))
         return products
     }

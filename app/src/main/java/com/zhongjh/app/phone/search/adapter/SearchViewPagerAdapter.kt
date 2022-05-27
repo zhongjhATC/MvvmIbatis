@@ -45,7 +45,7 @@ class SearchViewPagerAdapter(private val fragmentManager: FragmentManager, lifec
      */
     fun search(position: Int,searchContent: String ) {
         val yuanShenFragment = getPageFragment(position.toLong()) as? YuanShenFragment
-//        yuanShenFragment?.search(searchContent)
+        yuanShenFragment?.search(searchContent)
     }
 
     /**
@@ -55,7 +55,7 @@ class SearchViewPagerAdapter(private val fragmentManager: FragmentManager, lifec
      */
     fun clear(position: Int) {
         val yuanShenFragment = getPageFragment(position.toLong()) as? YuanShenFragment
-//        yuanShenFragment?.clear()
+        yuanShenFragment?.clear()
     }
 
     private fun getPageFragment(id: Long): Fragment? {

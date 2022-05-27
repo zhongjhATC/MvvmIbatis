@@ -1,8 +1,10 @@
 package com.zhongjh.app.hilt
 
+import com.zhongjh.app.data.db.business.SearchContentBusiness
 import com.zhongjh.app.data.http.retrofit.RetrofitClient
 import com.zhongjh.app.data.http.service.BannerApi
 import com.zhongjh.app.data.http.service.ProductApi
+import com.zhongjh.app.data.http.service.ProductApi2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +24,12 @@ object NetworkModule {
     @Singleton
     fun BannerApi(): BannerApi {
         return RetrofitClient.get().create(BannerApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun ProductApi(): ProductApi2 {
+        return RetrofitClient.get().create(ProductApi2::class.java)
     }
 
 }

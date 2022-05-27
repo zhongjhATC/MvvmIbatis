@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.*
  * T 传递进来的是该类型 ApiEntity<List<Banner>>
  * emit后的类型是State<List<Banner>>
  */
-suspend fun <T, A : IApiEntity<T>> launchFlow(
+suspend fun <T, A : IApiEntity<T>> launchApiFlow(
     stateFlow: MutableStateFlow<State<T>>,
     requestBlock: suspend () -> A
 ): Flow<State<T>> {
@@ -33,13 +33,13 @@ suspend fun <T, A : IApiEntity<T>> launchFlow(
     return flow
 }
 
-suspend fun <T> launchFlow2(
+suspend fun <T> launchFlow(
     stateFlow: MutableStateFlow<State<T>>,
     requestBlock: suspend () -> T
 ): Flow<State<T>> {
-    val flow = flow {
-        val iApiEntity = requestBlock()
-        emit(State.Success(iApiEntity))
+    val flow = flow<State<T>> {
+        val value = requestBlock()
+        emit(State.Success(value))
     }.onStart {
         emit(State.Loading())
     }.catch {
@@ -49,11 +49,4 @@ suspend fun <T> launchFlow2(
         stateFlow.value = it
     }
     return flow
-}
-
-fun <T> emit(value: State.Success<T>) {
-}
-
-fun <T> emit(value: State.Success<T>) {
-
 }

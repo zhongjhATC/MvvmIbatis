@@ -26,6 +26,7 @@ import com.zhongjh.app.phone.search.adapter.SearchNavigatorAdapter
 import com.zhongjh.app.phone.search.adapter.SearchViewPagerAdapter
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.extend.onClick
+import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -75,9 +76,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
             this@SearchActivity.finish()
         }
         mBinding.etSearch.doAfterTextChanged {
-            if (TextUtils.isEmpty(it)){
+            if (TextUtils.isEmpty(it)) {
                 switchShowSearchView()
             }
+            mSearchViewPagerAdapter.search(mViewPagerPosition, mSearchConditions.content)
             viewModel.search(it.toString())
         }
     }
@@ -99,7 +101,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         }
 
         val commonNavigator = CommonNavigator(this)
-        mCommonNavigatorAdapter = SearchNavigatorAdapter(listTitle,mBinding.viewPager2)
+        mCommonNavigatorAdapter = SearchNavigatorAdapter(listTitle, mBinding.viewPager2)
         commonNavigator.adapter = mCommonNavigatorAdapter
         commonNavigator.leftPadding = UIUtil.dip2px(this, 10.0)
         commonNavigator.rightPadding = UIUtil.dip2px(this, 15.0)
@@ -126,7 +128,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
      * 初始化viewPager
      */
     private fun initViewPager(listFragments: MutableList<Fragment>) {
-        mBinding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        mBinding.viewPager2.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,

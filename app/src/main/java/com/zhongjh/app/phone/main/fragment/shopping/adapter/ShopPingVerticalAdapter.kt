@@ -26,7 +26,7 @@ class ShopPingVerticalAdapter :
             .error(R.mipmap.ic_banner)
             .transform(GlideRoundTransform(2, true, true, false, false))
         Glide.with(instance)
-            .load(item.pictureUrl)
+            .load(item.image)
             .apply(options)
             .into(imageView)
         holder.setText(R.id.tvProductName, item.name)
