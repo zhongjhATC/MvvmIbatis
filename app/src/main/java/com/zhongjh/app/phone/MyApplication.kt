@@ -15,6 +15,8 @@ import com.zhongjh.app.data.db.dao.DaoSession
 import com.zhongjh.app.phone.main.MainActivity
 import com.zhongjh.mvvmibatis.base.BaseApplication
 import com.zhongjh.mvvmibatis.utils.DynamicTimeFormat
+import com.zy.multistatepage.MultiStateConfig
+import com.zy.multistatepage.MultiStatePage
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -61,6 +63,7 @@ class MyApplication : BaseApplication() {
     override fun init() {
         super.init()
         initSmartRefresh()
+        initMultiStateConfig()
     }
 
     /**
@@ -99,5 +102,18 @@ class MyApplication : BaseApplication() {
                 context
             )
         }
+    }
+
+    private fun initMultiStateConfig() {
+        val config = MultiStateConfig.Builder()
+            .alphaDuration(300)
+            .errorIcon(R.mipmap.state_error)
+            .emptyIcon(R.mipmap.state_empty)
+            .emptyMsg("没有数据")
+            .loadingMsg("加载中...")
+            .errorMsg("服务器出错")
+            .build()
+
+        MultiStatePage.config(config)
     }
 }

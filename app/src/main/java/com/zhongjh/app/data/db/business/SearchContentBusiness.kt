@@ -2,9 +2,11 @@ package com.zhongjh.app.data.db.business
 
 import android.text.TextUtils
 import android.util.Log
+import com.zhongjh.app.data.db.dao.SearchContentDao
 import com.zhongjh.app.entity.db.SearchContent
 import com.zhongjh.app.phone.MyApplication
 import org.greenrobot.greendao.query.QueryBuilder
+import javax.inject.Inject
 
 
 /**
@@ -12,7 +14,9 @@ import org.greenrobot.greendao.query.QueryBuilder
  * @author zhongjh
  * @date 2022/4/15
  */
-class SearchContentBusiness {
+class SearchContentBusiness @Inject constructor(
+    private val searchContentDao: SearchContentDao
+)  {
 
     private val mTag = SearchContentBusiness::class.qualifiedName
     private val maxCount = 12
@@ -21,7 +25,6 @@ class SearchContentBusiness {
      * 获取搜索内容，最高12条数据
      */
     fun getSearchContents(): MutableList<SearchContent> {
-        val searchContentDao = MyApplication.instance.daoSession.searchContentDao
         val queryBuilder: QueryBuilder<SearchContent> = searchContentDao.queryBuilder()
         return queryBuilder.limit(maxCount).list()
     }
@@ -37,7 +40,6 @@ class SearchContentBusiness {
         if (TextUtils.isEmpty(searchStr)) {
             return 0
         }
-        val searchContentDao = MyApplication.instance.daoSession.searchContentDao
         val searchContents = searchContentDao.loadAll()
         // 判断是否已经有相同的
         for (item in searchContents) {

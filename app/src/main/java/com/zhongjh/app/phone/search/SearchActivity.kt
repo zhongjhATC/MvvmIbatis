@@ -2,13 +2,11 @@ package com.zhongjh.app.phone.search
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.flexbox.FlexDirection
@@ -19,8 +17,8 @@ import com.zhongjh.app.databinding.ActivitySearchBinding
 import com.zhongjh.app.diffcallback.DiffSearchHistoryCallback
 import com.zhongjh.app.entity.SearchConditions
 import com.zhongjh.app.entity.SearchType
+import com.zhongjh.app.entity.db.SearchContent
 import com.zhongjh.app.phone.main.fragment.shopping.ShopPingFragment
-import com.zhongjh.app.phone.main.fragment.shopping.ShopViewModel
 import com.zhongjh.app.phone.search.adapter.SearchHistoryAdapter
 import com.zhongjh.app.phone.search.adapter.SearchNavigatorAdapter
 import com.zhongjh.app.phone.search.adapter.SearchViewPagerAdapter
@@ -28,11 +26,6 @@ import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.model.State
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.sample
-import kotlinx.coroutines.launch
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 
@@ -69,6 +62,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     override fun initialize() {
         initMagicIndicator()
         initRlSearchHistory()
+        getSearchHistory()
     }
 
     override fun initListener() {
@@ -79,12 +73,47 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
             if (TextUtils.isEmpty(it)) {
                 switchShowSearchView()
             }
-            mSearchViewPagerAdapter.search(mViewPagerPosition, mSearchConditions.content)
             viewModel.search(it.toString())
+        }
+        mBinding.tvSearch.onClick {
+            if (!TextUtils.isEmpty(mBinding.etSearch.text)) {
+                mSearchConditions.content = mBinding.etSearch.text.toString()
+                mSearchViewPagerAdapter.search(mViewPagerPosition, mBinding.etSearch.text.toString())
+                showDataListView()
+            }
+        }
+        // 删除历史
+        mBinding.imgDeleteHistory.onClick {
+
         }
     }
 
     override fun initObserver() {
+        // 传递给子Fragment进行处理搜索
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiSearch.collect {
+                when (it) {
+                    is State.Success -> {
+                        mSearchViewPagerAdapter.search(mViewPagerPosition, it.data)
+                        mSearchConditions.content = it.data
+                        showDataListView()
+                    }
+                    else -> {}
+                }
+            }
+        }
+
+        // 获取到搜索记录
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiSearchHistory.collect {
+                when (it) {
+                    is State.Success -> {
+                        initSearchContentsState(it.data)
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     /**
@@ -165,7 +194,21 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     }
 
     /**
-     * 显示搜索列表，隐藏产品列表
+     * 获取搜索历史记录
+     */
+    private fun getSearchHistory() {
+        viewModel.getSearchHistory()
+    }
+
+    /**
+     * 初始化搜索历史
+     */
+    private fun initSearchContentsState(data: MutableList<SearchContent>) {
+        mSearchHistoryAdapter.setDiffNewData(data)
+    }
+
+    /**
+     * 显示搜索历史列表，隐藏产品列表
      */
     private fun switchShowSearchView() {
         mBinding.groupSearchHistory.visibility = View.VISIBLE
@@ -174,7 +217,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     }
 
     /**
-     * 显示产品列表，隐藏搜索列表
+     * 显示产品列表，隐藏搜索历史列表
      */
     private fun showDataListView() {
         mBinding.groupSearchHistory.visibility = View.GONE

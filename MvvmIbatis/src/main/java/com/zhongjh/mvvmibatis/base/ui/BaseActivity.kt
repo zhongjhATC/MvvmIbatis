@@ -91,5 +91,4 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
         mBinding.unbind()
     }
 
-
 }

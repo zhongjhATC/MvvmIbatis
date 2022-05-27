@@ -99,4 +99,5 @@ abstract class BaseFragment<VDB : ViewDataBinding> constructor(
         _binding = null
     }
 
+
 }

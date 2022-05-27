@@ -2,15 +2,6 @@ package com.zhongjh.mvvmibatis.extend
 
 import android.view.View
 import com.zhongjh.mvvmibatis.R
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
-import java.lang.reflect.InvocationHandler
-import java.lang.reflect.Method
-import java.lang.reflect.Proxy
-import java.util.*
-import kotlin.collections.HashMap
 
 /***
  * 带延迟过滤的点击事件View扩展
@@ -50,6 +41,9 @@ private fun <T : View> T.clickEnable(): Boolean {
     }
     return flag
 }
+
+
+
 
 
 

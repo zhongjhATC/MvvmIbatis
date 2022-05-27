@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.BannerApi
 import com.zhongjh.app.data.http.service.ProductApi
-import com.zhongjh.app.data.http.service.ProductApi2
 import com.zhongjh.app.entity.ApiEntity
 import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
@@ -25,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ShopViewModel @Inject constructor(
     private val bannerApi: BannerApi,
-    private val productApi: ProductApi2
+    private val productApi: ProductApi
 ) : ViewModel() {
 
     /**
@@ -72,7 +71,7 @@ class ShopViewModel @Inject constructor(
     fun loadNextProduct(page: Int) {
         viewModelScope.launch {
             launchApiFlow(_uiLoadNextProduct) {
-                ProductApi.getProducts(page)
+                productApi.products(page)
             }
         }
     }

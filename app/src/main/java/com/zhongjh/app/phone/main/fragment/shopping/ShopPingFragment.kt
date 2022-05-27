@@ -15,14 +15,22 @@ import com.zhongjh.app.diffcallback.DiffProductCallback
 import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
 import com.zhongjh.app.entity.ShopHome
+import com.zhongjh.app.extend.showError
+import com.zhongjh.app.extend.showLoading
+import com.zhongjh.app.extend.showSuccess
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingBannerAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingHorizontalAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingVerticalAdapter
 import com.zhongjh.app.phone.search.SearchActivity
+import com.zhongjh.app.state.LottieWaitingState
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
+import com.zhongjh.mvvmibatis.extend.*
 import com.zhongjh.mvvmibatis.model.State
 import com.zhongjh.mvvmibatis.utils.ToastUtils
+import com.zy.multistatepage.MultiStatePage
+import com.zy.multistatepage.bindMultiState
+import com.zy.multistatepage.state.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -38,6 +46,10 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
 
     private var mShopPingHorizontalAdapter = ShopPingHorizontalAdapter()
     private var mShopPingVerticalAdapter = ShopPingVerticalAdapter()
+
+    private val container by lazy {
+        MultiStatePage.bindMultiState(mBinding.clMain)
+    }
 
     /**
      * 竖型列表的当前页码
@@ -66,10 +78,9 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.rlContent.adapter = mShopPingVerticalAdapter
         mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
 
-        // 启用，然后初始刷新
-        mBinding.refreshLayout.setEnableRefresh(true)
-        mBinding.refreshLayout.autoRefresh()
-        mBinding.groupMain.visibility = View.GONE
+        // 初始刷新首页
+        getShopHome()
+        container.show<LottieWaitingState>()
     }
 
     override fun initObserver() {
@@ -129,8 +140,9 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
      * 刷新首页数据
      */
     private fun showShopHome(data: ShopHome) {
-        mBinding.groupMain.visibility = View.VISIBLE
+        container.showSuccess()
         mBinding.refreshLayout.finishRefresh()
+        mBinding.refreshLayout.setEnableRefresh(true)
         mBinding.refreshLayout.setEnableLoadMore(true)
         // 显示Banner
         if (data.banners != null) {
@@ -152,9 +164,11 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
     private fun showShopHomeError(state: State.Error<ShopHome>) {
         state.throwable.message?.let { it1 -> ToastUtils.showLong(it1) }
         mBinding.refreshLayout.finishRefresh()
-        // 判断是否已经显示首页数据，如果已经显示就不显示错误界面
-        if (mBinding.groupMain.visibility == View.GONE) {
-            mBinding.includeServerError.groupError.visibility = View.VISIBLE
+        container.showError {
+            it.retry {
+                container.show<LottieWaitingState>()
+                getShopHome()
+            }
         }
     }
 
