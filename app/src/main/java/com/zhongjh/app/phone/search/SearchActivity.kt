@@ -9,6 +9,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.afollestad.materialdialogs.MaterialDialog
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -72,19 +74,35 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         mBinding.etSearch.doAfterTextChanged {
             if (TextUtils.isEmpty(it)) {
                 switchShowSearchView()
+
             }
             viewModel.search(it.toString())
         }
         mBinding.tvSearch.onClick {
             if (!TextUtils.isEmpty(mBinding.etSearch.text)) {
                 mSearchConditions.content = mBinding.etSearch.text.toString()
-                mSearchViewPagerAdapter.search(mViewPagerPosition, mBinding.etSearch.text.toString())
+                mSearchViewPagerAdapter.search(
+                    mViewPagerPosition,
+                    mBinding.etSearch.text.toString()
+                )
                 showDataListView()
             }
         }
         // 删除历史
         mBinding.imgDeleteHistory.onClick {
-
+            MaterialDialog(this).show {
+                message(R.string.whether_to_clear_the_search_history)
+                positiveButton(R.string.agree) {
+                    viewModel.deleteAllSearch()
+                }
+                negativeButton(R.string.cancel) {
+                    this.dismiss()
+                }
+            }
+        }
+        // 点击搜索历史事件
+        mSearchHistoryAdapter.setOnItemClickListener { _, _, position ->
+            mBinding.etSearch.setText(mSearchHistoryAdapter.data[position].content)
         }
     }
 
@@ -94,9 +112,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
             viewModel.uiSearch.collect {
                 when (it) {
                     is State.Success -> {
-                        mSearchViewPagerAdapter.search(mViewPagerPosition, it.data)
-                        mSearchConditions.content = it.data
-                        showDataListView()
+                        searchText(it.data)
                     }
                     else -> {}
                 }
@@ -114,6 +130,16 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
                 }
             }
         }
+    }
+
+    /**
+     * 根据搜索文本进行搜索，传递给子Fragment进行处理搜索
+     * @param searchContent 搜索文本
+     */
+    private fun searchText(searchContent: String) {
+        mSearchViewPagerAdapter.search(mViewPagerPosition, searchContent)
+        mSearchConditions.content = searchContent
+        showDataListView()
     }
 
     /**

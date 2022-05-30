@@ -2,6 +2,7 @@
     <string name="app_name">mvvmDemo</string>
     <string name="disagree_and_quit">不同意并退出</string>
     <string name="agree">同意</string>
+    <string name="cancel">取消</string>
     <string name="tips_on_user_privacy_protection">用户隐私保护提示</string>
     <string name="shop">商城</string>
     <string name="auction">拍卖</string>
@@ -29,4 +30,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="server_error_please_try_again">服务器错误!请重试!</string>
+    <string name="whether_to_clear_the_search_history">是否清空搜索历史</string>
 </resources>

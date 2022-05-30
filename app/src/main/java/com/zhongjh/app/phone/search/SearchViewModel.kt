@@ -76,6 +76,19 @@ class SearchViewModel @Inject constructor(
     }
 
     /**
+     * 删除所有搜索记录
+     */
+    fun deleteAllSearch() {
+        viewModelScope.launch {
+            launch(Dispatchers.IO) {
+                // 添加到数据库
+                searchContentBusiness.deleteAllSearch()
+                getSearchHistory()
+            }
+        }
+    }
+
+    /**
      * 存储搜索文本到历史记录，通知ui搜索该文本
      */
     private fun requestSearch(searchText: String) {
@@ -83,14 +96,15 @@ class SearchViewModel @Inject constructor(
             launchFlow(_uiSearch, suspend {
                 searchText
             })
-        }
-        viewModelScope.launch {
             launch(Dispatchers.IO) {
                 // 添加到数据库
                 searchContentBusiness.addSearchContents(searchText)
+                getSearchHistory()
             }
         }
     }
+
+
 
 
 

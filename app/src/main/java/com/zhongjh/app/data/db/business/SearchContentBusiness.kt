@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 class SearchContentBusiness @Inject constructor(
     private val searchContentDao: SearchContentDao
-)  {
+) {
 
     private val mTag = SearchContentBusiness::class.qualifiedName
     private val maxCount = 12
@@ -61,6 +61,13 @@ class SearchContentBusiness @Inject constructor(
             searchContent.content = searchStr
             searchContentDao.insert(searchContent)
         }
+    }
+
+    /**
+     * 删除所有搜索记录
+     */
+    fun deleteAllSearch() {
+        searchContentDao.deleteAll()
     }
 
 }

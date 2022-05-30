@@ -17,6 +17,8 @@ import com.zhongjh.app.phone.search.yuanshen.adapter.YuanShenVerticalAdapter
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
 import com.zhongjh.mvvmibatis.model.State
+import com.zy.multistatepage.MultiStatePage
+import com.zy.multistatepage.bindMultiState
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -42,10 +44,16 @@ class YuanShenFragment : BaseFragment<FragmentYuanshenBinding>(R.layout.fragment
         // 初始化列表竖向列表
         mBinding.rlContent.layoutManager = GridLayoutManager(context, 2)
         mBinding.rlContent.adapter = mYuanShenVerticalAdapter
+
+        // 默认禁止刷新加载，等有数据后再开启
+        mBinding.refreshLayout.setEnableRefresh(false)
+        mBinding.refreshLayout.setEnableLoadMore(false)
     }
 
     override fun initListener() {
         mBinding.refreshLayout.setOnRefreshListener {
+            // 请求网络数据
+            viewModel.search(mSearchContent)
         }
     }
 
@@ -79,8 +87,10 @@ class YuanShenFragment : BaseFragment<FragmentYuanshenBinding>(R.layout.fragment
             return
         }
         mSearchContent = searchContent
-        // 请求网络数据
-        viewModel.search(mSearchContent)
+        // 开启刷新加载
+        mBinding.refreshLayout.setEnableRefresh(true)
+        mBinding.refreshLayout.setEnableLoadMore(true)
+        mBinding.refreshLayout.autoRefresh()
     }
 
     /**
