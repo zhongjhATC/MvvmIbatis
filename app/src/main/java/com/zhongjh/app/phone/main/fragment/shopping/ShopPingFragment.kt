@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gyf.immersionbar.ImmersionBar
 import com.youth.banner.indicator.CircleIndicator
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.FragmentShoppingBinding
@@ -81,6 +82,11 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         // 初始刷新首页
         getShopHome()
         container.show<LottieWaitingState>()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ImmersionBar.with(this).init()
     }
 
     override fun initObserver() {
