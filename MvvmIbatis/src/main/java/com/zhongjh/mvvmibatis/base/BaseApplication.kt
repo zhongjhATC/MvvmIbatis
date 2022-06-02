@@ -7,6 +7,7 @@ import android.view.Gravity
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
+import com.gyf.immersionbar.ImmersionBar
 import com.tencent.mmkv.MMKV
 import com.tencent.smtt.sdk.QbSdk
 import com.zhongjh.mvvmibatis.BuildConfig
