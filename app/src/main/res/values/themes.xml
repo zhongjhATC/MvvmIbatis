@@ -2,14 +2,16 @@
 
     <style name="FullScreen" parent="@style/Theme.AppCompat.Light">
         <item name="android:windowBackground">@drawable/bg_splash</item>
-        <item name="windowNoTitle">true</item> <!-- 无标题 -->
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item> <!-- 无ActionBar -->
         <item name="android:windowFullscreen">true</item> <!-- 全屏即无通知栏 -->
         <item name="android:windowContentOverlay">@null</item> <!-- 是否有遮盖 -->
     </style>
 
     <!-- Base application theme. -->
-    <style name="Theme.MvvmDemo" parent="@style/Theme.MaterialComponents.Light">
+    <style name="Theme.MvvmDemo" parent="@style/Theme.MaterialComponents.Light.Bridge">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">12sp</item>
         <!--将ActionBar隐藏,这里使用ToolBar-->

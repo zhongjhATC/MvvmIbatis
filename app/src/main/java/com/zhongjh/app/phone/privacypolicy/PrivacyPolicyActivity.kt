@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
+import androidx.core.content.res.ResourcesCompat
+import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityPrivacyPolicyBinding
 import com.zhongjh.app.phone.main.MainActivity
@@ -46,6 +48,21 @@ class PrivacyPolicyActivity :
         }
     }
 
+    override fun initImmersionBar() {
+        ImmersionBar.with(this)
+            .titleBar(mBinding.imgLauncher, false)
+            .navigationBarColorInt(
+                ResourcesCompat.getColor(
+                    resources,
+                    com.zhongjh.mvvmibatis.R.color.white,
+                    theme
+                )
+            )
+            .statusBarDarkFont(true)
+            .navigationBarDarkIcon(true)
+            .init()
+    }
+
     /**
      * 设置文本和链接
      */
@@ -64,6 +81,4 @@ class PrivacyPolicyActivity :
         // 不添加这一句，拨号，http，发短信的超链接不能执行.
         mBinding.tvContent.movementMethod = LinkMovementMethod.getInstance()
     }
-
-
 }

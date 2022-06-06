@@ -1,7 +1,11 @@
 package com.zhongjh.app.phone.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
+import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.NavigationBarType
+import com.gyf.immersionbar.OnNavigationBarListener
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityMainBinding
 import com.zhongjh.app.phone.main.viewpager.ViewPagerFragmentStateAdapter
@@ -69,11 +73,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     }
 
+    override fun initImmersionBar() {
+        ImmersionBar.with(this).init()
+    }
+
     private fun initViewPager() {
         mBinding.viewPager2.adapter = mAdapter
         mBinding.viewPager2.isUserInputEnabled = false
         mBinding.viewPager2.offscreenPageLimit = 5
     }
+
+
 
 
 }

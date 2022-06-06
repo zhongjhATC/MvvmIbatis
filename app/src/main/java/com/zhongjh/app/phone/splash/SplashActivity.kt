@@ -1,6 +1,7 @@
 package com.zhongjh.app.phone.splash
 
 import android.os.Bundle
+import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityPrivacyPolicyBinding
 import com.zhongjh.app.databinding.ActivitySplashBinding
@@ -24,6 +25,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun initObserver() {
 
+    }
+
+    override fun initImmersionBar() {
     }
 
 

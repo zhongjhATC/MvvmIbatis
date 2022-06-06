@@ -1,16 +1,13 @@
 package com.zhongjh.mvvmibatis.base.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.LayoutRes
-import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProvider
-import com.zhongjh.mvvmibatis.base.viewmodel.BaseViewModel
+import com.gyf.immersionbar.ImmersionBar
+import com.zhongjh.mvvmibatis.R
 import com.zhongjh.mvvmibatis.utils.ScreenUtil
-import java.lang.reflect.ParameterizedType
 
 /**
  * 一个基类Activity
@@ -55,12 +52,12 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
      * 确保[binding]属性被执行并提供依赖于[contentLayoutId]视图。
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        ScreenUtil.setFullScreen(this@BaseActivity, false)
         super.onCreate(savedInstanceState)
         initParam(savedInstanceState)
         initialize()
         initListener()
         initObserver()
+        initImmersionBar()
     }
 
     /**
@@ -82,6 +79,15 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
      * 初始化观察者
      */
     abstract fun initObserver()
+
+    /**
+     * 初始化沉浸式
+     * Init immersion bar.
+     */
+    protected open fun initImmersionBar() {
+        // 设置共同沉浸式样式
+        ImmersionBar.with(this).navigationBarColor(R.color.transparent).init()
+    }
 
     /**
      * 销毁防止内存泄漏

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="black">#000000</color> <!--白色 -->
     <color name="white">#FFFFFF</color> <!--白色 -->
     <color name="dim_grey">#333333</color> <!--暗灰色 -->

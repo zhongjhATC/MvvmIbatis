@@ -250,4 +250,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         mBinding.viewPager2.visibility = View.VISIBLE
     }
 
+    override fun initImmersionBar() {
+
+    }
+
 }
