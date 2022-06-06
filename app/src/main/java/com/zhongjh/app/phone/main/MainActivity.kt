@@ -83,7 +83,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mBinding.viewPager2.offscreenPageLimit = 5
     }
 
-
-
-
 }

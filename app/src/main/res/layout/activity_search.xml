@@ -18,7 +18,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/vTop"
+            android:id="@+id/vSearchTop"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/white"
@@ -32,9 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
-            app:layout_constraintBottom_toBottomOf="@+id/vTop"
-            app:layout_constraintStart_toStartOf="@+id/vTop"
-            app:layout_constraintTop_toTopOf="@+id/vTop"
+            app:layout_constraintBottom_toBottomOf="@+id/vSearchTop"
+            app:layout_constraintStart_toStartOf="@+id/vSearchTop"
+            app:layout_constraintTop_toTopOf="@+id/vSearchTop"
             tools:ignore="ContentDescription" />
 
         <View
@@ -44,10 +44,10 @@
             android:layout_margin="4dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/bg_search_aurora_gray_corner_2"
-            app:layout_constraintBottom_toBottomOf="@+id/vTop"
+            app:layout_constraintBottom_toBottomOf="@+id/vSearchTop"
             app:layout_constraintEnd_toStartOf="@+id/tvSearch"
             app:layout_constraintStart_toEndOf="@+id/imgBack"
-            app:layout_constraintTop_toTopOf="@+id/vTop" />
+            app:layout_constraintTop_toTopOf="@+id/vSearchTop" />
 
         <ImageView
             android:id="@+id/imgSearch"
@@ -88,15 +88,15 @@
             android:text="@string/search"
             android:textColor="@color/green"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/vTop"
-            app:layout_constraintEnd_toEndOf="@+id/vTop"
-            app:layout_constraintTop_toTopOf="@+id/vTop" />
+            app:layout_constraintBottom_toBottomOf="@+id/vSearchTop"
+            app:layout_constraintEnd_toEndOf="@+id/vSearchTop"
+            app:layout_constraintTop_toTopOf="@+id/vSearchTop" />
 
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/magicIndicator"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            app:layout_constraintTop_toBottomOf="@+id/vTop" />
+            app:layout_constraintTop_toBottomOf="@+id/vSearchTop" />
 
         <View
             android:id="@+id/vLineRlContentHorizontal"

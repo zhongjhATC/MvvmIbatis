@@ -86,7 +86,10 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
 
     override fun onResume() {
         super.onResume()
-        ImmersionBar.with(this).init()
+        ImmersionBar
+            .with(this)
+            .titleBar(mBinding.vTop)
+            .init()
     }
 
     override fun initObserver() {
