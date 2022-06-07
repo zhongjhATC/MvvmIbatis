@@ -7,6 +7,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="light_black">#0A0A0A</color>
+
 
     <color name="grey">#808080</color> <!--灰色 -->
     <color name="off_white">#F7F7F7</color> <!-- 灰白色 -->

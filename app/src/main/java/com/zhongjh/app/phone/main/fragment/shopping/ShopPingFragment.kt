@@ -88,7 +88,11 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         super.onResume()
         ImmersionBar
             .with(this)
-            .titleBar(mBinding.vTop)
+            .titleBarMarginTop(mBinding.vTop)
+            .statusBarColorTransformEnable(false)
+            .navigationBarColor(com.zhongjh.mvvmibatis.R.color.white)
+            .statusBarDarkFont(true)
+            .navigationBarDarkIcon(true)
             .init()
     }
 
