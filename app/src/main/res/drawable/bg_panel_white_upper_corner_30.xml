@@ -1,3 +1,4 @@
+<!-- 这是一个圆角为30、填充是白色颜色的边框 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 矩形的圆角弧度 -->

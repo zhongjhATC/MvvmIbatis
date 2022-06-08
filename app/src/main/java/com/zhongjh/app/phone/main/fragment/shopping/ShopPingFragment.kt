@@ -1,11 +1,11 @@
 package com.zhongjh.app.phone.main.fragment.shopping
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ImmersionBar
@@ -17,7 +17,6 @@ import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
 import com.zhongjh.app.entity.ShopHome
 import com.zhongjh.app.extend.showError
-import com.zhongjh.app.extend.showLoading
 import com.zhongjh.app.extend.showSuccess
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingBannerAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingHorizontalAdapter
@@ -30,9 +29,8 @@ import com.zhongjh.mvvmibatis.extend.*
 import com.zhongjh.mvvmibatis.model.State
 import com.zhongjh.mvvmibatis.utils.ToastUtils
 import com.zy.multistatepage.MultiStatePage
-import com.zy.multistatepage.bindMultiState
-import com.zy.multistatepage.state.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * 一个商城的Fragment
@@ -87,7 +85,7 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
     override fun onResume() {
         super.onResume()
         ImmersionBar
-            .with(this)
+            .with(this@ShopPingFragment)
             .titleBarMarginTop(mBinding.vTop)
             .statusBarColorTransformEnable(false)
             .navigationBarColor(com.zhongjh.mvvmibatis.R.color.white)

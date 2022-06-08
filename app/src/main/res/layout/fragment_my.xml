@@ -7,17 +7,19 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        app:srlAccentColor="@color/white"
         app:srlEnableLoadMore="false"
         app:srlEnableOverScrollBounce="true"
         app:srlEnableOverScrollDrag="true"
         app:srlEnableRefresh="true"
+        app:srlPrimaryColor="@color/light_black"
         tools:context="com.zhongjh.app.phone.main.fragment.my.MyFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/grey">
+            android:background="@color/light_black">
 
             <ImageView
                 android:id="@+id/imgPanel"
@@ -44,10 +46,165 @@
 
             <ImageView
                 android:id="@+id/imgPhoto"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgShop" />
+                app:layout_constraintTop_toBottomOf="@+id/imgShop"
+                tools:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/imgPhoto"
+                app:layout_constraintTop_toTopOf="@+id/imgPhoto"
+                tools:text="名称" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPanel" />
+
+            <TextView
+                android:id="@+id/tvIssueValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvIssueTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPhoto"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvIssueTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布"
+                android:textColor="@color/off_white"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPhoto"
+                tools:ignore="HardcodedText" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_panel_gray_upper_elevation_corner_30"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPanel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPanel">
+
+                <ImageView
+                    android:id="@+id/imgPanelMenu1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_round_alarm_24"
+                    app:layout_constraintEnd_toStartOf="@+id/imgPanelMenu2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgPanelMenu2"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_round_alarm_24"
+                    app:layout_constraintEnd_toStartOf="@+id/imgPanelMenu3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imgPanelMenu1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgPanelMenu3"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_round_alarm_24"
+                    app:layout_constraintEnd_toStartOf="@+id/imgPanelMenu4"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imgPanelMenu2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgPanelMenu4"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_round_alarm_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imgPanelMenu3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPanelMenu1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="在线送拍"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imgPanelMenu1"
+                    app:layout_constraintStart_toStartOf="@+id/imgPanelMenu1"
+                    app:layout_constraintTop_toBottomOf="@+id/imgPanelMenu1"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tvPanelMenu2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="会员中心"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imgPanelMenu2"
+                    app:layout_constraintStart_toStartOf="@+id/imgPanelMenu2"
+                    app:layout_constraintTop_toBottomOf="@+id/imgPanelMenu2"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tvPanelMenu3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="抽奖中心"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imgPanelMenu3"
+                    app:layout_constraintStart_toStartOf="@+id/imgPanelMenu3"
+                    app:layout_constraintTop_toBottomOf="@+id/imgPanelMenu3"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tvPanelMenu4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="邀请好友"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imgPanelMenu4"
+                    app:layout_constraintStart_toStartOf="@+id/imgPanelMenu4"
+                    app:layout_constraintTop_toBottomOf="@+id/imgPanelMenu4"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

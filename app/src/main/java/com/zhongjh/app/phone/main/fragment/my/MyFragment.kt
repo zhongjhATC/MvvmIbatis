@@ -1,11 +1,11 @@
 package com.zhongjh.app.phone.main.fragment.my
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.FragmentMyBinding
 import com.zhongjh.app.phone.MyApplication
@@ -27,7 +27,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
     override fun initialize() {
         Glide.with(MyApplication.instance)
-            .load("https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAY9gvH.img?h=373&w=624&m=6&q=60&o=f&l=f")
+            .load("https://gitee.com/zhongjh/MvvmIbatis/raw/master/server/images/11.jpg")
             .apply(
                 RequestOptions().error(
                     ResourcesCompat.getDrawable(
@@ -48,6 +48,17 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
     }
 
     override fun initObserver() {
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ImmersionBar
+            .with(this)
+            .titleBar(mBinding.clMain)
+            .statusBarColorTransformEnable(false)
+            .navigationBarColor(com.zhongjh.mvvmibatis.R.color.white)
+            .navigationBarDarkIcon(true)
+            .init()
     }
 
 

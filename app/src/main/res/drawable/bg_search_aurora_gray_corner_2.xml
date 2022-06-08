@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 这是一个圆角为2、填充是极光灰颜色的边框 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 中心背景 -->

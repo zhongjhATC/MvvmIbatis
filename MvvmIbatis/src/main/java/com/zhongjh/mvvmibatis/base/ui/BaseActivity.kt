@@ -86,7 +86,12 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
      */
     protected open fun initImmersionBar() {
         // 设置共同沉浸式样式
-        ImmersionBar.with(this).navigationBarColor(R.color.transparent).init()
+        ImmersionBar
+            .with(this)
+            .navigationBarColor(R.color.transparent)
+            .statusBarDarkFont(true)
+            .navigationBarDarkIcon(true)
+            .init()
     }
 
     /**
