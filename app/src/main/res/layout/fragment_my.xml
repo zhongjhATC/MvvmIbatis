@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 该布局的设计还是有点失败，主要是没有UI图片的百分比参考，
+应该先做顶部的素材后，再做黑色面板，这样黑色面板的高度就能根据顶部的面板增大而增大 -->
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -7,6 +11,7 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         app:srlAccentColor="@color/white"
         app:srlEnableLoadMore="false"
         app:srlEnableOverScrollBounce="true"
@@ -26,10 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@color/light_black"
-                app:layout_constraintDimensionRatio="w,1:2"
+                app:layout_constraintDimensionRatio="w,4:7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/imgShop"
@@ -52,6 +59,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgShop"
+                tools:ignore="ContentDescription"
                 tools:src="@mipmap/ic_launcher_round" />
 
             <TextView
@@ -74,32 +82,130 @@
 
             <TextView
                 android:id="@+id/tvIssueValue"
-                android:layout_width="wrap_content"
+                android:layout_width="36dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvIssueTitle"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvCollectValue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/imgPhoto"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintVertical_chainStyle="packed"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tvIssueTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="36dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
                 android:text="发布"
-                android:textColor="@color/off_white"
+                android:textColor="@color/grey"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgPhoto"
+                app:layout_constraintEnd_toEndOf="@+id/tvIssueValue"
+                app:layout_constraintStart_toStartOf="@+id/tvIssueValue"
+                app:layout_constraintTop_toBottomOf="@+id/tvIssueValue"
+                app:layout_constraintVertical_bias="0.5"
                 tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvCollectValue"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssueValue"
+                app:layout_constraintEnd_toStartOf="@+id/tvBrowseValue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvIssueValue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssueValue"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvCollectTitle"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssueTitle"
+                app:layout_constraintEnd_toEndOf="@+id/tvCollectValue"
+                app:layout_constraintStart_toStartOf="@+id/tvCollectValue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssueTitle"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvBrowseValue"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssueValue"
+                app:layout_constraintEnd_toStartOf="@+id/tvCellarValue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvCollectValue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssueValue"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvBrowseTitle"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="浏览"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssueTitle"
+                app:layout_constraintEnd_toEndOf="@+id/tvBrowseValue"
+                app:layout_constraintStart_toStartOf="@+id/tvBrowseValue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssueTitle"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvCellarValue"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssueValue"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvBrowseValue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssueValue"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvCellarTitle"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="酒窖"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssueTitle"
+                app:layout_constraintEnd_toEndOf="@+id/tvCellarValue"
+                app:layout_constraintStart_toStartOf="@+id/tvCellarValue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssueTitle"
+                tools:ignore="HardcodedText" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@drawable/bg_panel_gray_upper_elevation_corner_30"
                 app:layout_constraintBottom_toBottomOf="@+id/imgPanel"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,14 +215,15 @@
                     android:id="@+id/imgPanelMenu1"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:src="@drawable/ic_round_alarm_24"
                     app:layout_constraintEnd_toStartOf="@+id/imgPanelMenu2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/imgPanelMenu2"
@@ -127,7 +234,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/imgPanelMenu3"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imgPanelMenu1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/imgPanelMenu3"
@@ -138,19 +246,21 @@
                     app:layout_constraintEnd_toStartOf="@+id/imgPanelMenu4"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imgPanelMenu2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/imgPanelMenu4"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="24dp"
                     android:src="@drawable/ic_round_alarm_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/imgPanelMenu3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tvPanelMenu1"
@@ -205,6 +315,248 @@
                     tools:ignore="HardcodedText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvShopTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="商城订单"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/imgShopMenu1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintEnd_toStartOf="@+id/imgShopMenu2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tvShopTitle"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgShopMenu2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imgShopMenu1"
+                app:layout_constraintEnd_toStartOf="@+id/imgShopMenu3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgShopMenu1"
+                app:layout_constraintTop_toTopOf="@+id/imgShopMenu1"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgShopMenu3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imgShopMenu1"
+                app:layout_constraintEnd_toStartOf="@+id/imgShopMenu4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgShopMenu2"
+                app:layout_constraintTop_toTopOf="@+id/imgShopMenu1"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgShopMenu4"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="28dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imgShopMenu1"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgShopMenu3"
+                app:layout_constraintTop_toTopOf="@+id/imgShopMenu1"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvShopMenu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="待付款"
+                app:layout_constraintEnd_toEndOf="@+id/imgShopMenu1"
+                app:layout_constraintStart_toStartOf="@+id/imgShopMenu1"
+                app:layout_constraintTop_toBottomOf="@+id/imgShopMenu1"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvShopMenu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="待发货"
+                app:layout_constraintEnd_toEndOf="@+id/imgShopMenu2"
+                app:layout_constraintStart_toStartOf="@+id/imgShopMenu2"
+                app:layout_constraintTop_toBottomOf="@+id/imgShopMenu2"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvShopMenu3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="待收货"
+                app:layout_constraintEnd_toEndOf="@+id/imgShopMenu3"
+                app:layout_constraintStart_toStartOf="@+id/imgShopMenu3"
+                app:layout_constraintTop_toBottomOf="@+id/imgShopMenu3"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvShopMenu4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="退货/退款"
+                app:layout_constraintEnd_toEndOf="@+id/imgShopMenu4"
+                app:layout_constraintStart_toStartOf="@+id/imgShopMenu4"
+                app:layout_constraintTop_toBottomOf="@+id/imgShopMenu4"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/vLineShop"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShopMenu1" />
+
+            <TextView
+                android:id="@+id/tvAuctionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="拍卖订单"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/vLineShop"
+                app:layout_constraintTop_toBottomOf="@+id/vLineShop"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/imgAuctionMenu1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintEnd_toStartOf="@+id/imgAuctionMenu2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tvAuctionTitle"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgAuctionMenu2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAuctionMenu1"
+                app:layout_constraintEnd_toStartOf="@+id/imgAuctionMenu3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgAuctionMenu1"
+                app:layout_constraintTop_toTopOf="@+id/imgAuctionMenu1"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgAuctionMenu3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAuctionMenu1"
+                app:layout_constraintEnd_toStartOf="@+id/imgAuctionMenu4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgAuctionMenu2"
+                app:layout_constraintTop_toTopOf="@+id/imgAuctionMenu1"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgAuctionMenu4"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="28dp"
+                android:src="@drawable/ic_round_alarm_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAuctionMenu1"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgAuctionMenu3"
+                app:layout_constraintTop_toTopOf="@+id/imgAuctionMenu1"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvAuctionMenu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="待付款"
+                app:layout_constraintEnd_toEndOf="@+id/imgAuctionMenu1"
+                app:layout_constraintStart_toStartOf="@+id/imgAuctionMenu1"
+                app:layout_constraintTop_toBottomOf="@+id/imgAuctionMenu1"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvAuctionMenu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="待发货"
+                app:layout_constraintEnd_toEndOf="@+id/imgAuctionMenu2"
+                app:layout_constraintStart_toStartOf="@+id/imgAuctionMenu2"
+                app:layout_constraintTop_toBottomOf="@+id/imgAuctionMenu2"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvAuctionMenu3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="待收货"
+                app:layout_constraintEnd_toEndOf="@+id/imgAuctionMenu3"
+                app:layout_constraintStart_toStartOf="@+id/imgAuctionMenu3"
+                app:layout_constraintTop_toBottomOf="@+id/imgAuctionMenu3"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvAuctionMenu4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="退货/退款"
+                app:layout_constraintEnd_toEndOf="@+id/imgAuctionMenu4"
+                app:layout_constraintStart_toStartOf="@+id/imgAuctionMenu4"
+                app:layout_constraintTop_toBottomOf="@+id/imgAuctionMenu4"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/vLineRlContentHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAuctionMenu1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
