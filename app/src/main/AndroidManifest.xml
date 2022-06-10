@@ -11,14 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreen">
         <activity
-            android:name=".phone.LoadActivity"
+            android:name=".phone.load.LoadActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <activity android:name=".phone.splash.SplashActivity" /> -->
+        </activity>
+
+        <activity
+            android:name=".phone.splash.AdvertisingActivity"
+            android:theme="@style/Theme.MvvmDemo" />
         <activity
             android:name=".phone.privacypolicy.PrivacyPolicyActivity"
             android:theme="@style/Theme.MvvmDemo" />

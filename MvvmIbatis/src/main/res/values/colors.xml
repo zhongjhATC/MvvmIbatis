@@ -7,5 +7,7 @@
     <!-- 默认细线分割线 - 浅颜色 -->
     <color name="bg_line">#F7F7F7</color>
     <!-- 默认细线分割线 - 中颜色 -->
+    <color name="bg_light_line">#50808080</color>
+    <!-- 默认细线分割线 - 较深颜色 -->
     <color name="bg_eclectic_line">#808080</color>
 </resources>

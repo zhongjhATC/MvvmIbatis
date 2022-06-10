@@ -1,8 +1,5 @@
 package com.zhongjh.app.constant
 
-import android.content.Context
-import java.io.File
-
 /**
  * 文件名称
  *
@@ -26,15 +23,5 @@ import java.io.File
  * @date 2021/5/13
  */
 object FilePaths {
-
-    /**
-     * 开屏界面的广告图
-     *
-     * @param context 上下文
-     * @return 文件路径
-     */
-    fun splashAdvertisingFile(context: Context): File? {
-        return context.getExternalFilesDir(File.separator + "advertisingImage" + File.separator + "Advertising")
-    }
 
 }

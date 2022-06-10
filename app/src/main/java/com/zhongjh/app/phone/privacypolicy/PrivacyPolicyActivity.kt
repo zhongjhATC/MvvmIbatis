@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
+import androidx.activity.viewModels
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.lifecycleScope
 import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityPrivacyPolicyBinding
-import com.zhongjh.app.phone.main.MainActivity
+import com.zhongjh.app.phone.splash.AdvertisingActivity
 import com.zhongjh.mvvmibatis.base.BaseApplication
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.extend.onClick
+import com.zhongjh.mvvmibatis.model.State
 import com.zhongjh.mvvmibatis.utils.LinkUrlText
+import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
@@ -21,8 +26,12 @@ import com.zhongjh.mvvmibatis.utils.LinkUrlText
  * @author zhongjh
  * @date 2022/5/5
  */
+@AndroidEntryPoint
 class PrivacyPolicyActivity :
     BaseActivity<ActivityPrivacyPolicyBinding>(R.layout.activity_privacy_policy) {
+
+    @get:VisibleForTesting
+    internal val viewModel: PrivacyPolicyModel by viewModels()
 
     override fun initParam(savedInstanceState: Bundle?) {
     }
@@ -32,15 +41,26 @@ class PrivacyPolicyActivity :
     }
 
     override fun initObserver() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiAgreement.collect {
+                when (it) {
+                    is State.Error,
+                    is State.Success -> {
+                        val intent = Intent(this@PrivacyPolicyActivity, AdvertisingActivity::class.java)
+                        startActivity(intent)
+                        BaseApplication.instance.init()
+                        this@PrivacyPolicyActivity.finish()
+                    }
+                    else -> {}
+                }
 
+            }
+        }
     }
 
     override fun initListener() {
         mBinding.btnAgree.onClick {
-            val intent = Intent(this@PrivacyPolicyActivity, MainActivity::class.java)
-            startActivity(intent)
-            BaseApplication.instance.init()
-            this@PrivacyPolicyActivity.finish()
+            viewModel.agreement()
         }
 
         mBinding.btnDisagree.onClick {
