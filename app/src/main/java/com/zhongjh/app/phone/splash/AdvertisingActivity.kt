@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityAdvertisingBinding
 import com.zhongjh.app.phone.main.MainActivity
@@ -20,7 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * @date 2022/5/5
  */
 @AndroidEntryPoint
-class AdvertisingActivity : BaseActivity<ActivityAdvertisingBinding>(R.layout.activity_advertising) {
+class AdvertisingActivity :
+    BaseActivity<ActivityAdvertisingBinding>(R.layout.activity_advertising) {
 
     @get:VisibleForTesting
     internal val viewModel: AdvertisingModel by viewModels()
@@ -40,6 +42,10 @@ class AdvertisingActivity : BaseActivity<ActivityAdvertisingBinding>(R.layout.ac
     }
 
     override fun initImmersionBar() {
+        ImmersionBar.with(this)
+            .titleBar(mBinding.vTop, false)
+            .transparentBar()
+            .init()
     }
 
     /**
@@ -82,8 +88,8 @@ class AdvertisingActivity : BaseActivity<ActivityAdvertisingBinding>(R.layout.ac
      */
     private fun showAdvertising() {
         Glide.with(this)
-            .load("https://gitee.com/zhongjh/MvvmIbatis/raw/master/server/images/5.jpg")
-            .placeholder(R.drawable.bg_splash)
+            .load("https://gitee.com/zhongjh/MvvmIbatis/raw/master/server/images/splash.png")
+            .placeholder(R.drawable.ic_launcher)
             .into(mBinding.imgSplash)
     }
 

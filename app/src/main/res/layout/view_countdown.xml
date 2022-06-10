@@ -15,7 +15,7 @@
             android:background="@drawable/bg_countdown"
             android:src="@drawable/bg_countdown_circle"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vTop"
             tools:ignore="ContentDescription" />
 
         <TextView
