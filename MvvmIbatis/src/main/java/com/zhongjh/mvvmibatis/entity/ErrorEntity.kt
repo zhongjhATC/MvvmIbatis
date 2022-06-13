@@ -1,4 +1,4 @@
-package com.zhongjh.mvvmibatis.model
+package com.zhongjh.mvvmibatis.entity
 
 /**
  * 这是一个包含错误信息的实体，用于接口封装

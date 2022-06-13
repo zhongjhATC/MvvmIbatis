@@ -14,9 +14,11 @@ import com.zhongjh.app.phone.main.MainActivity
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.utils.FlowUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 
 /**
  * 这是一个倒计时的Activity,一般用于提供广告
+ * https://dev.to/aniketsmk/kotlin-flow-implementing-an-android-timer-ieo
  * @author zhongjh
  * @date 2022/5/5
  */
@@ -27,10 +29,15 @@ class AdvertisingActivity :
     @get:VisibleForTesting
     internal val viewModel: AdvertisingModel by viewModels()
 
+    private var mCountdownJob: Job? = null
+
     override fun initParam(savedInstanceState: Bundle?) {
     }
 
     override fun initListener() {
+        mBinding.viewCountdown.ivCountdown.setOnClickListener {
+            completeCountdown()
+        }
     }
 
     override fun initialize() {
@@ -48,11 +55,16 @@ class AdvertisingActivity :
             .init()
     }
 
+    override fun onDestroy() {
+        mCountdownJob?.cancel()
+        super.onDestroy()
+    }
+
     /**
      * 开始了倒计时
      */
     private fun countDownCoroutines() {
-        FlowUtil.countDownCoroutines(
+        mCountdownJob = FlowUtil.countDownCoroutines(
             5, lifecycleScope,
             onTick = {
                 showCountdownSeconds(it)
@@ -71,7 +83,7 @@ class AdvertisingActivity :
      */
     private fun showCountdownSeconds(second: Int) {
         mBinding.viewCountdown.tvCountdownTime.visibility = View.VISIBLE
-        mBinding.viewCountdown.tvCountdownTime.text = (5 - second).toString()
+        mBinding.viewCountdown.tvCountdownTime.text = second.toString()
     }
 
     /**

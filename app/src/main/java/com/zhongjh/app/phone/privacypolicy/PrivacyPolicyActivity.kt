@@ -16,7 +16,7 @@ import com.zhongjh.app.phone.splash.AdvertisingActivity
 import com.zhongjh.mvvmibatis.base.BaseApplication
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.extend.onClick
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.utils.LinkUrlText
 import dagger.hilt.android.AndroidEntryPoint
 

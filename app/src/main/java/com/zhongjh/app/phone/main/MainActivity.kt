@@ -1,17 +1,17 @@
 package com.zhongjh.app.phone.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.gyf.immersionbar.ImmersionBar
-import com.gyf.immersionbar.NavigationBarType
-import com.gyf.immersionbar.OnNavigationBarListener
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityMainBinding
 import com.zhongjh.app.phone.main.viewpager.ViewPagerFragmentStateAdapter
+import com.zhongjh.app.service.KeepAliveService
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.utils.StatusBarUtil
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  *
@@ -33,8 +33,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun initListener() {
+
         // 当ViewPager切换页面时，改变底部导航栏的状态
-        mBinding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        mBinding.viewPager2.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 mBinding.bottomNavigationView.menu.getItem(position).isChecked = true
@@ -65,6 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun initialize() {
+        startService(Intent(this, KeepAliveService::class.java))
         StatusBarUtil.initStatusBarHeight(mBinding.viewPager2)
         initViewPager()
     }

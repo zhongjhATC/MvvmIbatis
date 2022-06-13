@@ -2,7 +2,6 @@ package com.zhongjh.app.phone.search.yuanshen
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,13 +11,10 @@ import com.zhongjh.app.R
 import com.zhongjh.app.databinding.FragmentYuanshenBinding
 import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
-import com.zhongjh.app.phone.main.fragment.shopping.ShopViewModel
 import com.zhongjh.app.phone.search.yuanshen.adapter.YuanShenVerticalAdapter
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
-import com.zhongjh.mvvmibatis.model.State
-import com.zy.multistatepage.MultiStatePage
-import com.zy.multistatepage.bindMultiState
+import com.zhongjh.mvvmibatis.entity.State
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

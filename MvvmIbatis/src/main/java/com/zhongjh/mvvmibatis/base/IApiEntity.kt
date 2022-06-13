@@ -1,6 +1,6 @@
 package com.zhongjh.mvvmibatis.base
 
-import com.zhongjh.mvvmibatis.model.ErrorEntity
+import com.zhongjh.mvvmibatis.entity.ErrorEntity
 
 /**
  *

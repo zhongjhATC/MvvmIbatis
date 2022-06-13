@@ -1,7 +1,7 @@
 package com.zhongjh.mvvmibatis.extend
 
 import com.zhongjh.mvvmibatis.base.IApiEntity
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import kotlinx.coroutines.flow.*
 
 /**

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.afollestad.materialdialogs.MaterialDialog
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -26,7 +25,7 @@ import com.zhongjh.app.phone.search.adapter.SearchNavigatorAdapter
 import com.zhongjh.app.phone.search.adapter.SearchViewPagerAdapter
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.extend.onClick
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import dagger.hilt.android.AndroidEntryPoint
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator

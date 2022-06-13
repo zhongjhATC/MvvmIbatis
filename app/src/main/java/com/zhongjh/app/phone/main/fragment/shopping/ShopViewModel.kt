@@ -1,5 +1,6 @@
 package com.zhongjh.app.phone.main.fragment.shopping
 
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.BannerApi
@@ -9,7 +10,8 @@ import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
 import com.zhongjh.app.entity.ShopHome
 import com.zhongjh.mvvmibatis.extend.launchApiFlow
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
+import com.zhongjh.mvvmibatis.utils.ToastUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -32,7 +32,7 @@ object FlowUtil {
         onFinish: (() -> Unit)? = null,
     ): Job {
         return flow {
-            for (i in total downTo 0) {
+            for (i in total downTo 1) {
                 emit(i)
                 delay(1000)
             }

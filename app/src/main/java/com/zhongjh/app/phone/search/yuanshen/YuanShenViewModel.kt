@@ -2,13 +2,11 @@ package com.zhongjh.app.phone.search.yuanshen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zhongjh.app.data.db.business.SearchContentBusiness
-import com.zhongjh.app.data.http.service.BannerApi
 import com.zhongjh.app.data.http.service.ProductApi
 import com.zhongjh.app.entity.PageEntity
 import com.zhongjh.app.entity.Product
 import com.zhongjh.mvvmibatis.extend.launchApiFlow
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

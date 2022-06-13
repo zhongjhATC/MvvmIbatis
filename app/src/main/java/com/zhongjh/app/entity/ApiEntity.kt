@@ -1,7 +1,7 @@
 package com.zhongjh.app.entity
 
 import com.zhongjh.mvvmibatis.base.IApiEntity
-import com.zhongjh.mvvmibatis.model.ErrorEntity
+import com.zhongjh.mvvmibatis.entity.ErrorEntity
 
 /**
  *

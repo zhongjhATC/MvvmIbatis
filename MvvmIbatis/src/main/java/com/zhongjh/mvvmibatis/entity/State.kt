@@ -1,4 +1,4 @@
-package com.zhongjh.mvvmibatis.model
+package com.zhongjh.mvvmibatis.entity
 
 /**
  * 每次读取网络后会根据情况封装出以下类，根据不同情况返回

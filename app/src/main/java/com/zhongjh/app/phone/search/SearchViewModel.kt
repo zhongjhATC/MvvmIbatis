@@ -3,11 +3,9 @@ package com.zhongjh.app.phone.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.db.business.SearchContentBusiness
-import com.zhongjh.app.data.http.service.BannerApi
-import com.zhongjh.app.entity.ShopHome
 import com.zhongjh.app.entity.db.SearchContent
 import com.zhongjh.mvvmibatis.extend.launchFlow
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

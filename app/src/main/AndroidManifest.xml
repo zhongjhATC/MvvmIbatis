@@ -32,6 +32,8 @@
         <activity
             android:name=".phone.search.SearchActivity"
             android:theme="@style/Theme.MvvmDemo" />
+        <!-- 用于捕获app完全退出时，告知服务器该App退出 -->
+        <service android:name=".service.KeepAliveService" />
     </application>
 
 </manifest>

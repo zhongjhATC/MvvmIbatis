@@ -3,7 +3,6 @@ package com.zhongjh.app.phone.splash
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.mvvmibatis.base.viewmodel.BaseViewModel
-import com.zhongjh.mvvmibatis.model.State
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

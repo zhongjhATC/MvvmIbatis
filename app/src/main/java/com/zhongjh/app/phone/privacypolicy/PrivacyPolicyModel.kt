@@ -3,16 +3,12 @@ package com.zhongjh.app.phone.privacypolicy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.local.MMKVLocal
-import com.zhongjh.app.entity.ShopHome
-import com.zhongjh.mvvmibatis.extend.launchApiFlow
 import com.zhongjh.mvvmibatis.extend.launchFlow
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.utils.SPCacheUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -1,6 +1,5 @@
 package com.zhongjh.app.phone.main.fragment.shopping
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
@@ -25,8 +24,7 @@ import com.zhongjh.app.phone.search.SearchActivity
 import com.zhongjh.app.state.LottieWaitingState
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
-import com.zhongjh.mvvmibatis.extend.*
-import com.zhongjh.mvvmibatis.model.State
+import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.utils.ToastUtils
 import com.zy.multistatepage.MultiStatePage
 import dagger.hilt.android.AndroidEntryPoint
