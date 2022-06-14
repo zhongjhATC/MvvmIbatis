@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "全部"
+    },
+    {
+      "id": 2,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "按价格买酒"
+    },
+    {
+      "id": 3,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "热门推荐"
+    },
+    {
+      "id": 4,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "斯佩赛"
+    },
+    {
+      "id": 5,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "艾雷到"
+    },
+    {
+      "id": 6,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "高地"
+    },
+    {
+      "id": 7,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "低地"
+    },
+    {
+      "id": 8,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "英格兰"
+    },
+    {
+      "id": 9,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "日本"
+    },
+    {
+      "id": 10,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "中国"
+    },
+    {
+      "id": 11,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "瑞典"
+    },
+    {
+      "id": 12,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "美国"
+    },
+    {
+      "id": 13,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "其他"
+    },
+    {
+      "id": 15,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "其他酒类"
+    },
+    {
+      "id": 16,
+      "imagePath": "https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png",
+      "title": "周边"
+    }
+  ],
+  "errorCode": 0,
+  "errorMsg": ""
+}

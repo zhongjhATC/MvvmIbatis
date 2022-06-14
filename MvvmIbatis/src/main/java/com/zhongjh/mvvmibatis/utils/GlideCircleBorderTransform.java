@@ -24,13 +24,11 @@ import java.security.MessageDigest;
 public class GlideCircleBorderTransform extends BitmapTransformation {
 
     private final String ID = getClass().getName();
-    private Paint mBorderPaint;
-    private float borderWidth;
-    private int borderColor;
+    private final Paint mBorderPaint;
+    private final float borderWidth;
 
     public GlideCircleBorderTransform(float borderWidth, int borderColor) {
         this.borderWidth = borderWidth;
-        this.borderColor = borderColor;
         mBorderPaint = new Paint();
         mBorderPaint.setColor(borderColor);
         mBorderPaint.setStyle(Paint.Style.STROKE);

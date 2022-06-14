@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Flow
 
 /**
+ * https://blog.csdn.net/qq_39157025/article/details/120825851
  * 用于捕获Android退出
  * @author zhongjh
  * @date 2022/6/13

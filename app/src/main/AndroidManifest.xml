@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".phone.splash.AdvertisingActivity"
+            android:name=".phone.advertising.AdvertisingActivity"
             android:theme="@style/Theme.MvvmDemo" />
         <activity
             android:name=".phone.privacypolicy.PrivacyPolicyActivity"
@@ -33,7 +33,7 @@
             android:name=".phone.search.SearchActivity"
             android:theme="@style/Theme.MvvmDemo" />
         <!-- 用于捕获app完全退出时，告知服务器该App退出 -->
-        <service android:name=".service.KeepAliveService" />
+        <service android:name=".service.KeepAliveService" android:process=":keepAlive" />
     </application>
 
 </manifest>

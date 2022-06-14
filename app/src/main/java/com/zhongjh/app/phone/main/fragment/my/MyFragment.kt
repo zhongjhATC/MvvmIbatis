@@ -26,20 +26,30 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
     }
 
     override fun initialize() {
+        // 圆形头像
+        val options = RequestOptions()
+            .error(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.placeholder_res,
+                    MyApplication.instance.theme
+                )
+            )
+            .placeholder(R.mipmap.ic_launcher)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .transform(GlideCircleBorderTransform(4F,
+                ResourcesCompat.getColor(
+                    MyApplication.instance.resources,
+                    com.zhongjh.mvvmibatis.R.color.white,
+                    MyApplication.instance.theme
+                )
+            ))
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+
         Glide.with(MyApplication.instance)
             .load("https://gitee.com/zhongjh/MvvmIbatis/raw/master/server/images/11.jpg")
-            .apply(
-                RequestOptions().error(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.placeholder_res,
-                        MyApplication.instance.theme
-                    )
-                )
-                    .placeholder(R.mipmap.ic_launcher).centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .transform(GlideCircleBorderTransform(3F, com.zhongjh.mvvmibatis.R.color.white))
-            )
+            .apply(options)
             .into(mBinding.imgPhoto)
     }
 
@@ -54,9 +64,10 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
         super.onResume()
         ImmersionBar
             .with(this)
-            .titleBar(mBinding.clMain)
+            .titleBar(mBinding.vTop)
             .statusBarColorTransformEnable(false)
             .navigationBarColor(com.zhongjh.mvvmibatis.R.color.white)
+            .statusBarDarkFont(true)
             .navigationBarDarkIcon(true)
             .init()
     }

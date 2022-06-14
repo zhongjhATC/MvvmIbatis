@@ -185,14 +185,14 @@
 
 #------------------------------------------ 项目混淆规则 ----------------------------------------------
 # >>>>>>>>>>>>>>>----------实体类---------->>>>>>>>>>>>>>>
-#列子
 -keep class com.zhongjh.mvvmibatis.entity.** { *; }
 -dontwarn com.zhongjh.mvvmibatis.entity.**
+-keep class com.zhongjh.app.entity.** { *; }
+-dontwarn com.zhongjh.app.entity.**
+# >>>>>>>>>>>>>>>----------greendao---------->>>>>>>>>>>>>>>
+-keep class com.zhongjh.app.data.db.**{*;}
 
 #native方法
-
-# <<<<<<<<<<<<<<<----------实体类----------<<<<<<<<<<<<<<<
-
 
 # >>>>>>>>>>>>>>>----------与js互相调用的类---------->>>>>>>>>>>>>>>
 
@@ -203,7 +203,58 @@
 
 # <<<<<<<<<<<<<<<----------反射相关的类和方法----------<<<<<<<<<<<<<<<
 
+#------------------------------------------ 网络库 ----------------------------------------------
 
+#okhttp
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn com.squareup.okhttp.**
+-dontwarn okhttp3.**
+-dontwarn okio.**
 
+#retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
 
+#------------------------------------------ 第三方库 ----------------------------------------------
+#com.tencent.mmkv
+-keep class com.tencent.mmkv.** { *; }
+-dontwarn com.tencent.mmkv.**
+
+#gson
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+-keep class com.sunloto.shandong.bean.** { *; }
+
+#glide
+-keep public class * implements com.bumptech.glide.module.AppGlideModule
+-keep public class * implements com.bumptech.glide.module.LibraryGlideModule
+-keep class com.bumptech.glide.** { *; }
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+
+#glide-transformations
+-keep class jp.wasabeef.glide.transformations.** {*;}
+-dontwarn jp.wasabeef.glide.transformations.**
+
+#greendao
+-keep class org.greenrobot.greendao.**{*;}
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao{
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+# If you do not use SQLCipher:
+-dontwarn org.greenrobot.greendao.database.**
+# If you do not use RxJava:
+-dontwarn rx.**
 

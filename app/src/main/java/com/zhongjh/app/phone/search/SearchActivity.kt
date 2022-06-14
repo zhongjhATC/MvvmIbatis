@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivitySearchBinding
 import com.zhongjh.app.diffcallback.DiffSearchHistoryCallback
@@ -131,6 +132,17 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         }
     }
 
+    override fun initImmersionBar() {
+        ImmersionBar
+            .with(this)
+            .titleBarMarginTop(mBinding.vTop)
+            .statusBarColorTransformEnable(false)
+            .navigationBarColor(com.zhongjh.mvvmibatis.R.color.white)
+            .statusBarDarkFont(true)
+            .navigationBarDarkIcon(true)
+            .init()
+    }
+
     /**
      * 根据搜索文本进行搜索，传递给子Fragment进行处理搜索
      * @param searchContent 搜索文本
@@ -247,10 +259,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     private fun showDataListView() {
         mBinding.groupSearchHistory.visibility = View.GONE
         mBinding.viewPager2.visibility = View.VISIBLE
-    }
-
-    override fun initImmersionBar() {
-
     }
 
 }

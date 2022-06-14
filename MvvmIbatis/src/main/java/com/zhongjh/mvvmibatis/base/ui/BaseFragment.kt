@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
  * 初始化[mBinding],并且负责生命周期中的销毁
  *
  * 按照顺序拟定了代码规范可重写以下方法 [initParam]、[initListener]、[initialize]
+ * 1. 跟Activity差不多的初始化，但缺少 initImmersionBar 方法，因为Fragment只适合在onResume初始化ImmersionBar
  *
  * @author zhongjh
  * @date 2022/5/7

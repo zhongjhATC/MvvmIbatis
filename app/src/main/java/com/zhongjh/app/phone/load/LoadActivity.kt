@@ -7,7 +7,7 @@ import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.data.local.MMKVLocal
 import com.zhongjh.app.phone.privacypolicy.PrivacyPolicyActivity
-import com.zhongjh.app.phone.splash.AdvertisingActivity
+import com.zhongjh.app.phone.advertising.AdvertisingActivity
 import com.zhongjh.mvvmibatis.base.BaseApplication
 import com.zhongjh.mvvmibatis.utils.SPCacheUtil
 

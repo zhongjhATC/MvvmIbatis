@@ -32,14 +32,19 @@ object FlowUtil {
         onFinish: (() -> Unit)? = null,
     ): Job {
         return flow {
-            for (i in total downTo 1) {
+            for (i in total downTo 0) {
                 emit(i)
                 delay(1000)
             }
         }.flowOn(Dispatchers.Main)
             .onStart { onStart?.invoke() }
-            .onCompletion { onFinish?.invoke() }
-            .onEach { onTick.invoke(it) }
+            .onEach {
+                if (it == 0) {
+                    onFinish?.invoke()
+                } else {
+                    onTick.invoke(it)
+                }
+            }
             .launchIn(scope)
     }
 

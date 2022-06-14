@@ -33,7 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun initListener() {
-
         // 当ViewPager切换页面时，改变底部导航栏的状态
         mBinding.viewPager2.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {

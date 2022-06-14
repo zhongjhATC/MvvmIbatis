@@ -1,4 +1,4 @@
-package com.zhongjh.app.phone.splash
+package com.zhongjh.app.phone.advertising
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
@@ -17,7 +17,7 @@ class AdvertisingModel constructor(application: Application) : BaseViewModel(app
     /**
      * 同意协议
      */
-    private val _uiAgreement = MutableStateFlow<Boolean>(false)
+    private val _uiAgreement = MutableStateFlow(false)
     val uiAgreement: Flow<Boolean> = _uiAgreement
 
     fun startCountdown() {

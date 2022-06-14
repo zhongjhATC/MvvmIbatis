@@ -1,4 +1,4 @@
-package com.zhongjh.app.phone.splash
+package com.zhongjh.app.phone.advertising
 
 import android.content.Intent
 import android.os.Bundle
@@ -53,11 +53,6 @@ class AdvertisingActivity :
             .titleBar(mBinding.vTop, false)
             .transparentBar()
             .init()
-    }
-
-    override fun onDestroy() {
-        mCountdownJob?.cancel()
-        super.onDestroy()
     }
 
     /**
