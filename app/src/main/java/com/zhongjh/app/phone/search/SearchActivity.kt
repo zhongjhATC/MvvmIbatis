@@ -185,8 +185,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
                     return false
                 }
             }
-        mBinding.rlSearchHistory.layoutManager = manager
-        mBinding.rlSearchHistory.adapter = mSearchHistoryAdapter
+        mBinding.rvSearchHistory.layoutManager = manager
+        mBinding.rvSearchHistory.adapter = mSearchHistoryAdapter
         mSearchHistoryAdapter.setDiffCallback(DiffSearchHistoryCallback())
     }
 

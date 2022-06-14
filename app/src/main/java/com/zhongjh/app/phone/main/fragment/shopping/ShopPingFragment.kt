@@ -66,13 +66,13 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         // 初始化列表横向列表
         val ms = LinearLayoutManager(context)
         ms.orientation = LinearLayoutManager.HORIZONTAL
-        mBinding.rlContentHorizontal.layoutManager = ms
-        mBinding.rlContentHorizontal.adapter = mShopPingHorizontalAdapter
+        mBinding.rvContentHorizontal.layoutManager = ms
+        mBinding.rvContentHorizontal.adapter = mShopPingHorizontalAdapter
         mShopPingHorizontalAdapter.setDiffCallback(DiffProductCallback())
 
         // 初始化列表竖向列表
-        mBinding.rlContent.layoutManager = GridLayoutManager(context, 2)
-        mBinding.rlContent.adapter = mShopPingVerticalAdapter
+        mBinding.rvContent.layoutManager = GridLayoutManager(context, 2)
+        mBinding.rvContent.adapter = mShopPingVerticalAdapter
         mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
 
         // 初始刷新首页

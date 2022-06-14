@@ -2,6 +2,7 @@ package com.zhongjh.app.hilt
 
 import com.zhongjh.app.data.http.retrofit.RetrofitClient
 import com.zhongjh.app.data.http.service.BannerApi
+import com.zhongjh.app.data.http.service.ClassifyApi
 import com.zhongjh.app.data.http.service.ProductApi
 import dagger.Module
 import dagger.Provides
@@ -28,6 +29,12 @@ object NetworkModule {
     @Singleton
     fun ProductApi(): ProductApi {
         return RetrofitClient.get().create(ProductApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun ClassifyApi(): ClassifyApi {
+        return RetrofitClient.get().create(ClassifyApi::class.java)
     }
 
 }

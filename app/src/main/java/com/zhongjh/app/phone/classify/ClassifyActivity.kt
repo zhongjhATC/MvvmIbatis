@@ -1,8 +1,12 @@
 package com.zhongjh.app.phone.classify
 
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityAdvertisingBinding
+import com.zhongjh.app.databinding.ActivityClassifyBinding
+import com.zhongjh.app.diffcallback.DiffProductCallback
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -11,25 +15,37 @@ import dagger.hilt.android.AndroidEntryPoint
  * @author zhongjh
  * @date 2022/6/14
  */
-
 @AndroidEntryPoint
 class ClassifyActivity :
-    BaseActivity<ActivityAdvertisingBinding>(R.layout.activity_classify) {
+    BaseActivity<ActivityClassifyBinding>(R.layout.activity_classify) {
 
     override fun initParam(savedInstanceState: Bundle?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun initialize() {
-        TODO("Not yet implemented")
+        // 初始化列表竖向列表
+        mBinding.rvContent.layoutManager = GridLayoutManager(this, 2)
+        mBinding.rvContent.adapter = mShopPingVerticalAdapter
+        mShopPingVerticalAdapter.setDiffCallback(DiffProductCallback())
     }
 
     override fun initListener() {
-        TODO("Not yet implemented")
+
     }
 
     override fun initObserver() {
-        TODO("Not yet implemented")
+
     }
 
+    override fun initImmersionBar() {
+        ImmersionBar
+            .with(this)
+            .titleBarMarginTop(mBinding.vTop)
+            .statusBarColorTransformEnable(false)
+            .navigationBarColor(com.zhongjh.mvvmibatis.R.color.white)
+            .statusBarDarkFont(true)
+            .navigationBarDarkIcon(true)
+            .init()
+    }
 }

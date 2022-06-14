@@ -38,8 +38,8 @@ class YuanShenFragment : BaseFragment<FragmentYuanshenBinding>(R.layout.fragment
         // 自定义刷新
         mBinding.refreshLayout.setRefreshHeader(CustomRefreshHeader(activity))
         // 初始化列表竖向列表
-        mBinding.rlContent.layoutManager = GridLayoutManager(context, 2)
-        mBinding.rlContent.adapter = mYuanShenVerticalAdapter
+        mBinding.rvContent.layoutManager = GridLayoutManager(context, 2)
+        mBinding.rvContent.adapter = mYuanShenVerticalAdapter
 
         // 默认禁止刷新加载，等有数据后再开启
         mBinding.refreshLayout.setEnableRefresh(false)

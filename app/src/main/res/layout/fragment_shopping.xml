@@ -9,7 +9,7 @@
         android:background="@color/white"
         tools:context=".phone.main.fragment.shopping.ShopPingFragment">
 
-        <androidx.appcompat.widget.Toolbar
+        <View
             android:id="@+id/vTop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +152,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/vLineMenu" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rlContentHorizontal"
+                        android:id="@+id/rvContentHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -172,10 +172,10 @@
                         android:background="@color/bg_line"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/rlContentHorizontal" />
+                        app:layout_constraintTop_toBottomOf="@+id/rvContentHorizontal" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rlContent"
+                        android:id="@+id/rvContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"

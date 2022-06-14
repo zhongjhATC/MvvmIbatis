@@ -19,7 +19,7 @@
             app:srlAccentColor="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rlContent"
+                android:id="@+id/rvContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
