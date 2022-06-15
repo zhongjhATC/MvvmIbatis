@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/aurora_grey"
         tools:context=".phone.classify.ClassifyActivity">
 
         <View
@@ -23,7 +24,7 @@
             android:layout_height="0dp"
             android:layout_margin="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_search_aurora_gray_corner_50"
+            android:background="@drawable/bg_search_white_corner_50"
             app:layout_constraintBottom_toBottomOf="@+id/vTop"
             app:layout_constraintEnd_toStartOf="@+id/imgShop"
             app:layout_constraintStart_toStartOf="@+id/vTop"
@@ -83,6 +84,26 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineV25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vTop" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSubclass"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+            app:layout_constraintTop_toBottomOf="@+id/vTop" />
+
+        <com.zhongjh.stickyhead.StickyHeadContainer
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+            app:layout_constraintTop_toBottomOf="@+id/vTop">
+
+            <include layout="@layout/item_subclass_title" />
+
+        </com.zhongjh.stickyhead.StickyHeadContainer>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineV25"

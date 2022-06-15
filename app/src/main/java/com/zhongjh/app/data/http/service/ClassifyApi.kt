@@ -13,5 +13,5 @@ import retrofit2.http.GET
 interface ClassifyApi {
 
     @GET("raw/master/server/api/class.json")
-    suspend fun classify(): ApiEntity<PageEntity<Classify>>
+    suspend fun classify(): ApiEntity<MutableList<Classify>>
 }

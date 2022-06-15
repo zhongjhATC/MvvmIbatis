@@ -17,6 +17,7 @@ import com.zhongjh.app.entity.Product
 import com.zhongjh.app.entity.ShopHome
 import com.zhongjh.app.extend.showError
 import com.zhongjh.app.extend.showSuccess
+import com.zhongjh.app.phone.classify.ClassifyActivity
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingBannerAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingHorizontalAdapter
 import com.zhongjh.app.phone.main.fragment.shopping.adapter.ShopPingVerticalAdapter
@@ -25,6 +26,7 @@ import com.zhongjh.app.state.LottieWaitingState
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
 import com.zhongjh.mvvmibatis.entity.State
+import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.utils.ToastUtils
 import com.zy.multistatepage.MultiStatePage
 import dagger.hilt.android.AndroidEntryPoint
@@ -119,7 +121,7 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
     }
 
     override fun initListener() {
-        mBinding.vSearchTouch.setOnClickListener {
+        mBinding.vSearchTouch.onClick {
             // 打开搜索界面
             val intent = Intent(activity, SearchActivity::class.java)
             startActivity(intent)
@@ -129,6 +131,11 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         }
         mBinding.refreshLayout.setOnLoadMoreListener {
             loadNextProduct()
+        }
+        mBinding.viewShoppingMenu.imgClass.onClick {
+            // 打开分类界面
+            val intent = Intent(activity, ClassifyActivity::class.java)
+            startActivity(intent)
         }
     }
 

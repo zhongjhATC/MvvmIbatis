@@ -1,3 +1,4 @@
 rootProject.name = "MvvmIbatis"
 include ':app'
 include ':MvvmIbatis'
+include ':StickyHead'

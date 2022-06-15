@@ -111,7 +111,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <include layout="@layout/layout_shopping_menu" />
+                    <include
+                        android:id="@+id/viewShoppingMenu"
+                        layout="@layout/view_shopping_menu" />
 
                     <TextView
                         android:id="@+id/tvHorizontalTitle"

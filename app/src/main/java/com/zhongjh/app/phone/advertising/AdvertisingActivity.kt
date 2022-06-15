@@ -12,6 +12,7 @@ import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityAdvertisingBinding
 import com.zhongjh.app.phone.main.MainActivity
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
+import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.utils.FlowUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -35,7 +36,7 @@ class AdvertisingActivity :
     }
 
     override fun initListener() {
-        mBinding.viewCountdown.ivCountdown.setOnClickListener {
+        mBinding.viewCountdown.ivCountdown.onClick {
             completeCountdown()
         }
     }

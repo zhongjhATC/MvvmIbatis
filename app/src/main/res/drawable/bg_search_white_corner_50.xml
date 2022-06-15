@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 这是一个圆角为50、填充是极光灰颜色的边框 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- 中心背景 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+
+</layer-list>

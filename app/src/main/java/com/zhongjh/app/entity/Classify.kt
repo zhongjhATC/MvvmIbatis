@@ -10,5 +10,6 @@ class Classify {
     var id: Int? = null
     var imagePath: String? = null
     var title: String? = null
+    var isCheck: Boolean = false
 
 }
