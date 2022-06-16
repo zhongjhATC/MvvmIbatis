@@ -3,6 +3,7 @@ package com.zhongjh.stickyhead
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 
 /**
  * 粘性顶部的容器
@@ -11,11 +12,16 @@ import android.view.ViewGroup
  */
 class StickyHeadContainer : ViewGroup {
 
-    private val mOffset = 0
+    private var mOffset = 0
+    private var mLastOffset = Int.MIN_VALUE
+    private var mLastStickyHeadPosition = Int.MIN_VALUE
+
     private var mLeft = 0
     private var mRight = 0
     private var mTop = 0
     private var mBottom = 0
+
+    private var mDataCallback: DataCallback? = null
 
     constructor(context: Context?) : super(context)
 
@@ -26,13 +32,6 @@ class StickyHeadContainer : ViewGroup {
         attrs,
         defStyleAttr
     )
-
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         val child = getChildAt(0)
@@ -89,4 +88,57 @@ class StickyHeadContainer : ViewGroup {
             resolveSize(desireHeight, heightMeasureSpec)
         )
     }
+
+    /**
+     * 生成布局参数,将布局参数包装成我们的
+     */
+    override fun generateLayoutParams(p: LayoutParams?): LayoutParams {
+        return MarginLayoutParams(p)
+    }
+
+    /**
+     * 生成布局参数,从属性配置中生成我们的布局参数
+     */
+    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
+        return MarginLayoutParams(context, attrs)
+    }
+
+    /**
+     * 查当前布局参数是否是我们定义的类型这在code声明布局参数时常常用到
+     */
+    override fun checkLayoutParams(p: LayoutParams?): Boolean {
+        return p is MarginLayoutParams
+    }
+
+    fun scrollChild(offset: Int) {
+        if (mLastOffset != offset) {
+            mOffset = offset
+            ViewCompat.offsetTopAndBottom(getChildAt(0), mOffset - mLastOffset)
+        }
+        mLastOffset = mOffset
+    }
+
+    private fun getChildHeight(): Int {
+        return getChildAt(0).height
+    }
+
+    private fun onDataChange(stickyHeadPosition: Int) {
+        if (mLastStickyHeadPosition != stickyHeadPosition) {
+            mDataCallback?.onDataChange(stickyHeadPosition)
+        }
+        mLastStickyHeadPosition = stickyHeadPosition
+    }
+
+    fun reset() {
+        mLastStickyHeadPosition = Int.MIN_VALUE
+    }
+
+    interface DataCallback {
+        fun onDataChange(pos: Int)
+    }
+
+    fun setDataCallback(dataCallback: DataCallback) {
+        mDataCallback = dataCallback
+    }
+
 }
