@@ -35,22 +35,15 @@ class StickyHeadContainer : ViewGroup {
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         val child = getChildAt(0)
-
-        val params: LayoutParams = child.layoutParams
         val paddingLeft = paddingLeft
         val paddingTop = paddingTop
+
         //获取view的margin设置参数
-        if (params is MarginLayoutParams) {
-            val lp = child.layoutParams as MarginLayoutParams
-            mLeft = paddingLeft + lp.leftMargin
-            mTop = paddingTop + lp.topMargin + mOffset
-        } else {
-            mLeft = paddingLeft
-            mTop = paddingTop + mOffset
-        }
+        val lp = child.layoutParams as MarginLayoutParams
+        mLeft = paddingLeft + lp.leftMargin
+        mTop = paddingTop + lp.topMargin + mOffset
         mRight = child.measuredWidth + mLeft
         mBottom = child.measuredHeight + mTop
-
 
         // 根据子view设置本身的宽高
         child.layout(mLeft, mTop, mRight, mBottom)
@@ -97,7 +90,7 @@ class StickyHeadContainer : ViewGroup {
     }
 
     /**
-     * 生成布局参数,从属性配置中生成我们的布局参数
+     * 生成布局参数,不使用默认的LayoutParams，而使用MarginLayoutParams
      */
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
         return MarginLayoutParams(context, attrs)
@@ -118,11 +111,11 @@ class StickyHeadContainer : ViewGroup {
         mLastOffset = mOffset
     }
 
-    private fun getChildHeight(): Int {
+    fun getChildHeight(): Int {
         return getChildAt(0).height
     }
 
-    private fun onDataChange(stickyHeadPosition: Int) {
+    fun onDataChange(stickyHeadPosition: Int) {
         if (mLastStickyHeadPosition != stickyHeadPosition) {
             mDataCallback?.onDataChange(stickyHeadPosition)
         }
