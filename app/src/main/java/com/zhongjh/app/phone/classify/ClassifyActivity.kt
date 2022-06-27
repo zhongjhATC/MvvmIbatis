@@ -11,8 +11,11 @@ import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityClassifyBinding
 import com.zhongjh.app.diffcallback.DiffClassifyCallback
+import com.zhongjh.app.diffcallback.SubClassCallback
 import com.zhongjh.app.entity.Classify
+import com.zhongjh.app.entity.SubClass
 import com.zhongjh.app.phone.classify.adapter.ClassifyAdapter
+import com.zhongjh.app.phone.classify.adapter.SubClassAdapter
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.entity.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,23 +33,29 @@ class ClassifyActivity :
     internal val viewModel: ClassifyModel by viewModels()
 
     private var mClassifyAdapter = ClassifyAdapter()
+    private var mSubClassAdapter = SubClassAdapter()
 
     override fun initParam(savedInstanceState: Bundle?) {
 
     }
 
     override fun initialize() {
-        // 初始化列表竖向列表
+        // 初始化 分类列表-竖向列表
         mBinding.rvContent.layoutManager = LinearLayoutManager(this)
         mBinding.rvContent.adapter = mClassifyAdapter
         mClassifyAdapter.setDiffCallback(DiffClassifyCallback())
+
+        // 初始化 小类列表-格子列表
+        mBinding.rvSubclass.layoutManager = LinearLayoutManager(this)
+        mBinding.rvSubclass.adapter = mSubClassAdapter
+        mSubClassAdapter.setDiffCallback(SubClassCallback())
 
         viewModel.getClassify()
     }
 
     override fun initListener() {
         mClassifyAdapter.setOnItemClickListener { adapter, view, position ->
-
+            viewModel.getSubClass()
         }
     }
 
@@ -56,6 +65,17 @@ class ClassifyActivity :
                 when (it) {
                     is State.Success -> {
                         showClassify(it.data)
+                    }
+                    else -> {}
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiSubClass.collect {
+                when (it) {
+                    is State.Success -> {
+                        showSubClass(it.data)
                     }
                     else -> {}
                 }
@@ -74,12 +94,19 @@ class ClassifyActivity :
             .init()
     }
 
-
     /**
      * 刷新分类数据
      */
     private fun showClassify(data: MutableList<Classify>) {
         // 显示分类数据
         mClassifyAdapter.setDiffNewData(data)
+    }
+
+    /**
+     * 刷新小类数据
+     */
+    private fun showSubClass(data: MutableList<SubClass>) {
+        // 显示分类数据
+        mSubClassAdapter.setDiffNewData(data)
     }
 }

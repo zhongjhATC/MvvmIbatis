@@ -1,17 +1,17 @@
 package com.zhongjh.app.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.zhongjh.app.entity.Classify
+import com.zhongjh.app.entity.SubClass
 
 /**
- * [Classify]的差异回调
+ * [SubClass]的差异回调
  *
  * [教程](https://github.com/CymChad/BaseRecyclerViewAdapterHelper/blob/master/readme/7-Diff.md)
  *
  * @author zhongjh
  * @date 2022/6/15
  */
-class DiffClassifyCallback : DiffUtil.ItemCallback<Classify>() {
+class SubClassCallback : DiffUtil.ItemCallback<SubClass>() {
 
     /**
      * 判断是否是同一个item
@@ -20,7 +20,7 @@ class DiffClassifyCallback : DiffUtil.ItemCallback<Classify>() {
      * @param newItem old Data
      * @return 是否同一个
      */
-    override fun areItemsTheSame(oldItem: Classify, newItem: Classify): Boolean {
+    override fun areItemsTheSame(oldItem: SubClass, newItem: SubClass): Boolean {
         return oldItem.id == newItem.id
     }
 
@@ -31,10 +31,9 @@ class DiffClassifyCallback : DiffUtil.ItemCallback<Classify>() {
      * @param newItem old Data
      * @return 是否同一个
      */
-    override fun areContentsTheSame(oldItem: Classify, newItem: Classify): Boolean {
-        return oldItem.title == newItem.title &&
-                oldItem.imagePath == newItem.imagePath&&
-                oldItem.isCheck == newItem.isCheck
+    override fun areContentsTheSame(oldItem: SubClass, newItem: SubClass): Boolean {
+        return oldItem.name == newItem.name &&
+                oldItem.image == newItem.image
     }
 
     /**
@@ -46,7 +45,7 @@ class DiffClassifyCallback : DiffUtil.ItemCallback<Classify>() {
      * @param newItem New data
      * @return Payload info. if return null, the entire item will be refreshed.
      */
-    override fun getChangePayload(oldItem: Classify, newItem: Classify): Any? {
+    override fun getChangePayload(oldItem: SubClass, newItem: SubClass): Any? {
         return null
     }
 }

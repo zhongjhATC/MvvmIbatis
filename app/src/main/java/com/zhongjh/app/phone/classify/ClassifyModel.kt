@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.ClassifyApi
 import com.zhongjh.app.entity.Classify
+import com.zhongjh.app.entity.SubClass
 import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.extend.launchApiFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +28,12 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
     val uiClassify: StateFlow<State<MutableList<Classify>>> = _uiClassify
 
     /**
+     * 获取小类数据
+     */
+    private val _uiSubClass = MutableStateFlow<State<MutableList<SubClass>>>(State.Empty())
+    val uiSubClass: StateFlow<State<MutableList<SubClass>>> = _uiSubClass
+
+    /**
      * 分类数据
      */
     fun getClassify() {
@@ -36,6 +43,19 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
                 val classifies = classifyApi.classify()
                 classifies.data?.get(0)?.isCheck = true
                 classifies
+            }
+        }
+    }
+
+    /**
+     * 分类数据
+     */
+    fun getSubClass() {
+        viewModelScope.launch {
+            launchApiFlow(_uiSubClass) {
+                // 分类数据
+                val subclass = classifyApi.subclass()
+                subclass
             }
         }
     }

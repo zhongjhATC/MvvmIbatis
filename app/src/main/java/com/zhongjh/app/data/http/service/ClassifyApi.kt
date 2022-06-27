@@ -3,6 +3,7 @@ package com.zhongjh.app.data.http.service
 import com.zhongjh.app.entity.ApiEntity
 import com.zhongjh.app.entity.Classify
 import com.zhongjh.app.entity.PageEntity
+import com.zhongjh.app.entity.SubClass
 import retrofit2.http.GET
 
 /**
@@ -14,4 +15,8 @@ interface ClassifyApi {
 
     @GET("raw/master/server/api/class.json")
     suspend fun classify(): ApiEntity<MutableList<Classify>>
+
+
+    @GET("raw/master/server/api/subclass.json")
+    suspend fun subclass(): ApiEntity<MutableList<SubClass>>
 }
