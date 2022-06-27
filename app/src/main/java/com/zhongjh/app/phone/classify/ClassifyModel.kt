@@ -55,9 +55,48 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
             launchApiFlow(_uiSubClass) {
                 // 分类数据
                 val subclass = classifyApi.subclass()
+                subclass.data?.let {
+                    it.sortBy { subClass -> subClass.name }
+                    addHeadData(it)
+                }
                 subclass
             }
         }
+    }
+
+    /**
+     * 给数据源添加头部数据
+     */
+    private fun addHeadData(list: MutableList<SubClass>) {
+        // 添加头部数据
+        addHeadItem(list, 0)
+        // 使用while形式循环，不能使用for循环方式，因为数据源长度会随着添加头部数据而变化
+        var i = 0
+        while (i < list.size) {
+            // （1）. 如果没有下一个数据，则不执行添加头部数据方法
+            if (i + 1 >= list.size) {
+                i++
+                continue
+            }
+            // （2）. 如果当前数据跟下一个数据的第一个字母不一样，则执行添加头部数据
+            if (list[i].name?.get(0) != list[i + 1].name?.get(0)) {
+                addHeadItem(list, i + 1)
+            }
+            i++
+        }
+    }
+
+    /**
+     * 添加头部数据
+     * @param list 数据源
+     * @param position 索引
+     */
+    private fun addHeadItem(list: MutableList<SubClass>, position: Int) {
+        val subclass = SubClass()
+        subclass.name = list[position].name?.get(0).toString()
+        subclass.id = -1
+        subclass.image = ""
+        list.add(position, subclass)
     }
 
 }

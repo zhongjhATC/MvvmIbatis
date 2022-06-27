@@ -18,8 +18,7 @@ import kotlin.math.min
 class StickyItemDecoration(
     private val stickyHeadContainer: StickyHeadContainer,
     private val stickyHeadType: Int
-) :
-    RecyclerView.ItemDecoration() {
+) : RecyclerView.ItemDecoration() {
 
     private var mAdapter: RecyclerView.Adapter<*>? = null
 
@@ -44,6 +43,7 @@ class StickyItemDecoration(
     private var mEnableStickyHead = true
 
     private var mOnStickyChangeListener: OnStickyChangeListener? = null
+
     fun setOnStickyChangeListener(onStickyChangeListener: OnStickyChangeListener?) {
         mOnStickyChangeListener = onStickyChangeListener
     }
@@ -65,6 +65,9 @@ class StickyItemDecoration(
          * 1. 粘性头部启动
          * 2. 粘性头部索引有效时
          * 3. 当可见的索引>=粘性头部索引时
+         *
+         * 触发：
+         * 通知外层的offset的转变
          */
         if (mEnableStickyHead && mStickyHeadPosition != -1 && mFirstVisiblePosition >= mStickyHeadPosition) {
             // 根据x,y获取RecyclerView对应的item
@@ -82,6 +85,7 @@ class StickyItemDecoration(
                     0
                 }
             }
+            // 通知外层的offset的转变
             mOnStickyChangeListener?.onScrollable(offset)
         } else {
             mOnStickyChangeListener?.onInVisible()

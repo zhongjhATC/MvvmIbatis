@@ -68,8 +68,6 @@ class StickyHeadContainer : ViewGroup {
         desireHeight = child.measuredHeight + lp.topMargin + lp.bottomMargin
 
         // 考虑父容器内边距
-
-        // 考虑父容器内边距
         desireWidth += paddingLeft + paddingRight
         desireHeight += paddingTop + paddingBottom
         // 尝试比较建议最小值和期望值的大小并取大值

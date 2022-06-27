@@ -1,12 +1,11 @@
 package com.zhongjh.app.phone.classify
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
 import com.zhongjh.app.databinding.ActivityClassifyBinding
@@ -16,8 +15,11 @@ import com.zhongjh.app.entity.Classify
 import com.zhongjh.app.entity.SubClass
 import com.zhongjh.app.phone.classify.adapter.ClassifyAdapter
 import com.zhongjh.app.phone.classify.adapter.SubClassAdapter
+import com.zhongjh.app.phone.classify.adapter.SubClassAdapter.Companion.TYPE_STICKY_HEAD
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.entity.State
+import com.zhongjh.stickyhead.OnStickyChangeListener
+import com.zhongjh.stickyhead.StickyItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -49,6 +51,21 @@ class ClassifyActivity :
         mBinding.rvSubclass.layoutManager = LinearLayoutManager(this)
         mBinding.rvSubclass.adapter = mSubClassAdapter
         mSubClassAdapter.setDiffCallback(SubClassCallback())
+
+        val stickyItemDecoration = StickyItemDecoration(mBinding.stickyHeadContainer, TYPE_STICKY_HEAD)
+        stickyItemDecoration.setOnStickyChangeListener(object : OnStickyChangeListener {
+            override fun onScrollable(offset: Int) {
+                mBinding.stickyHeadContainer.scrollChild(offset)
+                mBinding.stickyHeadContainer.visibility = View.VISIBLE
+            }
+
+            override fun onInVisible() {
+                mBinding.stickyHeadContainer.reset()
+                mBinding.stickyHeadContainer.visibility = View.INVISIBLE
+            }
+
+        })
+        mBinding.rvSubclass.addItemDecoration(stickyItemDecoration)
 
         viewModel.getClassify()
     }
