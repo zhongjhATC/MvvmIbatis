@@ -142,7 +142,7 @@ class StickyItemDecoration(
      * 计算StickyHead位置
      * @param parent [RecyclerView]控件
      */
-    fun calculateStickyHeadPosition() {
+    private fun calculateStickyHeadPosition() {
         val layoutManager = mRecyclerView?.layoutManager
         layoutManager?.let {
             // 获取第一个可见的item位置

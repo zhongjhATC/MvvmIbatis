@@ -103,7 +103,9 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineV25"
             app:layout_constraintTop_toBottomOf="@+id/vTop">
 
-            <include layout="@layout/item_subclass_title" />
+            <include
+                android:id="@+id/includeSubclassTitle"
+                layout="@layout/item_subclass_title" />
 
         </com.zhongjh.stickyhead.StickyHeadContainer>
 

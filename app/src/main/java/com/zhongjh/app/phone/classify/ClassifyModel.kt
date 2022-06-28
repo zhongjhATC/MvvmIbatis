@@ -50,16 +50,23 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
     /**
      * 分类数据
      */
-    fun getSubClass() {
-        viewModelScope.launch {
-            launchApiFlow(_uiSubClass) {
-                // 分类数据
-                val subclass = classifyApi.subclass()
-                subclass.data?.let {
-                    it.sortBy { subClass -> subClass.name }
-                    addHeadData(it)
+    fun getSubClass(id: Int?) {
+        id.let {
+            viewModelScope.launch {
+                launchApiFlow(_uiSubClass) {
+                    // 分类数据
+                    val subclass =
+                        if (it == 1) {
+                            classifyApi.subclass()
+                        } else {
+                            classifyApi.subclass2()
+                        }
+                    subclass.data?.let {
+                        it.sortBy { subClass -> subClass.name }
+                        addHeadData(it)
+                    }
+                    subclass
                 }
-                subclass
             }
         }
     }

@@ -1,10 +1,11 @@
 package com.zhongjh.app.phone.classify
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
@@ -18,7 +19,7 @@ import com.zhongjh.app.phone.classify.adapter.SubClassAdapter
 import com.zhongjh.app.phone.classify.adapter.SubClassAdapter.Companion.TYPE_STICKY_HEAD
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.entity.State
-import com.zhongjh.stickyhead.OnStickyChangeListener
+import com.zhongjh.stickyhead.StickyHeadContainer
 import com.zhongjh.stickyhead.StickyItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +38,18 @@ class ClassifyActivity :
     private var mClassifyAdapter = ClassifyAdapter()
     private var mSubClassAdapter = SubClassAdapter()
 
-    private lateinit var stickyItemDecoration : StickyItemDecoration
+    private lateinit var mStickyItemDecoration: StickyItemDecoration
+
+    private val mSpanSizeLookup: SpanSizeLookup = object : SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            // 当id为-1的时候即是行头，其他为正常数据
+            return if (mSubClassAdapter.data[position].id == -1) {
+                3
+            } else {
+                1
+            }
+        }
+    }
 
     override fun initParam(savedInstanceState: Bundle?) {
 
@@ -50,19 +62,27 @@ class ClassifyActivity :
         mClassifyAdapter.setDiffCallback(DiffClassifyCallback())
 
         // 初始化 小类列表-格子列表
-        mBinding.rvSubclass.layoutManager = LinearLayoutManager(this)
+        val gridLayoutManager = GridLayoutManager(this, 3)
+        gridLayoutManager.spanSizeLookup = mSpanSizeLookup
+        mBinding.rvSubclass.layoutManager = gridLayoutManager
         mBinding.rvSubclass.adapter = mSubClassAdapter
         mSubClassAdapter.setDiffCallback(SubClassCallback())
 
-
         viewModel.getClassify()
-        viewModel.getSubClass()
+        viewModel.getSubClass(1)
     }
 
     override fun initListener() {
-        mClassifyAdapter.setOnItemClickListener { adapter, view, position ->
-            viewModel.getSubClass()
+        mClassifyAdapter.setOnItemClickListener { _, _, position ->
+            viewModel.getSubClass(mClassifyAdapter.getItem(position).id)
         }
+
+        // 更新头部值
+        mBinding.stickyHeadContainer.setDataCallback(object : StickyHeadContainer.DataCallback {
+            override fun onDataChange(pos: Int) {
+                mBinding.includeSubclassTitle.tvContext.text = mSubClassAdapter.data[pos].name
+            }
+        })
     }
 
     override fun initObserver() {
@@ -114,8 +134,7 @@ class ClassifyActivity :
     private fun showSubClass(data: MutableList<SubClass>) {
         // 显示分类数据
         mSubClassAdapter.setDiffNewData(data)
-        stickyItemDecoration = StickyItemDecoration(mBinding.stickyHeadContainer, TYPE_STICKY_HEAD)
-        mBinding.rvSubclass.addItemDecoration(stickyItemDecoration)
-//        stickyItemDecoration.calculateStickyHeadPosition()
+        mStickyItemDecoration = StickyItemDecoration(mBinding.stickyHeadContainer, TYPE_STICKY_HEAD)
+        mBinding.rvSubclass.addItemDecoration(mStickyItemDecoration)
     }
 }

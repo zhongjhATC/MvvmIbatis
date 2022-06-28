@@ -1,6 +1,7 @@
 package com.zhongjh.app.phone.classify.adapter
 
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.chad.library.adapter.base.BaseDelegateMultiAdapter
 import com.chad.library.adapter.base.delegate.BaseMultiTypeDelegate
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -13,6 +14,17 @@ import com.zhongjh.app.entity.SubClass
  * @date 2022/6/27
  */
 class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
+
+    private val auroraGreyColor by lazy {
+        ResourcesCompat.getColor(context.resources, R.color.aurora_grey, context.theme)
+    }
+    private val whiteColor by lazy {
+        ResourcesCompat.getColor(
+            context.resources,
+            com.zhongjh.mvvmibatis.R.color.white,
+            context.theme
+        )
+    }
 
     companion object {
         const val TYPE_DATA = 1
@@ -39,6 +51,12 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
 
     override fun convert(holder: BaseViewHolder, item: SubClass) {
         val tvContext = holder.getView<TextView>(R.id.tvContext)
+        if (item.id == -1) {
+            TYPE_STICKY_HEAD
+            tvContext.setBackgroundColor(whiteColor)
+        } else {
+            TYPE_DATA
+        }
         tvContext.text = item.name
     }
 
