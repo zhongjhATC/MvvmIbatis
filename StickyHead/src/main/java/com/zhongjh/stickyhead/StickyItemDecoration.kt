@@ -22,6 +22,8 @@ class StickyItemDecoration(
 
     private var mAdapter: RecyclerView.Adapter<*>? = null
 
+    private var mRecyclerView : RecyclerView? = null
+
     /**
      * 第一个可见的item的position
      */
@@ -58,7 +60,8 @@ class StickyItemDecoration(
         }
 
         // 计算StickyHead位置
-        calculateStickyHeadPosition(parent)
+        mRecyclerView = parent
+        calculateStickyHeadPosition()
 
         /**
          * 满足以下条件：
@@ -87,8 +90,12 @@ class StickyItemDecoration(
             }
             // 通知外层的offset的转变
             mOnStickyChangeListener?.onScrollable(offset)
+            stickyHeadContainer.scrollChild(offset)
+            stickyHeadContainer.visibility = View.VISIBLE
         } else {
             mOnStickyChangeListener?.onInVisible()
+            stickyHeadContainer.reset()
+            stickyHeadContainer.visibility = View.INVISIBLE
         }
     }
 
@@ -135,8 +142,8 @@ class StickyItemDecoration(
      * 计算StickyHead位置
      * @param parent [RecyclerView]控件
      */
-    private fun calculateStickyHeadPosition(parent: RecyclerView) {
-        val layoutManager = parent.layoutManager
+    fun calculateStickyHeadPosition() {
+        val layoutManager = mRecyclerView?.layoutManager
         layoutManager?.let {
             // 获取第一个可见的item位置
             mFirstVisiblePosition = findFirstVisiblePosition(it)

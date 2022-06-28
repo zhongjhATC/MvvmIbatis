@@ -98,6 +98,7 @@
             android:id="@+id/stickyHeadContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineV25"
             app:layout_constraintTop_toBottomOf="@+id/vTop">

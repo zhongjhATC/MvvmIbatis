@@ -37,6 +37,8 @@ class ClassifyActivity :
     private var mClassifyAdapter = ClassifyAdapter()
     private var mSubClassAdapter = SubClassAdapter()
 
+    private lateinit var stickyItemDecoration : StickyItemDecoration
+
     override fun initParam(savedInstanceState: Bundle?) {
 
     }
@@ -52,22 +54,9 @@ class ClassifyActivity :
         mBinding.rvSubclass.adapter = mSubClassAdapter
         mSubClassAdapter.setDiffCallback(SubClassCallback())
 
-        val stickyItemDecoration = StickyItemDecoration(mBinding.stickyHeadContainer, TYPE_STICKY_HEAD)
-        stickyItemDecoration.setOnStickyChangeListener(object : OnStickyChangeListener {
-            override fun onScrollable(offset: Int) {
-                mBinding.stickyHeadContainer.scrollChild(offset)
-                mBinding.stickyHeadContainer.visibility = View.VISIBLE
-            }
-
-            override fun onInVisible() {
-                mBinding.stickyHeadContainer.reset()
-                mBinding.stickyHeadContainer.visibility = View.INVISIBLE
-            }
-
-        })
-        mBinding.rvSubclass.addItemDecoration(stickyItemDecoration)
 
         viewModel.getClassify()
+        viewModel.getSubClass()
     }
 
     override fun initListener() {
@@ -125,5 +114,8 @@ class ClassifyActivity :
     private fun showSubClass(data: MutableList<SubClass>) {
         // 显示分类数据
         mSubClassAdapter.setDiffNewData(data)
+        stickyItemDecoration = StickyItemDecoration(mBinding.stickyHeadContainer, TYPE_STICKY_HEAD)
+        mBinding.rvSubclass.addItemDecoration(stickyItemDecoration)
+//        stickyItemDecoration.calculateStickyHeadPosition()
     }
 }
