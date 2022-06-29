@@ -17,7 +17,9 @@ class MySQLiteOpenHelper(context: Context?, name: String?, factory: SQLiteDataba
     OpenHelper(context, name, factory) {
 
     override fun onUpgrade(db: Database, oldVersion: Int, newVersion: Int) {
-        MigrationHelper.migrate(db, object : ReCreateAllTableListener {
+        MigrationHelper.migrate(
+            db,
+            object : ReCreateAllTableListener {
             override fun onCreateAllTables(db: Database, ifNotExists: Boolean) {
                 DaoMaster.createAllTables(db, ifNotExists)
             }
@@ -25,7 +27,8 @@ class MySQLiteOpenHelper(context: Context?, name: String?, factory: SQLiteDataba
             override fun onDropAllTables(db: Database, ifExists: Boolean) {
                 DaoMaster.dropAllTables(db, ifExists)
             }
-        }, SearchContentDao::class.java)
+        },
+            SearchContentDao::class.java
+        )
     }
-
 }

@@ -33,7 +33,7 @@ class DiffClassifyCallback : DiffUtil.ItemCallback<Classify>() {
      */
     override fun areContentsTheSame(oldItem: Classify, newItem: Classify): Boolean {
         return oldItem.title == newItem.title &&
-                oldItem.imagePath == newItem.imagePath&&
+                oldItem.imagePath == newItem.imagePath &&
                 oldItem.isCheck == newItem.isCheck
     }
 

@@ -3,7 +3,6 @@ package com.zhongjh.app.data.http.service
 import retrofit2.http.GET
 import com.zhongjh.app.entity.ApiEntity
 import com.zhongjh.app.entity.Banner
-import com.zhongjh.mvvmibatis.base.IApiEntity
 
 /**
  * @author zhongjh
@@ -14,5 +13,4 @@ interface BannerApi {
 
     @GET("raw/master/server/api/banner.json")
     suspend fun json(): ApiEntity<List<Banner>>
-
 }

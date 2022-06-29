@@ -1,7 +1,6 @@
 package com.zhongjh.app.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.zhongjh.app.entity.Product
 import com.zhongjh.app.entity.db.SearchContent
 
 /**

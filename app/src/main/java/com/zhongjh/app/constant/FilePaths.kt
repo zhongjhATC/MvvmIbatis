@@ -22,6 +22,4 @@ package com.zhongjh.app.constant
  * @author zhongjh
  * @date 2021/5/13
  */
-object FilePaths {
-
-}
+object FilePaths

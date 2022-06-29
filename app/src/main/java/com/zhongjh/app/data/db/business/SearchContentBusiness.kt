@@ -8,7 +8,6 @@ import com.zhongjh.app.phone.MyApplication
 import org.greenrobot.greendao.query.QueryBuilder
 import javax.inject.Inject
 
-
 /**
  * 搜索内容的相关逻辑
  * @author zhongjh
@@ -69,5 +68,4 @@ class SearchContentBusiness @Inject constructor(
     fun deleteAllSearch() {
         searchContentDao.deleteAll()
     }
-
 }
