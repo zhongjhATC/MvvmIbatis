@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.ClassifyApi
 import com.zhongjh.app.entity.Classify
 import com.zhongjh.app.entity.SubClass
+import com.zhongjh.app.phone.classify.ClassifyActivity.Companion.SUB_CLASS_SPAN_COUNT
 import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.extend.launchApiFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -80,6 +81,8 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
         addHeadItem(list, 0)
         // 使用while形式循环，不能使用for循环方式，因为数据源长度会随着添加头部数据而变化
         var i = 0
+        // 每行的数量，判断是否从最左边开始，如果是从最左边开始，则设置左边间距属性
+        var lineCount = 0
         while (i < list.size) {
             // （1）. 如果没有下一个数据，则不执行添加头部数据方法
             if (i + 1 >= list.size) {
@@ -87,9 +90,14 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
                 continue
             }
             // （2）. 如果当前数据跟下一个数据的第一个字母不一样，则执行添加头部数据
-            if (list[i].name?.get(0) != list[i + 1].name?.get(0)) {
-                addHeadItem(list, i + 1)
-            }
+            lineCount =
+                if (list[i].name?.get(0) != list[i + 1].name?.get(0)) {
+                    addHeadItem(list, i + 1)
+                    // 新的一个行头，所以从0开始
+                    0
+                } else {
+                    setLeftMargin(list[i], lineCount)
+                }
             i++
         }
     }
@@ -109,10 +117,18 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
 
     /**
      * 能被3整除的则 给数据源设置左边间距
+     * @param subclass 小类对象
+     * @param position 当前行的第几个索引
+     * @return 返回新的当前行的第几个索引
      */
-    private fun setLeftMargin(subclass: SubClass, position: Int) {
-        if (position % 3 == 0) {
+    private fun setLeftMargin(subclass: SubClass, position: Int): Int {
+        var positionNew = position
+        if (positionNew == 1 ||  (positionNew / SUB_CLASS_SPAN_COUNT)  == 0) {
             subclass.leftMargin = true
+            positionNew = 0
+        } else {
+            positionNew++
         }
+        return positionNew
     }
 }

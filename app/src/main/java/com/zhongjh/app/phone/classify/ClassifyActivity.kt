@@ -32,9 +32,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifyActivity :
     BaseActivity<ActivityClassifyBinding>(R.layout.activity_classify) {
 
-//    companion object {
-//        const val SubClassspanCount = 1
-//    }
+    companion object {
+        const val SUB_CLASS_SPAN_COUNT = 3
+    }
 
     @get:VisibleForTesting
     internal val viewModel: ClassifyModel by viewModels()
@@ -48,7 +48,7 @@ class ClassifyActivity :
         override fun getSpanSize(position: Int): Int {
             // 当id为-1的时候即是行头，其他为正常数据
             return if (mSubClassAdapter.data[position].id == -1) {
-                3
+                SUB_CLASS_SPAN_COUNT
             } else {
                 1
             }
@@ -65,7 +65,7 @@ class ClassifyActivity :
         mClassifyAdapter.setDiffCallback(DiffClassifyCallback())
 
         // 初始化 小类列表-格子列表
-        val gridLayoutManager = GridLayoutManager(this, 3)
+        val gridLayoutManager = GridLayoutManager(this, SUB_CLASS_SPAN_COUNT)
         gridLayoutManager.spanSizeLookup = mSpanSizeLookup
         mBinding.rvSubclass.layoutManager = gridLayoutManager
         mBinding.rvSubclass.adapter = mSubClassAdapter

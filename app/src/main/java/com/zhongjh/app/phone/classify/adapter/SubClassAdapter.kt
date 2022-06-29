@@ -60,7 +60,11 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
         } else {
             // item赋值
             val tvSubClassName = holder.getView<TextView>(R.id.tvSubClassName)
-            tvSubClassName.text = item.name
+            if (item.leftMargin) {
+                tvSubClassName.text = "哈哈"
+            } else {
+                tvSubClassName.text = item.name
+            }
             val imgSubClass = holder.getView<ImageView>(R.id.imgSubClass)
             Glide.with(BaseApplication.instance).load(item.image)
                 .apply(RequestOptions().placeholder(R.mipmap.ic_banner))
