@@ -3,6 +3,7 @@ package com.zhongjh.app.phone.classify.adapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginStart
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseDelegateMultiAdapter
@@ -60,11 +61,7 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
         } else {
             // item赋值
             val tvSubClassName = holder.getView<TextView>(R.id.tvSubClassName)
-            if (item.leftMargin) {
-                tvSubClassName.text = "哈哈"
-            } else {
-                tvSubClassName.text = item.name
-            }
+            tvSubClassName.text = item.name
             val imgSubClass = holder.getView<ImageView>(R.id.imgSubClass)
             Glide.with(BaseApplication.instance).load(item.image)
                 .apply(RequestOptions().placeholder(R.mipmap.ic_banner))

@@ -88,6 +88,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSubclass"
             android:layout_width="0dp"
+            android:layout_marginEnd="20dp"
             android:background="@color/white"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

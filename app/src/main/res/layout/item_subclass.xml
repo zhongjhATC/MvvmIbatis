@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="36dp"
-    android:paddingEnd="8dp">
+    android:paddingStart="20dp"
+    android:paddingEnd="0dp">
 
     <ImageView
         android:id="@+id/imgSubClass"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:contentDescription="@string/product_picture"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
