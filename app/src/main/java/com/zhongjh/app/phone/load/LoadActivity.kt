@@ -24,7 +24,7 @@ class LoadActivity : AppCompatActivity() {
         ImmersionBar.with(this).fullScreen(true).init()
 
         // 判断是否已经同意协议
-        val intent : Intent
+        val intent: Intent
         if (SPCacheUtil.getBoolean(MMKVLocal.IS_PRIVACY_POLICY, false)) {
             // 已经同意协议，跳转到广告界面
             intent = Intent(this@LoadActivity, AdvertisingActivity::class.java)
@@ -35,7 +35,5 @@ class LoadActivity : AppCompatActivity() {
         }
         startActivity(intent)
         this@LoadActivity.finish()
-
     }
-
 }

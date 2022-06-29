@@ -74,7 +74,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         mBinding.etSearch.doAfterTextChanged {
             if (TextUtils.isEmpty(it)) {
                 switchShowSearchView()
-
             }
             viewModel.search(it.toString())
         }
@@ -260,5 +259,4 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         mBinding.groupSearchHistory.visibility = View.GONE
         mBinding.viewPager2.visibility = View.VISIBLE
     }
-
 }

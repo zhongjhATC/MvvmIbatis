@@ -12,7 +12,6 @@ import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.utils.StatusBarUtil
 import dagger.hilt.android.AndroidEntryPoint
 
-
 /**
  *
  * @author zhongjh
@@ -72,7 +71,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun initObserver() {
-
     }
 
     override fun initImmersionBar() {
@@ -84,5 +82,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mBinding.viewPager2.isUserInputEnabled = false
         mBinding.viewPager2.offscreenPageLimit = 5
     }
-
 }

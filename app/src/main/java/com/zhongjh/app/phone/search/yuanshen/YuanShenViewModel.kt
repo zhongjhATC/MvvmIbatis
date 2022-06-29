@@ -40,5 +40,4 @@ class YuanShenViewModel @Inject constructor(
             }
         }
     }
-
 }

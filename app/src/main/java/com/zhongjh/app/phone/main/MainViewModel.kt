@@ -8,8 +8,4 @@ import com.zhongjh.mvvmibatis.base.viewmodel.BaseViewModel
  * @author zhongjh
  * @date 2022/5/13
  */
-class MainViewModel constructor(application: Application) : BaseViewModel(application) {
-
-
-
-}
+class MainViewModel constructor(application: Application) : BaseViewModel(application)

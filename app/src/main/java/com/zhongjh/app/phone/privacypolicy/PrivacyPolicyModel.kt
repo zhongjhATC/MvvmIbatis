@@ -38,7 +38,4 @@ class PrivacyPolicyModel @Inject constructor() : ViewModel() {
             }
         }
     }
-
-
-
 }

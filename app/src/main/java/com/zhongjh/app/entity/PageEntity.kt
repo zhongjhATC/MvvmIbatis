@@ -30,5 +30,4 @@ class PageEntity<T> {
      * 总共几页
      */
     var pages: Int = 0
-
 }

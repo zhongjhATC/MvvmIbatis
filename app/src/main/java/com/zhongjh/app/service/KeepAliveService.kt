@@ -4,14 +4,12 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import com.zhongjh.app.data.http.retrofit.RetrofitClient
 import com.zhongjh.app.data.http.service.BannerApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import java.util.concurrent.Flow
 
 /**
  * https://blog.csdn.net/qq_39157025/article/details/120825851
@@ -44,11 +42,8 @@ class KeepAliveService : Service() {
             flow {
                 emit(RetrofitClient.get().create(BannerApi::class.java).json())
             }.collect {
-                Log.d("TAG",it.errorCode + " 成功")
+                Log.d("TAG", it.errorCode + " 成功")
             }
         }
-
-
     }
-
 }

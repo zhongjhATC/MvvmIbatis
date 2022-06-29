@@ -22,9 +22,7 @@ class AdvertisingModel constructor(application: Application) : BaseViewModel(app
 
     fun startCountdown() {
         viewModelScope.launch {
-
         }
     }
-
 
 }

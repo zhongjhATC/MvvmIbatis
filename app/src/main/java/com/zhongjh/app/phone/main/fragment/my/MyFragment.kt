@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
     override fun initParam(savedInstanceState: Bundle?) {
-
     }
 
     override fun initialize() {
@@ -38,13 +37,16 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             .placeholder(R.mipmap.ic_launcher)
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .transform(GlideCircleBorderTransform(4F,
+            .transform(
+                GlideCircleBorderTransform(
+                    4F,
                 ResourcesCompat.getColor(
                     MyApplication.instance.resources,
                     com.zhongjh.mvvmibatis.R.color.white,
                     MyApplication.instance.theme
                 )
-            ))
+            )
+            )
         .diskCacheStrategy(DiskCacheStrategy.DATA)
 
         Glide.with(MyApplication.instance)
@@ -54,7 +56,6 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
     }
 
     override fun initListener() {
-
     }
 
     override fun initObserver() {
@@ -71,6 +72,5 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             .navigationBarDarkIcon(true)
             .init()
     }
-
 
 }

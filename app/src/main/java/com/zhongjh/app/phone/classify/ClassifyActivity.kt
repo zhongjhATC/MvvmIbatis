@@ -56,7 +56,6 @@ class ClassifyActivity :
     }
 
     override fun initParam(savedInstanceState: Bundle?) {
-
     }
 
     override fun initialize() {

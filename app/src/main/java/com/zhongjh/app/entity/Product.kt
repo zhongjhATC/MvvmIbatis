@@ -15,5 +15,4 @@ class Product {
     var image: String? = null
     var category: String? = null
     var description: String? = null
-
 }

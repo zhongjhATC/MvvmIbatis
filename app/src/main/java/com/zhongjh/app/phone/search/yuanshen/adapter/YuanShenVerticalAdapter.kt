@@ -32,5 +32,4 @@ class YuanShenVerticalAdapter :
         holder.setText(R.id.tvProductName, item.name)
         holder.setText(R.id.tvPrice, "当前价:￥" + item.price)
     }
-
 }

@@ -34,6 +34,4 @@ class ApiEntity<T> : IApiEntity<T> {
     override fun getDataEntity(): T {
         return data!!
     }
-
-
 }

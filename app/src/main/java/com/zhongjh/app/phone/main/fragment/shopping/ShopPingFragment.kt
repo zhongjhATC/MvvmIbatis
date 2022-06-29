@@ -31,7 +31,6 @@ import com.zhongjh.mvvmibatis.utils.ToastUtils
 import com.zy.multistatepage.MultiStatePage
 import dagger.hilt.android.AndroidEntryPoint
 
-
 /**
  * 一个商城的Fragment
  * @author zhongjh
@@ -218,5 +217,4 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mVerticalPage = 0
         mBinding.refreshLayout.setEnableLoadMore(true)
     }
-
 }

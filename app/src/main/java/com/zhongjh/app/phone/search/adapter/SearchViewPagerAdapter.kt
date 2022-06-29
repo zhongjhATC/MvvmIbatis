@@ -20,7 +20,7 @@ class SearchViewPagerAdapter(private val fragmentManager: FragmentManager, lifec
     private val mTag = SearchViewPagerAdapter::class.java.simpleName
 
     override fun createFragment(position: Int): Fragment {
-        Log.d(mTag,"createFragment")
+        Log.d(mTag, "createFragment")
         return YuanShenFragment()
     }
 
@@ -43,7 +43,7 @@ class SearchViewPagerAdapter(private val fragmentManager: FragmentManager, lifec
      * @param position 查询的索引列表
      * @param
      */
-    fun search(position: Int,searchContent: String ) {
+    fun search(position: Int, searchContent: String) {
         val yuanShenFragment = getPageFragment(position.toLong()) as? YuanShenFragment
         yuanShenFragment?.search(searchContent)
     }
@@ -61,7 +61,4 @@ class SearchViewPagerAdapter(private val fragmentManager: FragmentManager, lifec
     private fun getPageFragment(id: Long): Fragment? {
         return fragmentManager.findFragmentByTag("f$id")
     }
-
-
-
 }

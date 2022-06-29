@@ -29,7 +29,6 @@ class TestViewModel(
     val doubleCountSharedFlow =
         doubleCountFlow.shareIn(viewModelScope, sharingStrategyProvider.eagerly)
 
-
     /**-- 面板的 --*/
 //    var getBanner: LiveData<State<List<Banner>>> =
 //        launchFlow {
@@ -42,6 +41,4 @@ class TestViewModel(
 
 //    val doubleCountSharedFlow3 =
 //        countFlow2.shareIn(viewModelScope, sharingStrategyProvider.eagerly)
-
-
 }

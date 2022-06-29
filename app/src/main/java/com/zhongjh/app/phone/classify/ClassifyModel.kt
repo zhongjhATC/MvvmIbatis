@@ -21,8 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : ViewModel() {
 
-
-
     /**
      * 获取分类数据
      */
@@ -117,5 +115,4 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
             subclass.leftMargin = true
         }
     }
-
 }

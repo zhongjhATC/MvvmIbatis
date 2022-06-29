@@ -115,5 +115,4 @@ class YuanShenFragment : BaseFragment<FragmentYuanshenBinding>(R.layout.fragment
     private fun showProductsError(data: State.Error<PageEntity<Product>>) {
         mBinding.refreshLayout.finishRefresh()
     }
-
 }

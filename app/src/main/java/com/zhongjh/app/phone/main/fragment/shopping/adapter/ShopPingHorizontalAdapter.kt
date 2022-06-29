@@ -16,7 +16,6 @@ import com.zhongjh.app.entity.Product
 import com.zhongjh.app.phone.MyApplication.Companion.instance
 import com.zhongjh.mvvmibatis.utils.GlideRoundTransform
 
-
 /**
  * 产品的横向适配器
  * @author zhongjh
@@ -59,5 +58,4 @@ class ShopPingHorizontalAdapter :
         )
         holder.setText(R.id.tvPrice, spannableString)
     }
-
 }

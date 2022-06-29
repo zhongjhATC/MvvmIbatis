@@ -17,7 +17,4 @@ class SearchHistoryAdapter :
     override fun convert(holder: BaseViewHolder, item: SearchContent) {
         holder.setText(R.id.tvContext, item.content)
     }
-
-
-
 }

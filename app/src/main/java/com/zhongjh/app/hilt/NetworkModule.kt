@@ -36,5 +36,4 @@ object NetworkModule {
     fun ClassifyApi(): ClassifyApi {
         return RetrofitClient.get().create(ClassifyApi::class.java)
     }
-
 }

@@ -46,7 +46,6 @@ class AdvertisingActivity :
     }
 
     override fun initObserver() {
-
     }
 
     override fun initImmersionBar() {
@@ -100,6 +99,4 @@ class AdvertisingActivity :
             .placeholder(R.drawable.ic_launcher)
             .into(mBinding.imgSplash)
     }
-
-
 }

@@ -41,5 +41,4 @@ class ShopPingBannerAdapter(banners: List<Banner>) :
             .centerCrop()
             .into(holder.imageView)
     }
-
 }

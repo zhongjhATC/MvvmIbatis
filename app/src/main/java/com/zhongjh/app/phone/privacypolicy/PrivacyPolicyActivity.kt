@@ -20,7 +20,6 @@ import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.utils.LinkUrlText
 import dagger.hilt.android.AndroidEntryPoint
 
-
 /**
  * 这是一个向用户申请是否同意隐私协议的界面
  * @author zhongjh
@@ -53,7 +52,6 @@ class PrivacyPolicyActivity :
                     }
                     else -> {}
                 }
-
             }
         }
     }
@@ -88,8 +86,12 @@ class PrivacyPolicyActivity :
      */
     private fun setContent() {
         // 文本内容
-        val ss =
-            SpannableString("欢迎您使用MVIDemo！\n\n在使用App之前，请您阅读并充分理解MVIDemo的《隐私政策》，了解您的用户权益及相关数据的处理方法。如果您同意以上协议内容，请点击“同意”，开始使用我们的产品和服务。我们将以业界领先的信息安全保护水平，保护您的个人信息，感谢您对MVIDemo的信任。")
+        val stringBuffer = StringBuffer()
+        stringBuffer.append("欢迎您使用MVIDemo！\n\n")
+        stringBuffer.append("在使用App之前，请您阅读并充分理解MVIDemo的《隐私政策》，了解您的用户权益及相关数据的处理方法。")
+        stringBuffer.append("如果您同意以上协议内容，请点击“同意”，开始使用我们的产品和服务。")
+        stringBuffer.append("。我们将以业界领先的信息安全保护水平，保护您的个人信息，感谢您对MVIDemo的信任。")
+        val ss = SpannableString(stringBuffer.toString())
         // 设置字符颜色,点击事件
         ss.setSpan(
             LinkUrlText(this@PrivacyPolicyActivity, "https://www.baidu.com/"),

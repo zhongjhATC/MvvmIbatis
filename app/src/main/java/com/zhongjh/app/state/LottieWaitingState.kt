@@ -23,5 +23,4 @@ class LottieWaitingState : MultiState() {
 
     override fun onMultiStateViewCreate(view: View) {
     }
-
 }

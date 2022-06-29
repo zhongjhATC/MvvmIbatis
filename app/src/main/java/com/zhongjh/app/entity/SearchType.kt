@@ -1,6 +1,5 @@
 package com.zhongjh.app.entity
 
-
 /**
  * 搜索的类型
  * @author zhongjh
@@ -12,7 +11,7 @@ enum class SearchType(var key: Int, var value: String) {
     Product(1, "商品"),
     Auction(2, "拍卖"),
     Invitation(3, "帖子"),
-    Consult(4,"咨询"),
+    Consult(4, "咨询"),
     User(5, "用户"),
     Bar(5, "酒吧");
 

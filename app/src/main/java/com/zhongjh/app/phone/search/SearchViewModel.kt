@@ -67,9 +67,12 @@ class SearchViewModel @Inject constructor(
      */
     fun getSearchHistory() {
         viewModelScope.launch {
-            launchFlow(_uiSearchHistory, suspend {
+            launchFlow(
+                _uiSearchHistory,
+                suspend {
                 searchContentBusiness.getSearchContents()
-            })
+            }
+            )
         }
     }
 
@@ -91,9 +94,12 @@ class SearchViewModel @Inject constructor(
      */
     private fun requestSearch(searchText: String) {
         viewModelScope.launch {
-            launchFlow(_uiSearch, suspend {
+            launchFlow(
+                _uiSearch,
+                suspend {
                 searchText
-            })
+            }
+            )
             launch(Dispatchers.IO) {
                 // 添加到数据库
                 searchContentBusiness.addSearchContents(searchText)
@@ -101,9 +107,4 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-
-
-
-
-
 }

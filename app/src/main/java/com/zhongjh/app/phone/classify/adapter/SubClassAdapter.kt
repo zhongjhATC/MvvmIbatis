@@ -52,7 +52,6 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
             ?.addItemType(TYPE_DATA, R.layout.item_subclass)
     }
 
-
     override fun convert(holder: BaseViewHolder, item: SubClass) {
         if (item.id == -1) {
             // 粘性头部赋值
@@ -69,5 +68,4 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
                 .into(imgSubClass)
         }
     }
-
 }

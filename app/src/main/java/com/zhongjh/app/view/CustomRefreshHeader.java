@@ -1,5 +1,6 @@
 package com.zhongjh.app.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
@@ -61,16 +62,19 @@ public class CustomRefreshHeader extends LinearLayout implements RefreshHeader {
         return SpinnerStyle.Translate;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void setPrimaryColors(int... colors) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onInitialized(@NonNull RefreshKernel kernel, int height, int maxDragHeight) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onMoving(boolean isDragging, float percent, int offset, int height, int maxDragHeight) {
         // 下拉的百分比小于100%时，不断调用 setScale 方法改变图片大小
@@ -101,16 +105,19 @@ public class CustomRefreshHeader extends LinearLayout implements RefreshHeader {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onReleased(@NonNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onStartAnimator(@NonNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public int onFinish(@NonNull RefreshLayout refreshLayout, boolean success) {
         // 结束动画
@@ -125,6 +132,7 @@ public class CustomRefreshHeader extends LinearLayout implements RefreshHeader {
         return 0;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onHorizontalDrag(float percentX, int offsetX, int offsetMax) {
 
@@ -138,6 +146,7 @@ public class CustomRefreshHeader extends LinearLayout implements RefreshHeader {
     /**
      * 状态改变时调用。在这里切换第三阶段的动画卖萌小人
      */
+    @SuppressLint("RestrictedApi")
     @Override
     public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
         switch (newState) {

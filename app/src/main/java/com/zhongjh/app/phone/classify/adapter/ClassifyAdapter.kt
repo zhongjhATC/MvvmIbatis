@@ -1,7 +1,6 @@
 package com.zhongjh.app.phone.classify.adapter
 
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -50,6 +49,4 @@ class ClassifyAdapter :
         data[position].isCheck = true
         notifyItemChanged(position)
     }
-
-
 }

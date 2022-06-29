@@ -10,6 +10,5 @@ class SubClass {
     var id: Int? = null
     var image: String? = null
     var name: String? = null
-    var leftMargin : Boolean = false
-
+    var leftMargin: Boolean = false
 }
