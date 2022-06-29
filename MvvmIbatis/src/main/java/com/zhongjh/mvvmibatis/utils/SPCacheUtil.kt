@@ -35,19 +35,24 @@ object SPCacheUtil {
     }
 
     fun getFloat(key: String, defValue: Float): Float {
-        return MMKV.defaultMMKV()?.decodeFloat(key, defValue) ?: SPStaticUtils.getFloat(key, defValue)
+        return MMKV.defaultMMKV()?.decodeFloat(key, defValue) ?: SPStaticUtils.getFloat(
+            key,
+            defValue
+        )
     }
 
-    fun putFloat(key: String, value: Float){
+    fun putFloat(key: String, value: Float) {
         MMKV.defaultMMKV()?.encode(key, value) ?: SPStaticUtils.put(key, value)
     }
 
     fun getBoolean(key: String, defValue: Boolean): Boolean {
-        return MMKV.defaultMMKV()?.decodeBool(key, defValue) ?: SPStaticUtils.getBoolean(key, defValue)
+        return MMKV.defaultMMKV()?.decodeBool(key, defValue) ?: SPStaticUtils.getBoolean(
+            key,
+            defValue
+        )
     }
 
     fun put(key: String, value: Boolean) {
         MMKV.defaultMMKV()?.encode(key, value) ?: SPStaticUtils.put(key, value)
     }
-
 }

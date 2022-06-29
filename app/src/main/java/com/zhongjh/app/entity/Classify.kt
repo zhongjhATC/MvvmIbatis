@@ -11,5 +11,4 @@ class Classify {
     var imagePath: String? = null
     var title: String? = null
     var isCheck: Boolean = false
-
 }

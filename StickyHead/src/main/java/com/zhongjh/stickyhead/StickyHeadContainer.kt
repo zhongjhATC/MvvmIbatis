@@ -38,7 +38,7 @@ class StickyHeadContainer : ViewGroup {
         val paddingLeft = paddingLeft
         val paddingTop = paddingTop
 
-        //获取view的margin设置参数
+        // 获取view的margin设置参数
         val lp = child.layoutParams as MarginLayoutParams
         mLeft = paddingLeft + lp.leftMargin
         mTop = paddingTop + lp.topMargin + mOffset
@@ -124,12 +124,11 @@ class StickyHeadContainer : ViewGroup {
         mLastStickyHeadPosition = Int.MIN_VALUE
     }
 
-    interface DataCallback {
-        fun onDataChange(pos: Int)
-    }
-
     fun setDataCallback(dataCallback: DataCallback) {
         mDataCallback = dataCallback
     }
 
+    interface DataCallback {
+        fun onDataChange(pos: Int)
+    }
 }

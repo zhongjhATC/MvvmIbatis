@@ -19,7 +19,6 @@ import com.tencent.smtt.sdk.WebViewClient
 import com.zhongjh.mvvmibatis.R
 import com.zhongjh.mvvmibatis.databinding.ActivityWebViewBinding
 
-
 /**
  * WebViewActivity
  * @author zhongjh
@@ -27,7 +26,7 @@ import com.zhongjh.mvvmibatis.databinding.ActivityWebViewBinding
  */
 class WebViewActivity : AppCompatActivity() {
 
-    private val binding : ActivityWebViewBinding by lazy{
+    private val binding: ActivityWebViewBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_web_view)
     }
 
@@ -135,5 +134,4 @@ class WebViewActivity : AppCompatActivity() {
             super.onPageFinished(view, url)
         }
     }
-
 }

@@ -32,6 +32,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifyActivity :
     BaseActivity<ActivityClassifyBinding>(R.layout.activity_classify) {
 
+//    companion object {
+//        const val SubClassspanCount = 1
+//    }
+
     @get:VisibleForTesting
     internal val viewModel: ClassifyModel by viewModels()
 

@@ -153,11 +153,11 @@ object HttpsUtils {
                     e.printStackTrace()
                 }
             }
-            //我们创建一个默认类型的TrustManagerFactory
+            // 我们创建一个默认类型的TrustManagerFactory
             val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
-            //用我们之前的keyStore实例初始化TrustManagerFactory，这样tmf就会信任keyStore中的证书
+            // 用我们之前的keyStore实例初始化TrustManagerFactory，这样tmf就会信任keyStore中的证书
             tmf.init(keyStore)
-            //通过tmf获取TrustManager数组，TrustManager也会信任keyStore中的证书
+            // 通过tmf获取TrustManager数组，TrustManager也会信任keyStore中的证书
             return tmf.trustManagers
         } catch (e: Exception) {
             e.printStackTrace()

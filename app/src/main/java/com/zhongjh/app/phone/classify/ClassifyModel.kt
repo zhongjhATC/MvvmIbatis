@@ -21,6 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : ViewModel() {
 
+
+
     /**
      * 获取分类数据
      */
@@ -61,6 +63,7 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
                         } else {
                             classifyApi.subclass2()
                         }
+                    // 给数据源添加头部数据
                     subclass.data?.let {
                         it.sortBy { subClass -> subClass.name }
                         addHeadData(it)
@@ -104,6 +107,15 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
         subclass.id = -1
         subclass.image = ""
         list.add(position, subclass)
+    }
+
+    /**
+     * 能被3整除的则 给数据源设置左边间距
+     */
+    private fun setLeftMargin(subclass: SubClass, position: Int) {
+        if (position % 3 == 0) {
+            subclass.leftMargin = true
+        }
     }
 
 }

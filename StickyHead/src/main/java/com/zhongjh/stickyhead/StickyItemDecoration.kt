@@ -20,9 +20,13 @@ class StickyItemDecoration(
     private val stickyHeadType: Int
 ) : RecyclerView.ItemDecoration() {
 
+    companion object {
+        private const val STICKY_HEAD_CONTAINER_CHILD_HEIGHT = 0.01f
+    }
+
     private var mAdapter: RecyclerView.Adapter<*>? = null
 
-    private var mRecyclerView : RecyclerView? = null
+    private var mRecyclerView: RecyclerView? = null
 
     /**
      * 第一个可见的item的position
@@ -48,6 +52,16 @@ class StickyItemDecoration(
 
     fun setOnStickyChangeListener(onStickyChangeListener: OnStickyChangeListener?) {
         mOnStickyChangeListener = onStickyChangeListener
+    }
+
+    /**
+     * 是否启用粘性头部
+     */
+    fun enableStickyHead(enableStickyHead: Boolean) {
+        mEnableStickyHead = enableStickyHead
+        if (!mEnableStickyHead) {
+            stickyHeadContainer.visibility = View.INVISIBLE
+        }
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -76,7 +90,7 @@ class StickyItemDecoration(
             // 根据x,y获取RecyclerView对应的item
             val belowView = parent.findChildViewUnder(
                 (c.width / 2).toFloat(),
-                stickyHeadContainer.getChildHeight() + 0.01f
+                stickyHeadContainer.getChildHeight() + STICKY_HEAD_CONTAINER_CHILD_HEIGHT
             )
             // 通知 外部的粘性控件 刷新 最新的粘性头部索引
             stickyHeadContainer.onDataChange(mStickyHeadPosition)
@@ -140,7 +154,6 @@ class StickyItemDecoration(
 
     /**
      * 计算StickyHead位置
-     * @param parent [RecyclerView]控件
      */
     private fun calculateStickyHeadPosition() {
         val layoutManager = mRecyclerView?.layoutManager
@@ -222,16 +235,6 @@ class StickyItemDecoration(
     }
 
     /**
-     * 是否启用粘性头部
-     */
-    fun enableStickyHead(enableStickyHead: Boolean) {
-        mEnableStickyHead = enableStickyHead
-        if (!mEnableStickyHead) {
-            stickyHeadContainer.visibility = View.INVISIBLE
-        }
-    }
-
-    /**
      * 根据该view判断是否头部类型
      *
      * @param parent [RecyclerView]
@@ -243,6 +246,15 @@ class StickyItemDecoration(
         if (position == RecyclerView.NO_POSITION) {
             return false
         }
+        return isStickyHeadTypeByAdapter(position)
+    }
+
+    /**
+     * 通过Adapter的position判断是否头部类型
+     * @param position 索引
+     * @return 是否头部类型
+     */
+    private fun isStickyHeadTypeByAdapter(position: Int): Boolean {
         mAdapter?.let {
             val type = it.getItemViewType(position)
             return isStickyHeadType(type)
@@ -256,5 +268,4 @@ class StickyItemDecoration(
     private fun reset() {
         stickyHeadContainer.reset()
     }
-
 }

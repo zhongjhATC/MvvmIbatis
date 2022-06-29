@@ -18,9 +18,9 @@ class LinkUrlText(private val activity: Activity, private val url: String) : Cli
 
     override fun updateDrawState(ds: TextPaint) {
         super.updateDrawState(ds)
-        //设置文本的颜色
+        // 设置文本的颜色
         ds.color = Color.RED
-        //超链接形式的下划线，false 表示不显示下划线，true表示显示下划线
+        // 超链接形式的下划线，false 表示不显示下划线，true表示显示下划线
         ds.isUnderlineText = false
     }
 
@@ -29,5 +29,4 @@ class LinkUrlText(private val activity: Activity, private val url: String) : Cli
         intent.putExtra("url", url)
         activity.startActivity(intent)
     }
-
 }

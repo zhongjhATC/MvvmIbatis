@@ -78,20 +78,27 @@ object NetworkUtil {
                 .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkInfo = connectivity.activeNetworkInfo
             if (networkInfo != null) {
-                return if (networkInfo.isAvailable && networkInfo.isConnected) {
-                    if (!connectionNetwork()) {
-                        NET_CONNECTIVITY_BAIDU_TIMEOUT
-                    } else {
-                        NET_CONNECTIVITY_BAIDU_OK
-                    }
-                } else {
-                    NET_NOT_PREPARE
-                }
+                getNetState(networkInfo)
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         return NET_ERROR
+    }
+
+    /**
+     * @return 返回当前网络状态
+     */
+    private fun getNetState(networkInfo: NetworkInfo): Int {
+        return if (networkInfo.isAvailable && networkInfo.isConnected) {
+            if (!connectionNetwork()) {
+                NET_CONNECTIVITY_BAIDU_TIMEOUT
+            } else {
+                NET_CONNECTIVITY_BAIDU_OK
+            }
+        } else {
+            NET_NOT_PREPARE
+        }
     }
 
     /**
@@ -124,8 +131,10 @@ object NetworkUtil {
         val connectivityManager = context
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetInfo = connectivityManager.activeNetworkInfo
-        return (activeNetInfo != null
-                && activeNetInfo.type == ConnectivityManager.TYPE_MOBILE)
+        return (
+                activeNetInfo != null &&
+                        activeNetInfo.type == ConnectivityManager.TYPE_MOBILE
+                )
     }
 
     /**
@@ -137,8 +146,10 @@ object NetworkUtil {
         val connectivityManager = context
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetInfo = connectivityManager.activeNetworkInfo
-        return (activeNetInfo != null
-                && activeNetInfo.type == ConnectivityManager.TYPE_WIFI)
+        return (
+                activeNetInfo != null &&
+                        activeNetInfo.type == ConnectivityManager.TYPE_WIFI
+                )
     }
 
     /**
@@ -150,9 +161,22 @@ object NetworkUtil {
         val connectivityManager = context
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetInfo = connectivityManager.activeNetworkInfo
-        return (activeNetInfo != null
-                && (activeNetInfo.subtype == TelephonyManager.NETWORK_TYPE_EDGE || activeNetInfo.subtype == TelephonyManager.NETWORK_TYPE_GPRS || activeNetInfo
-            .subtype == TelephonyManager.NETWORK_TYPE_CDMA))
+        return (activeNetInfo != null && judgeSubtype(activeNetInfo))
+    }
+
+    /**
+     * 判断activeNetInfo的subtype类型 是否2g
+     * @return boolean 是否
+     */
+    private fun judgeSubtype(activeNetInfo: NetworkInfo): Boolean {
+        when (activeNetInfo.subtype) {
+            TelephonyManager.NETWORK_TYPE_EDGE,
+            TelephonyManager.NETWORK_TYPE_GPRS,
+            TelephonyManager.NETWORK_TYPE_CDMA -> {
+                return true
+            }
+        }
+        return false
     }
 
     /**

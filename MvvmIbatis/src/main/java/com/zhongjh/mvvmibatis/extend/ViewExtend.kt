@@ -41,9 +41,3 @@ private fun <T : View> T.clickEnable(): Boolean {
     }
     return flag
 }
-
-
-
-
-
-

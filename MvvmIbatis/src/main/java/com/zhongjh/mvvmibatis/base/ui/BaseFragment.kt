@@ -53,7 +53,6 @@ abstract class BaseFragment<VDB : ViewDataBinding> constructor(
         return mBinding.apply(block)
     }
 
-
     /**
      * 确保[binding]属性被执行并提供依赖于[contentLayoutId]视图。
      */
@@ -99,6 +98,4 @@ abstract class BaseFragment<VDB : ViewDataBinding> constructor(
         _binding?.unbind()
         _binding = null
     }
-
-
 }

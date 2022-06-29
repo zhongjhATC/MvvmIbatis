@@ -9,5 +9,4 @@ package com.zhongjh.mvvmibatis.http
 class ResponseException(throwable: Throwable, var code: Int) : Exception(throwable) {
 
     override var message: String? = null
-
 }

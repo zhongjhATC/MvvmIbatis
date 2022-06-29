@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.mvvmibatis.R
-import com.zhongjh.mvvmibatis.utils.ScreenUtil
 
 /**
  * 一个基类Activity
@@ -101,5 +100,4 @@ abstract class BaseActivity<VDB : ViewDataBinding> constructor(
         super.onDestroy()
         mBinding.unbind()
     }
-
 }

@@ -1,12 +1,16 @@
 package com.zhongjh.app.phone.classify.adapter
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseDelegateMultiAdapter
 import com.chad.library.adapter.base.delegate.BaseMultiTypeDelegate
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.zhongjh.app.R
 import com.zhongjh.app.entity.SubClass
+import com.zhongjh.mvvmibatis.base.BaseApplication
 
 /**
  * 小类适配器
@@ -44,20 +48,26 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
             }
         })
         getMultiTypeDelegate()
-            ?.addItemType(TYPE_STICKY_HEAD, R.layout.item_classify)
-            ?.addItemType(TYPE_DATA, R.layout.item_classify)
+            ?.addItemType(TYPE_STICKY_HEAD, R.layout.item_subclass_title)
+            ?.addItemType(TYPE_DATA, R.layout.item_subclass)
     }
 
 
     override fun convert(holder: BaseViewHolder, item: SubClass) {
-        val tvContext = holder.getView<TextView>(R.id.tvContext)
         if (item.id == -1) {
-            TYPE_STICKY_HEAD
-            tvContext.setBackgroundColor(whiteColor)
+            // 粘性头部赋值
+            val tvContext = holder.getView<TextView>(R.id.tvContext)
+            tvContext.text = item.name
         } else {
-            TYPE_DATA
+            // item赋值
+            val tvSubClassName = holder.getView<TextView>(R.id.tvSubClassName)
+            tvSubClassName.text = item.name
+            val imgSubClass = holder.getView<ImageView>(R.id.imgSubClass)
+            Glide.with(BaseApplication.instance).load(item.image)
+                .apply(RequestOptions().placeholder(R.mipmap.ic_banner))
+                .centerCrop()
+                .into(imgSubClass)
         }
-        tvContext.text = item.name
     }
 
 }

@@ -18,6 +18,5 @@ interface IApiEntity<T> {
     /**
      * 用于传递实体数据给MvvmIbatis框架使用,当使用这个方法的时候，是确定一定不会为null的
      */
-    fun getDataEntity() : T
-
+    fun getDataEntity(): T
 }

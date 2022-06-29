@@ -16,6 +16,4 @@ object Constants {
      * 状态栏高度
      */
     const val STATUS_BAR_HEIGHT = "zhongjh_status_bar_height"
-
-
 }

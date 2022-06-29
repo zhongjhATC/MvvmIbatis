@@ -39,15 +39,15 @@ class SerializableHttpCookie(@field:Transient private val cookie: Cookie) : Seri
     }
 
     @Throws(IOException::class, ClassNotFoundException::class)
-    private fun readObject(`in`: ObjectInputStream) {
-        val name = `in`.readObject() as String
-        val value = `in`.readObject() as String
-        val expiresAt = `in`.readLong()
-        val domain = `in`.readObject() as String
-        val path = `in`.readObject() as String
-        val secure = `in`.readBoolean()
-        val httpOnly = `in`.readBoolean()
-        val hostOnly = `in`.readBoolean()
+    private fun readObject(objectInputStream: ObjectInputStream) {
+        val name = objectInputStream.readObject() as String
+        val value = objectInputStream.readObject() as String
+        val expiresAt = objectInputStream.readLong()
+        val domain = objectInputStream.readObject() as String
+        val path = objectInputStream.readObject() as String
+        val secure = objectInputStream.readBoolean()
+        val httpOnly = objectInputStream.readBoolean()
+        val hostOnly = objectInputStream.readBoolean()
         var builder = Cookie.Builder()
         builder = builder.name(name)
         builder = builder.value(value)

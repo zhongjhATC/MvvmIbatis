@@ -1,6 +1,7 @@
 package com.zhongjh.mvvmibatis.http.log
 
 import android.text.TextUtils
+import com.zhongjh.mvvmibatis.entity.LogEntity
 import com.zhongjh.mvvmibatis.http.log.Printer.Companion.getJsonString
 import com.zhongjh.mvvmibatis.http.log.Printer.Companion.printFileRequest
 import com.zhongjh.mvvmibatis.http.log.Printer.Companion.printFileResponse
@@ -81,7 +82,14 @@ class LoggingInterceptor private constructor(private val builder: Builder) : Int
             printJsonResponse(builder, chainMs, isSuccessful, code, header, bodyJson, segmentList)
             body = ResponseBody.create(contentType, bodyString)
         } else {
-            printFileResponse(builder, chainMs, isSuccessful, code, header, segmentList)
+            val logEntity = LogEntity()
+            logEntity.builder = builder
+            logEntity.chainMs = chainMs
+            logEntity.isSuccessful = isSuccessful
+            logEntity.code = code
+            logEntity.headers = header
+            logEntity.segments = segmentList
+            printFileResponse(logEntity)
             return response
         }
         return response.newBuilder().body(body).build()

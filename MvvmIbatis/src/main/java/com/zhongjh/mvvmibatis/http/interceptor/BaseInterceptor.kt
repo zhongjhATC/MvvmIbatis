@@ -27,5 +27,4 @@ class BaseInterceptor(private val headers: Map<String, String>?) : Interceptor {
         // 请求信息
         return chain.proceed(builder.build())
     }
-
 }

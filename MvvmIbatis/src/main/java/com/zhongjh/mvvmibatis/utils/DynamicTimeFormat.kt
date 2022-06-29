@@ -49,37 +49,7 @@ class DynamicTimeFormat(yearFormat: String?, dateFormat: String?, timeFormat: St
             val otherMonth = otherCalendar[Calendar.MONTH]
             // 表示是同一个月
             if (todayMonth == otherMonth) {
-                val temp = todayCalendar[Calendar.DATE] - otherCalendar[Calendar.DATE]
-                when (temp) {
-                    0 -> value.append(timeFormat)
-                    1 -> {
-                        value.append("昨天 ")
-                        value.append(timeFormat)
-                    }
-                    2 -> {
-                        value.append("前天 ")
-                        value.append(timeFormat)
-                    }
-                    3, 4, 5, 6 -> {
-                        val dayOfMonth = otherCalendar[Calendar.WEEK_OF_MONTH]
-                        val todayOfMonth = todayCalendar[Calendar.WEEK_OF_MONTH]
-                        // 表示是同一周
-                        if (dayOfMonth == todayOfMonth) {
-                            val dayOfWeek = otherCalendar[Calendar.DAY_OF_WEEK]
-                            // 判断当前是不是星期日     如想显示为：周日 12:09 可去掉此判断
-                            if (dayOfWeek != 1) {
-                                value.append(WEEKS[otherCalendar[Calendar.DAY_OF_WEEK] - 1])
-                                value.append(' ')
-                                value.append(timeFormat)
-                            } else {
-                                value.append(dateFormat)
-                            }
-                        } else {
-                            value.append(dateFormat)
-                        }
-                    }
-                    else -> value.append(dateFormat)
-                }
+                valueAppend(value, todayCalendar, otherCalendar, timeFormat, dateFormat)
             } else {
                 value.append(dateFormat)
             }
@@ -90,6 +60,39 @@ class DynamicTimeFormat(yearFormat: String?, dateFormat: String?, timeFormat: St
         value.append(String.format(LOCALE, mFormat, value.toString()))
         value.delete(0, length)
         return value
+    }
+
+    private fun valueAppend(value: StringBuffer, todayCalendar: Calendar, otherCalendar: Calendar,timeFormat: String,dateFormat: String) {
+        when (todayCalendar[Calendar.DATE] - otherCalendar[Calendar.DATE]) {
+            0 -> value.append(timeFormat)
+            1 -> {
+                value.append("昨天 ")
+                value.append(timeFormat)
+            }
+            2 -> {
+                value.append("前天 ")
+                value.append(timeFormat)
+            }
+            3, 4, 5, 6 -> {
+                val dayOfMonth = otherCalendar[Calendar.WEEK_OF_MONTH]
+                val todayOfMonth = todayCalendar[Calendar.WEEK_OF_MONTH]
+                // 表示是同一周
+                if (dayOfMonth == todayOfMonth) {
+                    val dayOfWeek = otherCalendar[Calendar.DAY_OF_WEEK]
+                    // 判断当前是不是星期日     如想显示为：周日 12:09 可去掉此判断
+                    if (dayOfWeek != 1) {
+                        value.append(WEEKS[otherCalendar[Calendar.DAY_OF_WEEK] - 1])
+                        value.append(' ')
+                        value.append(timeFormat)
+                    } else {
+                        value.append(dateFormat)
+                    }
+                } else {
+                    value.append(dateFormat)
+                }
+            }
+            else -> value.append(dateFormat)
+        }
     }
 
     companion object {

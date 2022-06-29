@@ -7,19 +7,15 @@ import android.view.Gravity
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
-import com.gyf.immersionbar.ImmersionBar
 import com.tencent.mmkv.MMKV
 import com.tencent.smtt.sdk.QbSdk
 import com.zhongjh.mvvmibatis.BuildConfig
-import com.zhongjh.mvvmibatis.R
 import com.zhongjh.mvvmibatis.constant.FilePaths
 import com.zhongjh.mvvmibatis.phone.ErrorActivity
 import com.zhongjh.mvvmibatis.utils.LogUtil
 import com.zhongjh.mvvmibatis.utils.ToastUtils
-import dagger.hilt.android.HiltAndroidApp
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-
 
 /**
  * Application基类
@@ -116,7 +112,9 @@ abstract class BaseApplication : Application() {
      */
     private fun initQbSdk() {
         // 初始化腾讯x5 QbSdk
-        QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
+        QbSdk.initX5Environment(
+            this,
+            object : QbSdk.PreInitCallback {
             override fun onCoreInitFinished() {
                 Log.e(tag, "========onCoreInitFinished===")
             }
@@ -124,11 +122,11 @@ abstract class BaseApplication : Application() {
             override fun onViewInitFinished(b: Boolean) {
                 Log.e(tag, "x5初始化结果====$b")
             }
-        })
+        }
+        )
     }
 
     abstract fun getLauncher(): Int
 
     abstract fun getSplashActivity(): Class<out Activity>
 }
-

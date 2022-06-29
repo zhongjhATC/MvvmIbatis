@@ -16,6 +16,7 @@ import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -40,7 +41,7 @@ abstract class BaseRetrofitClient {
      */
     private var httpCacheDirectory: File = File(Utils.getApp().cacheDir, "http_cache")
 
-    abstract fun getBaseUrl() : String
+    abstract fun getBaseUrl(): String
 
     abstract fun getHeaders(): Map<String, String>?
 
@@ -50,7 +51,7 @@ abstract class BaseRetrofitClient {
      */
     fun <T> create(service: Class<T>?): T {
         if (service == null) {
-            throw RuntimeException("Api service is null!")
+            throw NullPointerException("Api service is null!")
         }
         return retrofit.create(service)
     }
@@ -102,5 +103,4 @@ abstract class BaseRetrofitClient {
             .baseUrl(getBaseUrl())
             .build()
     }
-
 }

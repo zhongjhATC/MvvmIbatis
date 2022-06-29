@@ -1,83 +1,75 @@
-package com.zhongjh.mvvmibatis.utils;
+package com.zhongjh.mvvmibatis.utils
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
-import androidx.annotation.NonNull;
-
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-
-import java.security.MessageDigest;
+import android.graphics.*
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import java.security.MessageDigest
+import kotlin.math.min
 
 /**
  * 圆形 + 描边效果
  * Glide 的图形变换可参考Glide 示例源码
- * {@link com.bumptech.glide.load.resource.bitmap.CenterCrop}
- * {@link com.bumptech.glide.load.resource.bitmap.BitmapTransformation}
+ * [com.bumptech.glide.load.resource.bitmap.CenterCrop]
+ * [com.bumptech.glide.load.resource.bitmap.BitmapTransformation]
  *
  * @author zhongjh
  * @date 2022/6/7
  */
-public class GlideCircleBorderTransform extends BitmapTransformation {
-
-    private final String ID = getClass().getName();
-    private final Paint mBorderPaint;
-    private final float borderWidth;
-
-    public GlideCircleBorderTransform(float borderWidth, int borderColor) {
-        this.borderWidth = borderWidth;
-        mBorderPaint = new Paint();
-        mBorderPaint.setColor(borderColor);
-        mBorderPaint.setStyle(Paint.Style.STROKE);
-        mBorderPaint.setAntiAlias(true);
-        mBorderPaint.setStrokeWidth(borderWidth);
-        mBorderPaint.setDither(true);
+class GlideCircleBorderTransform(private val borderWidth: Float, borderColor: Int) :
+    BitmapTransformation() {
+    private val mID = javaClass.name
+    private val mBorderPaint: Paint = Paint()
+    override fun transform(
+        pool: BitmapPool,
+        toTransform: Bitmap,
+        outWidth: Int,
+        outHeight: Int
+    ): Bitmap {
+        return circleCrop(pool, toTransform)
     }
 
-    @Override
-    protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
-        return circleCrop(pool, toTransform);
+    override fun updateDiskCacheKey(messageDigest: MessageDigest) {
+        messageDigest.update(mID.toByteArray(CHARSET))
     }
 
-    @Override
-    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-        messageDigest.update(ID.getBytes(CHARSET));
+    override fun equals(other: Any?): Boolean {
+        return other is GlideCircleBorderTransform
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return o instanceof GlideCircleBorderTransform;
+    override fun hashCode(): Int {
+        return mID.hashCode()
     }
 
-    @Override
-    public int hashCode() {
-        return ID.hashCode();
-    }
-
-    private Bitmap circleCrop(BitmapPool bitmapPool, Bitmap source) {
-        int size = Math.min(source.getWidth(), source.getHeight());
-        int x = (source.getWidth() - size) / 2;
-        int y = (source.getHeight() - size) / 2;
-        Bitmap square = Bitmap.createBitmap(source, x, y, size, size);
-        Bitmap result = bitmapPool.get(size, size, Bitmap.Config.ARGB_8888);
+    private fun circleCrop(bitmapPool: BitmapPool, source: Bitmap): Bitmap {
+        val size = min(source.width, source.height)
+        val x = (source.width - size) / 2
+        val y = (source.height - size) / 2
+        val square = Bitmap.createBitmap(source, x, y, size, size)
+        val result = bitmapPool[size, size, Bitmap.Config.ARGB_8888]
 
         // 画图
-        Canvas canvas = new Canvas(result);
-        Paint paint = new Paint();
+        val canvas = Canvas(result)
+        val paint = Paint()
         // 设置 Shader
-        paint.setShader(new BitmapShader(square, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
-        paint.setAntiAlias(true);
-        float radius = size / 2f;
-        //绘制一个圆
-        canvas.drawCircle(radius, radius, radius, paint);
+        paint.shader =
+            BitmapShader(square, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        paint.isAntiAlias = true
+        val radius = size / 2f
+        // 绘制一个圆
+        canvas.drawCircle(radius, radius, radius, paint)
 
         // 描边，注意：避免出现描边被屏幕边缘裁掉
-        float borderRadius = radius - (borderWidth / 2);
+        val borderRadius = radius - borderWidth / 2
         // 画边框
-        canvas.drawCircle(radius, radius, borderRadius, mBorderPaint);
-        return result;
+        canvas.drawCircle(radius, radius, borderRadius, mBorderPaint)
+        return result
+    }
+
+    init {
+        mBorderPaint.color = borderColor
+        mBorderPaint.style = Paint.Style.STROKE
+        mBorderPaint.isAntiAlias = true
+        mBorderPaint.strokeWidth = borderWidth
+        mBorderPaint.isDither = true
     }
 }

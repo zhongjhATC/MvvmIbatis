@@ -1,6 +1,7 @@
 package com.zhongjh.mvvmibatis.http.log
 
 import android.text.TextUtils
+import com.zhongjh.mvvmibatis.entity.LogEntity
 import okhttp3.FormBody
 import okhttp3.Request
 import okio.Buffer
@@ -19,7 +20,7 @@ internal class Printer private constructor() {
 
     companion object {
         private const val JSON_INDENT = 3
-        private val LINE_SEPARATOR = System.getProperty("line.separator")?:"null"
+        private val LINE_SEPARATOR = System.getProperty("line.separator") ?: "null"
         private val DOUBLE_SEPARATOR = LINE_SEPARATOR + LINE_SEPARATOR
         private val OMITTED_RESPONSE = arrayOf(LINE_SEPARATOR, "Omitted response body")
         private val OMITTED_REQUEST = arrayOf(LINE_SEPARATOR, "Omitted request body")
@@ -82,8 +83,13 @@ internal class Printer private constructor() {
 
         @JvmStatic
         fun printJsonResponse(
-            builder: LoggingInterceptor.Builder, chainMs: Long, isSuccessful: Boolean,
-            code: Int, headers: String, bodyString: String, segments: List<String>
+            builder: LoggingInterceptor.Builder,
+            chainMs: Long,
+            isSuccessful: Boolean,
+            code: Int,
+            headers: String,
+            bodyString: String,
+            segments: List<String>
         ) {
             val responseBody =
                 LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + getJsonString(bodyString)
@@ -92,10 +98,12 @@ internal class Printer private constructor() {
                 I.log(builder.type, tag, RESPONSE_UP_LINE)
             }
             logLines(
-                builder.type, tag, getResponse(
+                builder.type, tag,
+                    getResponse(
                     headers, chainMs, code, isSuccessful,
                     builder.level, segments
-                ), builder.logger, true
+                ),
+                    builder.logger, true
             )
             if (builder.level === Level.BASIC || builder.level === Level.BODY) {
                 logLines(
@@ -141,22 +149,23 @@ internal class Printer private constructor() {
 
         @JvmStatic
         fun printFileResponse(
-            builder: LoggingInterceptor.Builder, chainMs: Long, isSuccessful: Boolean,
-            code: Int, headers: String, segments: List<String>
+            logEntity: LogEntity
         ) {
-            val tag = builder.getTag(false)
-            if (builder.logger == null) {
-                I.log(builder.type, tag, RESPONSE_UP_LINE)
+            val tag = logEntity.builder.getTag(false)
+            if (logEntity.builder.logger == null) {
+                I.log(logEntity.builder.type, tag, RESPONSE_UP_LINE)
             }
             logLines(
-                builder.type, tag, getResponse(
-                    headers, chainMs, code, isSuccessful,
-                    builder.level, segments
-                ), builder.logger, true
+                logEntity.builder.type, tag,
+                    getResponse(
+                        logEntity.headers, logEntity.chainMs, logEntity.code, logEntity.isSuccessful,
+                        logEntity.builder.level, logEntity.segments
+                ),
+                logEntity.builder.logger, true
             )
-            logLines(builder.type, tag, OMITTED_RESPONSE, builder.logger, true)
-            if (builder.logger == null) {
-                I.log(builder.type, tag, END_LINE)
+            logLines(logEntity.builder.type, tag, OMITTED_RESPONSE, logEntity.builder.logger, true)
+            if (logEntity.builder.logger == null) {
+                I.log(logEntity.builder.type, tag, END_LINE)
             }
         }
 
@@ -176,21 +185,28 @@ internal class Printer private constructor() {
         }
 
         private fun getResponse(
-            header: String, tookMs: Long, code: Int, isSuccessful: Boolean,
-            level: Level, segments: List<String>
+            header: String,
+            tookMs: Long,
+            code: Int,
+            isSuccessful: Boolean,
+            level: Level,
+            segments: List<String>
         ): Array<String> {
             val message: String
             val loggableHeader = level === Level.HEADERS || level === Level.BASIC
             val segmentString = slashSegments(segments)
             message =
-                ((if (!TextUtils.isEmpty(segmentString)) "$segmentString - " else "") + "is success : "
-                        + isSuccessful + " - " + RECEIVED_TAG + tookMs + "ms" + DOUBLE_SEPARATOR + STATUS_CODE_TAG +
+                (
+                    (if (!TextUtils.isEmpty(segmentString)) "$segmentString - " else "") + "is success : " +
+                        isSuccessful + " - " + RECEIVED_TAG + tookMs + "ms" + DOUBLE_SEPARATOR + STATUS_CODE_TAG +
                         code + DOUBLE_SEPARATOR + when {
-                            isEmpty(header) -> ""
-                            loggableHeader -> HEADERS_TAG + LINE_SEPARATOR +
-                                    dotHeaders(header)
-                            else -> ""
-                        })
+                    isEmpty(header) -> ""
+                    loggableHeader ->
+                        HEADERS_TAG + LINE_SEPARATOR +
+                            dotHeaders(header)
+                    else -> ""
+                }
+                )
             return message.split(LINE_SEPARATOR.toRegex()).toTypedArray()
         }
 

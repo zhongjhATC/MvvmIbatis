@@ -19,7 +19,7 @@ import com.zhongjh.mvvmibatis.extend.onClick
  */
 class ErrorActivity : AppCompatActivity() {
 
-    private val binding : ActivityErrorBinding by lazy{
+    private val binding: ActivityErrorBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_error)
     }
 
@@ -48,5 +48,4 @@ class ErrorActivity : AppCompatActivity() {
             CustomActivityOnCrash.restartApplication(this@ErrorActivity, config!!)
         }
     }
-
 }

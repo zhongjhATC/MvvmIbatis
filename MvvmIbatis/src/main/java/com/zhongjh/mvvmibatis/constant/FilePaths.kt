@@ -36,5 +36,4 @@ object FilePaths {
     fun logFile(context: Context): File? {
         return context.getExternalFilesDir(File.separator + "log" + File.separator)
     }
-
 }

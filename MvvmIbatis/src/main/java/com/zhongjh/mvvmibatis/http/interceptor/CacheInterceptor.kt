@@ -43,5 +43,4 @@ class CacheInterceptor(private val application: Application) : Interceptor {
                 .build()
         }
     }
-
 }
