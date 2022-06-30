@@ -6,11 +6,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/aurora_grey"
+        android:background="@color/white"
         tools:context=".phone.classify.ClassifyActivity">
 
         <View
             android:id="@+id/vTop"
+            android:background="@color/aurora_grey"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:contentInsetStart="0dp"
@@ -79,6 +80,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContent"
             android:layout_width="0dp"
+            android:background="@color/aurora_grey"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineV25"
@@ -88,11 +90,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSubclass"
             android:layout_width="0dp"
-            android:layout_marginEnd="20dp"
             android:background="@color/white"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sideBarView"
             app:layout_constraintStart_toStartOf="@+id/guidelineV25"
             app:layout_constraintTop_toBottomOf="@+id/vTop" />
 
@@ -110,6 +111,15 @@
                 layout="@layout/item_subclass_title" />
 
         </com.zhongjh.stickyhead.StickyHeadContainer>
+
+        <com.zhongjh.sidebarview.SideBarView
+            android:id="@+id/sideBarView"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            app:hintShape="rectangle"
+            app:layout_constraintBottom_toBottomOf="@+id/rvSubclass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vTop" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineV25"

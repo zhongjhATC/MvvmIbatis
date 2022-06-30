@@ -76,6 +76,7 @@ android {
 dependencies {
     implementation project(path: ':MvvmIbatis')
     implementation project(path: ':StickyHead')
+    implementation project(path: ':SideBarView')
 
     // 数据库
     api 'org.greenrobot:greendao:3.3.0'
