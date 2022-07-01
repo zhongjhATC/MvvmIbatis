@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@drawable/bg_search_history_aurora_gray_corner_2"
+    android:background="@drawable/bg_search_history_aurora_gray_radius_2"
     android:paddingStart="16dp"
     android:paddingTop="4dp"
     android:paddingEnd="16dp"

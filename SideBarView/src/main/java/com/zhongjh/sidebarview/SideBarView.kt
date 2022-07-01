@@ -8,7 +8,9 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
 
 /**
@@ -22,6 +24,9 @@ class SideBarView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private val tag = SideBarView::class.java.simpleName
+    private var mListener: OnSideBarViewListener? = null
+
     /**
      * 该控件相关属性
      */
@@ -31,16 +36,34 @@ class SideBarView @JvmOverloads constructor(
      * 控件列表数据源
      */
     private lateinit var mLetters: List<String>
-    private var mSelect = -1
-    private val mAnimationRatio = 0f
+    private var mSelect = 0
+
+    /**
+     * 上一个的选择索引
+     */
+    private var mPrevSelect = 0
 
     private var mSlideBarRect = RectF()
+
+    /**
+     * 未选择文本画笔
+     */
     private var mTextPaint = TextPaint()
+
+    /**
+     * 已选择文本画笔
+     */
+    private var mSelectTextPaint = TextPaint()
     private var mPaint = Paint()
 
     init {
         initAttribute(attrs, defStyleAttr)
+        initTool()
         initData()
+    }
+
+    fun setOnLetterChangeListener(listener: OnSideBarViewListener) {
+        this.mListener = listener
     }
 
     /**
@@ -70,15 +93,24 @@ class SideBarView @JvmOverloads constructor(
         typeArray.recycle()
     }
 
+    private fun initTool() {
+        // 抗锯齿开启,防止模糊
+        mTextPaint.isAntiAlias = true
+        // 文字以居左形式绘画
+        mTextPaint.textAlign = Paint.Align.LEFT
+        mTextPaint.color = sideBarEntity.textColor
+        mTextPaint.textSize = sideBarEntity.textSize.toFloat()
+
+        mSelectTextPaint.isAntiAlias = true
+        mSelectTextPaint.textAlign = Paint.Align.LEFT
+        mSelectTextPaint.color = sideBarEntity.selectTextColor
+        mSelectTextPaint.textSize = sideBarEntity.selectTextSize.toFloat()
+    }
+
     /**
      * 初始化View的属性
      */
     private fun initAttributeView(typeArray: TypedArray) {
-        sideBarEntity.backgroundColor = typeArray.getColor(
-            R.styleable.SideBarView_backgroundColor, Color.parseColor("#F9F9F9")
-        )
-        sideBarEntity.strokeColor =
-            typeArray.getColor(R.styleable.SideBarView_strokeColor, Color.parseColor("#000000"))
         sideBarEntity.barPadding = typeArray.getDimensionPixelOffset(
             R.styleable.SideBarView_barPadding,
             TypedValue.applyDimension(
@@ -103,27 +135,6 @@ class SideBarView @JvmOverloads constructor(
                 resources.displayMetrics
             ).toInt()
         )
-        sideBarEntity.hintTextColor =
-            typeArray.getColor(R.styleable.SideBarView_hintTextColor, Color.parseColor("#FFFFFF"))
-        sideBarEntity.hintTextSize = typeArray.getDimensionPixelOffset(
-            R.styleable.SideBarView_hintTextSize,
-            TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP, 16f,
-                resources.displayMetrics
-            ).toInt()
-        )
-        sideBarEntity.hintCircleRadius = typeArray.getDimensionPixelOffset(
-            R.styleable.SideBarView_hintCircleRadius,
-            TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 24f,
-                resources.displayMetrics
-            ).toInt()
-        )
-        sideBarEntity.hintCircleColor = typeArray.getColor(
-            R.styleable.SideBarView_hintCircleColor,
-            Color.parseColor("#bef9b81b")
-        )
-        sideBarEntity.hintShape = typeArray.getInteger(R.styleable.SideBarView_hintShape, 0)
     }
 
     private fun initData() {
@@ -133,16 +144,16 @@ class SideBarView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val contentLeft: Int = sideBarEntity.barPadding
-        val contentRight: Int = measuredWidth - sideBarEntity.barPadding
-        val contentTop: Int = sideBarEntity.barPadding
-        val contentBottom = (measuredHeight - sideBarEntity.barPadding).toFloat()
+        val contentLeft: Int = paddingLeft
+        val contentRight: Int = measuredWidth - paddingRight
+        val contentTop: Int = paddingTop
+        val contentBottom = (measuredHeight - paddingBottom)
         // 设置画布，可以看到画布
         mSlideBarRect.set(
             contentLeft.toFloat(),
             contentTop.toFloat(),
             contentRight.toFloat(),
-            contentBottom
+            contentBottom.toFloat()
         )
     }
 
@@ -150,71 +161,26 @@ class SideBarView @JvmOverloads constructor(
         super.onDraw(canvas)
         // 绘制slide bar 上字母列表
         drawLetters(canvas)
-//        // 绘制选中时的提示信息(圆＋文字)
-//        drawHint(canvas)
-//        // 绘制选中的slide bar上的那个文字
-//        drawSelect(canvas)
+        // 绘制选中的slide bar上的那个文字
+        drawSelect(canvas)
     }
 
     /**
-     * 绘制slide bar 上字母列表
+     * 绘制slide bar 上列表
      */
     private fun drawLetters(canvas: Canvas) {
         // 顺序绘制文字 每个文字的高度,计算：(取整个view高度 - view上下间隔) / 集合长度
         val itemHeight: Float =
             (mSlideBarRect.bottom - mSlideBarRect.top - sideBarEntity.contentPadding * 2) / mLetters.size
-        mTextPaint.color = sideBarEntity.textColor
-        mTextPaint.textSize = sideBarEntity.textSize.toFloat()
-        // 文字以居左形式绘画
-        mTextPaint.textAlign = Paint.Align.LEFT
+
         for (index in mLetters.indices) {
             // 获取每一个索引的坐标中心点
             val center =
                 mSlideBarRect.top + sideBarEntity.contentPadding + itemHeight * index + itemHeight / 2
             val pointY: Float =
                 getTextBaseLineByCenter(center, mTextPaint, sideBarEntity.textSize)
-            val pointX = mSlideBarRect.left + (mSlideBarRect.right - mSlideBarRect.left) / 2.0f
             // 以文字的左下角的xy坐标形式画文字
-            drawMiddleText(canvas, mLetters[index], pointY)
-//            canvas.drawText(mLetters[index], 0F, pointY, mTextPaint)
-        }
-    }
-
-    /**
-     * 绘制选中时的提示信息(圆＋文字)
-     */
-    private fun drawHint(canvas: Canvas) {
-        // x轴的移动路径
-        val circleCenterX: Float = measuredWidth + sideBarEntity.hintCircleRadius -
-                (-measuredWidth / 2 + (measuredWidth + sideBarEntity.hintCircleRadius)) * mAnimationRatio
-        mPaint.style = Paint.Style.FILL
-        mPaint.color = sideBarEntity.hintCircleColor
-        if (sideBarEntity.hintShape == 0) {
-            canvas.drawCircle(
-                circleCenterX, measuredHeight / 2.0f,
-                sideBarEntity.hintCircleRadius.toFloat(), mPaint
-            )
-        } else {
-            canvas.drawRect(
-                circleCenterX - sideBarEntity.hintCircleRadius,
-                measuredHeight / 2.0f - sideBarEntity.hintCircleRadius,
-                circleCenterX + sideBarEntity.hintCircleRadius,
-                measuredHeight / 2.0f + sideBarEntity.hintCircleRadius,
-                mPaint
-            )
-        }
-        // 绘制圆中心的提示字符
-        if (mSelect != -1) {
-            val target = mLetters[mSelect]
-            val textY: Float = getTextBaseLineByCenter(
-                measuredHeight / 2.0f,
-                mTextPaint,
-                sideBarEntity.hintTextSize
-            )
-            mTextPaint.color = sideBarEntity.hintTextColor
-            mTextPaint.textSize = sideBarEntity.hintTextSize.toFloat()
-            mTextPaint.textAlign = Paint.Align.CENTER
-            canvas.drawText(target, circleCenterX, textY, mTextPaint)
+            drawMiddleText(canvas, mLetters[index], pointY, mTextPaint)
         }
     }
 
@@ -223,19 +189,48 @@ class SideBarView @JvmOverloads constructor(
      */
     private fun drawSelect(canvas: Canvas) {
         if (mSelect != -1) {
-            mTextPaint.color = sideBarEntity.selectTextColor
-            mTextPaint.textSize = sideBarEntity.selectTextSize.toFloat()
-            mTextPaint.textAlign = Paint.Align.CENTER
             val itemHeight: Float =
                 (mSlideBarRect.bottom - mSlideBarRect.top - sideBarEntity.contentPadding * 2) / mLetters.size
-            val baseLine: Float = getTextBaseLineByCenter(
-                mSlideBarRect.top + sideBarEntity.contentPadding + itemHeight * mSelect + itemHeight / 2,
-                mTextPaint,
-                sideBarEntity.textSize
-            )
-            val pointX = mSlideBarRect.left + (mSlideBarRect.right - mSlideBarRect.left) / 2.0f
-            canvas.drawText(mLetters[mSelect], pointX, baseLine, mTextPaint)
+            val center =
+                mSlideBarRect.top + sideBarEntity.contentPadding + itemHeight * mSelect + itemHeight / 2
+            val pointY: Float =
+                getTextBaseLineByCenter(center, mSelectTextPaint, sideBarEntity.textSize)
+            // 以文字的左下角的xy坐标形式画文字
+            drawMiddleText(canvas, mLetters[mSelect], pointY, mSelectTextPaint)
         }
+    }
+
+    /**
+     * 触摸本身便触发相关事件
+     */
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        Log.d(tag, "dispatchTouchEvent " + event.action)
+        // 获取xy坐标
+        val y = event.y - paddingTop
+        mPrevSelect = mSelect
+        // 计算当前触摸的索引，计算公式： y坐标 / view的height * 数据长度
+        // 因为整个view的height是 / 数据长度的，所以用点击的 y坐标/view height 再 * 数据长度回来能获取具体的索引
+        mSelect = (y / (mSlideBarRect.bottom - mSlideBarRect.top) * mLetters.size).toInt()
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (mPrevSelect != mSelect && mSelect >= 0 && mSelect < mLetters.size) {
+                    mListener?.onSideBarViewStart(mLetters[mSelect])
+                }
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (mPrevSelect != mSelect && mSelect >= 0 && mSelect < mLetters.size) {
+                    mListener?.onSideBarViewChange(mLetters[mSelect])
+                    invalidate()
+                    Log.d(tag, "MotionEvent.ACTION_MOVE")
+                }
+            }
+            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
+                mSelect = -1
+                mListener?.onSideBarViewEnd()
+            }
+            else -> {}
+        }
+        return true
     }
 
     /**
@@ -255,9 +250,9 @@ class SideBarView @JvmOverloads constructor(
      * @param canvas 绘图类
      * @param text 绘画的文字
      */
-    private fun drawMiddleText(canvas: Canvas, text: String, pointY: Float) {
-        val textWidth: Float = mTextPaint.measureText(text)
+    private fun drawMiddleText(canvas: Canvas, text: String, pointY: Float, textPaint: TextPaint) {
+        val textWidth: Float = textPaint.measureText(text)
         // 计算公式:view宽度一半 - 文字宽度一半 = 文字居中
-        canvas.drawText(text, measuredWidth / 2 - textWidth / 2, pointY, mTextPaint)
+        canvas.drawText(text, measuredWidth / 2 - textWidth / 2, pointY, textPaint)
     }
 }

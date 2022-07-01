@@ -20,4 +20,7 @@ interface ClassifyApi {
 
     @GET("raw/master/server/api/subclass2.json")
     suspend fun subclass2(): ApiEntity<MutableList<SubClass>>
+
+    @GET("raw/master/server/api/subclass3.json")
+    suspend fun subclass3(): ApiEntity<MutableList<SubClass>>
 }

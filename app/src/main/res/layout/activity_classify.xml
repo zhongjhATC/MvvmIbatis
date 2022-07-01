@@ -6,15 +6,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/aurora_grey"
         tools:context=".phone.classify.ClassifyActivity">
 
         <View
             android:id="@+id/vTop"
-            android:background="@color/aurora_grey"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:contentInsetStart="0dp"
+            android:background="@color/aurora_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
             android:layout_height="0dp"
             android:layout_margin="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_search_white_corner_50"
+            android:background="@drawable/bg_search_white_radius_50"
             app:layout_constraintBottom_toBottomOf="@+id/vTop"
             app:layout_constraintEnd_toStartOf="@+id/imgShop"
             app:layout_constraintStart_toStartOf="@+id/vTop"
@@ -114,12 +114,31 @@
 
         <com.zhongjh.sidebarview.SideBarView
             android:id="@+id/sideBarView"
-            android:layout_width="20dp"
+            android:layout_width="30dp"
+            android:background="@color/white"
+            android:paddingTop="100dp"
+            android:paddingBottom="100dp"
             android:layout_height="0dp"
-            app:hintShape="rectangle"
             app:layout_constraintBottom_toBottomOf="@+id/rvSubclass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vTop" />
+
+        <TextView
+            android:id="@+id/tvSideBarTips"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_panel_darkgray_radius_15"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rvContent"
+            app:layout_constraintTop_toTopOf="@+id/vTop"
+            android:visibility="gone"
+            tools:text="A"
+            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineV25"

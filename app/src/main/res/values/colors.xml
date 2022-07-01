@@ -9,7 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="light_black">#0A0A0A</color>
 
-
+    <color name="dark_grey">#9c646060</color>
     <color name="grey">#808080</color> <!--灰色 -->
     <color name="off_white">#F7F7F7</color> <!-- 灰白色 -->
     <color name="aurora_grey">#EAEAEF</color> <!-- 极光灰 -->

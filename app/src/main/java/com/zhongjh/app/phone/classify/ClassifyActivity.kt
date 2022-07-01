@@ -1,6 +1,7 @@
 package com.zhongjh.app.phone.classify
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +20,7 @@ import com.zhongjh.app.phone.classify.adapter.SubClassAdapter
 import com.zhongjh.app.phone.classify.adapter.SubClassAdapter.Companion.TYPE_STICKY_HEAD
 import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.entity.State
+import com.zhongjh.sidebarview.OnSideBarViewListener
 import com.zhongjh.stickyhead.StickyHeadContainer
 import com.zhongjh.stickyhead.StickyItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,6 +78,7 @@ class ClassifyActivity :
     }
 
     override fun initListener() {
+        // 大类点击事件
         mClassifyAdapter.setOnItemClickListener { _, _, position ->
             viewModel.getSubClass(mClassifyAdapter.getItem(position).id)
         }
@@ -84,6 +87,26 @@ class ClassifyActivity :
         mBinding.stickyHeadContainer.setDataCallback(object : StickyHeadContainer.DataCallback {
             override fun onDataChange(pos: Int) {
                 mBinding.includeSubclassTitle.tvContext.text = mSubClassAdapter.data[pos].name
+            }
+        })
+
+        // 侧边栏事件
+        mBinding.sideBarView.setOnLetterChangeListener(object : OnSideBarViewListener {
+            override fun onSideBarViewStart(letter: String) {
+                mBinding.tvSideBarTips.text = letter
+                mBinding.tvSideBarTips.visibility = View.VISIBLE
+                scrollRecyclerViewSubclass(letter)
+            }
+
+            override fun onSideBarViewChange(letter: String) {
+                mBinding.tvSideBarTips.text = letter
+                mBinding.tvSideBarTips.visibility = View.VISIBLE
+                scrollRecyclerViewSubclass(letter)
+            }
+
+            override fun onSideBarViewEnd() {
+                mBinding.tvSideBarTips.text = ""
+                mBinding.tvSideBarTips.visibility = View.GONE
             }
         })
     }
@@ -139,5 +162,17 @@ class ClassifyActivity :
         mSubClassAdapter.setDiffNewData(data)
         mStickyItemDecoration = StickyItemDecoration(mBinding.stickyHeadContainer, TYPE_STICKY_HEAD)
         mBinding.rvSubclass.addItemDecoration(mStickyItemDecoration)
+    }
+
+    /**
+     * 根据首字母滑动RecyclerViewSubclass
+     * @param letter 首字母
+     */
+    private fun scrollRecyclerViewSubclass(letter: String) {
+        val position: Int = mSubClassAdapter.getLettersFirstPosition(letter)
+        if (position != -1) {
+            val manager = mBinding.rvSubclass.layoutManager as GridLayoutManager
+            manager.scrollToPositionWithOffset(position, 0)
+        }
     }
 }

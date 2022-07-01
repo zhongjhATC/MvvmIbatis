@@ -2,8 +2,6 @@ package com.zhongjh.app.phone.classify.adapter
 
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginStart
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseDelegateMultiAdapter
@@ -19,17 +17,6 @@ import com.zhongjh.mvvmibatis.base.BaseApplication
  * @date 2022/6/27
  */
 class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
-
-    private val auroraGreyColor by lazy {
-        ResourcesCompat.getColor(context.resources, R.color.aurora_grey, context.theme)
-    }
-    private val whiteColor by lazy {
-        ResourcesCompat.getColor(
-            context.resources,
-            com.zhongjh.mvvmibatis.R.color.white,
-            context.theme
-        )
-    }
 
     companion object {
         const val TYPE_DATA = 1
@@ -68,5 +55,19 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
                 .centerCrop()
                 .into(imgSubClass)
         }
+    }
+
+    /**
+     * 获取跟首字母一样的索引
+     * @param letters 首字母
+     * @return 索引
+     */
+    fun getLettersFirstPosition(letters: String): Int {
+        for (i in 0 until data.size) {
+            if (data[i].id == -1 && data[i].name.equals(letters)) {
+                return i
+            }
+        }
+        return -1
     }
 }

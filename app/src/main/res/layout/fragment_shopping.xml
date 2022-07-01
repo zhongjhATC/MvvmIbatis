@@ -24,7 +24,7 @@
             android:layout_height="0dp"
             android:layout_margin="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_search_aurora_gray_corner_50"
+            android:background="@drawable/bg_search_auroragray_radius_50"
             app:layout_constraintBottom_toBottomOf="@+id/vTop"
             app:layout_constraintEnd_toStartOf="@+id/imgShop"
             app:layout_constraintStart_toStartOf="@+id/vTop"

@@ -88,7 +88,7 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
                 i++
                 continue
             }
-            if (list[i].name?.get(0) != list[i + 1].name?.get(0)) {
+            if (list[i].name?.get(0)?.uppercase() != list[i + 1].name?.get(0)?.uppercase()) {
                 addHeadItem(list, i + 1)
             }
             i++
@@ -102,7 +102,7 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
      */
     private fun addHeadItem(list: MutableList<SubClass>, position: Int) {
         val subclass = SubClass()
-        subclass.name = list[position].name?.get(0).toString()
+        subclass.name = list[position].name?.get(0)?.uppercase()
         subclass.id = -1
         subclass.image = ""
         list.add(position, subclass)
