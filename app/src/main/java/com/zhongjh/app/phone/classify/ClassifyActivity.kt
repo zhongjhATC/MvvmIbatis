@@ -86,7 +86,7 @@ class ClassifyActivity :
         // 更新头部值
         mBinding.stickyHeadContainer.setDataCallback(object : StickyHeadContainer.DataCallback {
             override fun onDataChange(pos: Int) {
-                mBinding.includeSubclassTitle.tvContext.text = mSubClassAdapter.data[pos].name
+                mBinding.includeSubclassTitle.tvContext.text = mSubClassAdapter.data[pos].firstLetter.toString()
             }
         })
 

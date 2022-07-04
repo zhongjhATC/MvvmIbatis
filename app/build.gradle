@@ -96,6 +96,9 @@ dependencies {
 
     // hilt
     api "com.google.dagger:hilt-android:$versions.hiltVersion"
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     kapt "com.google.dagger:hilt-compiler:$versions.hiltVersion"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltVersion"

@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import com.gyf.immersionbar.ImmersionBar
 import com.zhongjh.app.R
+import com.zhongjh.app.data.local.MMKVLocal
 import com.zhongjh.app.databinding.ActivityPrivacyPolicyBinding
 import com.zhongjh.app.phone.advertising.AdvertisingActivity
 import com.zhongjh.mvvmibatis.base.BaseApplication
@@ -18,6 +19,7 @@ import com.zhongjh.mvvmibatis.base.ui.BaseActivity
 import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.utils.LinkUrlText
+import com.zhongjh.mvvmibatis.utils.SPCacheUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -48,6 +50,7 @@ class PrivacyPolicyActivity :
                         val intent = Intent(this@PrivacyPolicyActivity, AdvertisingActivity::class.java)
                         startActivity(intent)
                         BaseApplication.instance.init()
+                        SPCacheUtil.put(MMKVLocal.IS_PRIVACY_POLICY, true)
                         this@PrivacyPolicyActivity.finish()
                     }
                     else -> {}

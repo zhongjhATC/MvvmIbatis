@@ -33,7 +33,8 @@ class SubClassCallback : DiffUtil.ItemCallback<SubClass>() {
      */
     override fun areContentsTheSame(oldItem: SubClass, newItem: SubClass): Boolean {
         return oldItem.name == newItem.name &&
-                oldItem.image == newItem.image
+                oldItem.image == newItem.image &&
+                oldItem.firstLetter == newItem.firstLetter
     }
 
     /**

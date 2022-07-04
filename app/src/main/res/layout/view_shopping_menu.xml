@@ -9,7 +9,8 @@
             android:id="@+id/imgProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_round_alarm_24"
             app:layout_constraintEnd_toStartOf="@+id/imgClass"
@@ -23,6 +24,8 @@
             android:id="@+id/tvProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="4dp"
             android:text="@string/all"
             app:layout_constraintEnd_toEndOf="@+id/imgProduct"
@@ -31,6 +34,8 @@
 
         <ImageView
             android:id="@+id/imgClass"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_round_alarm_add_24"
@@ -42,6 +47,8 @@
 
         <TextView
             android:id="@+id/tvClass"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
@@ -50,7 +57,15 @@
             app:layout_constraintStart_toStartOf="@+id/imgClass"
             app:layout_constraintTop_toBottomOf="@+id/imgClass" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupMenuClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="imgClass,tvClass"/>
+
         <ImageView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/imgPeripheralProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +77,8 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/tvPeripheralProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +89,8 @@
             app:layout_constraintTop_toBottomOf="@+id/imgPeripheralProduct" />
 
         <ImageView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/imgIntegral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,6 +102,8 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/tvIntegral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,6 +114,8 @@
             app:layout_constraintTop_toBottomOf="@+id/imgIntegral" />
 
         <ImageView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/imgConsult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,6 +128,8 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/tvConsult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

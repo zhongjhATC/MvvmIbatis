@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.zhongjh.app.data.http.service.ClassifyApi
 import com.zhongjh.app.entity.Classify
 import com.zhongjh.app.entity.SubClass
-import com.zhongjh.app.phone.classify.ClassifyActivity.Companion.SUB_CLASS_SPAN_COUNT
 import com.zhongjh.mvvmibatis.entity.State
 import com.zhongjh.mvvmibatis.extend.launchApiFlow
+import com.zhongjh.mvvmibatis.utils.AlphabeticUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -57,14 +57,26 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
                 launchApiFlow(_uiSubClass) {
                     // 分类数据
                     val subclass =
-                        if (it == 1) {
-                            classifyApi.subclass()
-                        } else {
-                            classifyApi.subclass2()
+                        when (it) {
+                            1 -> {
+                                classifyApi.subclass()
+                            }
+                            2 -> {
+                                classifyApi.subclass2()
+                            }
+                            else -> {
+                                classifyApi.subclass3()
+                            }
                         }
                     // 给数据源添加头部数据
                     subclass.data?.let {
-                        it.sortBy { subClass -> subClass.name }
+                        for (item in it) {
+                            item.name?.let { it1 ->
+                                val firstLetter = AlphabeticUtil.getFirstLetter(it1[0])
+                                item.firstLetter = firstLetter.uppercaseChar()
+                            }
+                        }
+                        it.sortBy { subClass -> subClass.firstLetter }
                         addHeadData(it)
                     }
                     subclass
@@ -88,7 +100,7 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
                 i++
                 continue
             }
-            if (list[i].name?.get(0)?.uppercase() != list[i + 1].name?.get(0)?.uppercase()) {
+            if (list[i].firstLetter != list[i + 1].firstLetter) {
                 addHeadItem(list, i + 1)
             }
             i++
@@ -102,7 +114,7 @@ class ClassifyModel @Inject constructor(private val classifyApi: ClassifyApi) : 
      */
     private fun addHeadItem(list: MutableList<SubClass>, position: Int) {
         val subclass = SubClass()
-        subclass.name = list[position].name?.get(0)?.uppercase()
+        subclass.firstLetter = list[position].firstLetter
         subclass.id = -1
         subclass.image = ""
         list.add(position, subclass)

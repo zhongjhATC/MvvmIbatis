@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreen">
         <activity
-            android:name=".phone.classify.ClassifyActivity"
+            android:name=".phone.load.LoadActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,26 +19,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".phone.advertising.AdvertisingActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.MvvmDemo" />
         <activity
             android:name=".phone.privacypolicy.PrivacyPolicyActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.MvvmDemo" />
         <activity
             android:name=".phone.main.MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.MvvmDemo" />
         <activity
             android:name=".phone.search.SearchActivity"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.MvvmDemo" />
-
-<!--        android:name=".phone.load.LoadActivity"-->
-<!--        <activity-->
-<!--            android:name=".phone.classify.ClassifyActivity"-->
-<!--            android:theme="@style/Theme.MvvmDemo" />-->
-
-        <!-- 用于捕获app完全退出时，告知服务器该App退出 -->
+        <activity
+            android:name=".phone.classify.ClassifyActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MvvmDemo" />
         <service
             android:name=".service.KeepAliveService"
             android:process=":keepAlive" />

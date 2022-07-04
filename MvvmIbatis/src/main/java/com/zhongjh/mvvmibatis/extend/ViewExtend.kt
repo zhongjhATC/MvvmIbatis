@@ -1,6 +1,7 @@
 package com.zhongjh.mvvmibatis.extend
 
 import android.view.View
+import androidx.constraintlayout.widget.Group
 import com.zhongjh.mvvmibatis.R
 
 /***
@@ -40,4 +41,15 @@ private fun <T : View> T.clickEnable(): Boolean {
         triggerLastTime = currentClickTime
     }
     return flag
+}
+
+/**
+ * 设置 [Group] 所有子view的点击事件
+ */
+fun <T : View> Group.onAllClickListener(block: (T) -> Unit) {
+    referencedIds.forEach { id ->
+        rootView.findViewById<View>(id).onClick {
+            block(it as T)
+        }
+    }
 }

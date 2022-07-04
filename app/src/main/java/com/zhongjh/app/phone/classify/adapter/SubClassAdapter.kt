@@ -44,7 +44,7 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
         if (item.id == -1) {
             // 粘性头部赋值
             val tvContext = holder.getView<TextView>(R.id.tvContext)
-            tvContext.text = item.name
+            tvContext.text = item.firstLetter.toString()
         } else {
             // item赋值
             val tvSubClassName = holder.getView<TextView>(R.id.tvSubClassName)
@@ -64,8 +64,10 @@ class SubClassAdapter : BaseDelegateMultiAdapter<SubClass, BaseViewHolder>() {
      */
     fun getLettersFirstPosition(letters: String): Int {
         for (i in 0 until data.size) {
-            if (data[i].id == -1 && data[i].name.equals(letters)) {
-                return i
+            data[i].firstLetter?.let {
+                if (data[i].id == -1 && it.toString() == letters) {
+                    return i
+                }
             }
         }
         return -1

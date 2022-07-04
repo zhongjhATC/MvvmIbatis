@@ -2,6 +2,7 @@ package com.zhongjh.app.phone.main.fragment.shopping
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
@@ -26,6 +27,7 @@ import com.zhongjh.app.state.LottieWaitingState
 import com.zhongjh.app.view.CustomRefreshHeader
 import com.zhongjh.mvvmibatis.base.ui.BaseFragment
 import com.zhongjh.mvvmibatis.entity.State
+import com.zhongjh.mvvmibatis.extend.onAllClickListener
 import com.zhongjh.mvvmibatis.extend.onClick
 import com.zhongjh.mvvmibatis.utils.ToastUtils
 import com.zy.multistatepage.MultiStatePage
@@ -131,7 +133,7 @@ class ShopPingFragment : BaseFragment<FragmentShoppingBinding>(R.layout.fragment
         mBinding.refreshLayout.setOnLoadMoreListener {
             loadNextProduct()
         }
-        mBinding.viewShoppingMenu.imgClass.onClick {
+        mBinding.viewShoppingMenu.groupMenuClass.onAllClickListener<View> {
             // 打开分类界面
             val intent = Intent(activity, ClassifyActivity::class.java)
             startActivity(intent)

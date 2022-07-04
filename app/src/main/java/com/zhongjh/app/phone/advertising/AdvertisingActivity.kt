@@ -96,7 +96,6 @@ class AdvertisingActivity :
     private fun showAdvertising() {
         Glide.with(this)
             .load("https://gitee.com/zhongjh/MvvmIbatis/raw/master/server/images/splash.png")
-            .placeholder(R.drawable.ic_launcher)
             .into(mBinding.imgSplash)
     }
 }
